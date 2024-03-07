@@ -32,6 +32,8 @@ async function run() {
 }
 run().catch(console.dir);
 
+const collection = client.db(process.env.DB_COLLECTION).collection(process.env.DB_NAME);
+
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,6 +44,42 @@ app.use(express.static('static'));
 app.get('/', (req, res) => {
     res.render('home');
   })
+
+  app.get('/index', async (req, res) => {
+    const users = await collection.find().toArray()
+    res.render('index', {users});
+  })
+
+  app.post('/', async (req, res) => {
+    console.log(req.body);
+  
+    const user = {
+      username: req.body.username,
+      password: req.body.password
+    }
+  
+    await collection.insertOne(user);
+  
+  
+    res.redirect('/index');
+  });
+  
+  app.post('/index', async (req, res) => {
+    console.log(req.body);
+  
+    const user = {
+      username: req.body.username,
+      password: req.body.password
+    }
+  
+    await collection.insertOne(user);
+  
+    
+    
+  
+    res.redirect('/index');
+  });
+  
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

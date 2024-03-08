@@ -3,6 +3,8 @@ require('dotenv').config();
 const app = express();
 const port = 8000;
 
+// dacbwskcnwqkcmq,x
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const uri = process.env.DB_URI;
@@ -14,6 +16,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
 
 async function run() {
   try {

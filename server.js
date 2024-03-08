@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
-const port = 5000;
+const port = 8000;
 
 // mongoDB database
 const { MongoClient, ServerApiVersion} = require("mongodb");

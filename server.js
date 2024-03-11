@@ -1,7 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
+const xss = require("xss");
 const port = 8000;
+
+
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -38,7 +41,8 @@ app.use(express.static('static'));
 // Routes
 
 app.get('/', (req, res) => {
-  res.render('home');
+  const name = xss(req.query.name);
+  res.render('home', {name});
 });
 
 app.get('/index', async (req, res) => {

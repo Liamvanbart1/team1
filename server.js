@@ -32,6 +32,7 @@ async function run() {
 run().catch(console.dir);
 
 const collection = client.db(process.env.DB_COLLECTION).collection(process.env.DB_NAME);
+const collectionArt = client.db(process.env.DB_COLLECTION2).collection(process.env.DB_NAME2);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -106,6 +107,12 @@ app.post('/register', async (req, res) => {
 
 
 
+
+  app.get('/filter', async (req, res) => {
+    const art = await collectionArt.find().toArray()
+    res.render('filter', {art});
+  })
+  
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

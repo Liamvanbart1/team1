@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Willekeurig Kunstwerk</h1>
+
+
+        <% art.forEach(artwork => { %>
+            <p>Naam: <%= artwork.kunstwerk %></p>
+            <p>Museum: <%= artwork.museum %></p>
+            <p>Artiest: <%= artwork.artiest %></p>
+            <p>Jaartal: <%= artwork.jaartal %></p>
+            <br> 
+        <% }); %>
+
+    
+</body>
+</html>

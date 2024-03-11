@@ -33,6 +33,7 @@ async function run() {
 run().catch(console.dir);
 
 const collection = client.db(process.env.DB_COLLECTION).collection(process.env.DB_NAME);
+const collectionArt = client.db(process.env.DB_COLLECTION2).collection(process.env.DB_NAME2);
 
 // middleware
 app.use(express.json());
@@ -79,6 +80,12 @@ app.get('/', (req, res) => {
   
     res.redirect('/index');
   });
+  
+
+  app.get('/filter', async (req, res) => {
+    const art = await collectionArt.find().toArray()
+    res.render('filter', {art});
+  })
   
 
 app.listen(port, () => {

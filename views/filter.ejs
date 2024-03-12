@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Filter</title>
 </head>
 <body>
-    <h1>Willekeurig Kunstwerk</h1>
-
-
+    <h1>Kunstwerk</h1>
     <p>Naam: <%= art.kunstwerk %></p>
     <p>Museum: <%= art.museum %></p>
     <p>Artiest: <%= art.artiest %></p>
     <p>Jaartal: <%= art.jaartal %></p>
-    <br> 
-    <form action="/filter" method="post">
+    <!-- Hier voeg je de afbeelding toe -->
+    <img src="/uploads/<%= art._id %>.jpg" alt="<%= art.kunstwerk %>" style="height: 20em;">
+    <br>
+        <form action="/filter" method="post">
         <button type="submit">Volgende</button>
       </form>
-    
 </body>
 </html>

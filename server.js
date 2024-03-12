@@ -2,9 +2,17 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const xss = require("xss");
+
+const session = require('express-session')
+const { query } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const port = 8000;
+
+// multer
+
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 
 
@@ -41,6 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
+
 
 // Routes
 
@@ -112,6 +121,9 @@ app.post('/register', async (req, res) => {
 });
 // redirection
 
+app.post('/register',  upload.single('artwork'), (req, res) =>{
+
+})
 
 
 
@@ -132,7 +144,7 @@ app.post('/filter', async (req, res) => {
   try {
     const nextArtwork = await collectionArt.find().skip(currentIndex + 1).limit(1).toArray();
     if (currentIndex < 18) currentIndex += 1;
-    else currentIndex = 0; // Verhoog de huidige index
+    else currentIndex = -1; // Verhoog de huidige index
     res.render('filter', { art: nextArtwork[0], nextIndex: currentIndex });
   } catch (error) {
     console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);

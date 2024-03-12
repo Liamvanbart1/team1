@@ -108,10 +108,30 @@ app.post('/register', async (req, res) => {
 
 
 
-  app.get('/filter', async (req, res) => {
-    const art = await collectionArt.find().toArray()
-    res.render('filter', {art});
-  })
+app.get('/filter', async (req, res) => {
+  try {
+    const art = await collectionArt.findOne();
+    res.render('filter', { art });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+let currentIndex = 0; // Houd de huidige index van het kunstwerk bij
+
+app.post('/filter', async (req, res) => {
+  try {
+    const nextArtwork = await collectionArt.find().skip(currentIndex + 1).limit(1).toArray();
+    if (currentIndex < 18) currentIndex += 1;
+    else currentIndex = 0; // Verhoog de huidige index
+    res.render('filter', { art: nextArtwork[0], nextIndex: currentIndex });
+  } catch (error) {
+    console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);
+    res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
+  }
+});
+  
   
 
 app.listen(port, () => {

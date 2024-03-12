@@ -2,9 +2,19 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const xss = require("xss");
+const session = require('express-session')
+const { query } = require('express-validator');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const port = 8000;
 
+// multer
 
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
+// multer
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -108,6 +118,9 @@ app.post('/register', async (req, res) => {
 });
 // redirection
 
+app.post('/register',  upload.single('artwork'), (req, res) =>{
+
+})
 
 
 

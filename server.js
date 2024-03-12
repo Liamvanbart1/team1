@@ -104,7 +104,7 @@ app.post('/register', async (req, res) => {
 
   await collection.insertOne(user);
 
-  res.render('/login');
+  res.redirect('/login');
 });
 
 

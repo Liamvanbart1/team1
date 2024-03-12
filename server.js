@@ -2,6 +2,8 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const xss = require("xss");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const port = 8000;
 
 
@@ -97,12 +99,14 @@ app.post('/login', async (req, res) => {
 app.post('/register', async (req, res) => {
   console.log(req.body);
 
-  const user = {
-    username: req.body.username,
-    password: req.body.password, 
-  };
+  
+   const username= req.body.username
+   const password= req.body.password
+  
 
-  await collection.insertOne(user);
+  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+
+  await collection.insertOne({username, password: hashedPassword});
 
   res.redirect('/login');
 });

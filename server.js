@@ -52,11 +52,13 @@ app.get('/index', async (req, res) => {
 });
 
 app.get('/register', (req, res) => {
-  res.render('register');
+  const name = xss(req.query.name);
+  res.render('register', {name});
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  const name = xss(req.query.name);
+  res.render('login', {name});
 });
 
 
@@ -100,7 +102,7 @@ app.post('/register', async (req, res) => {
 
   await collection.insertOne(user);
 
-  res.render('/login');
+  res.redirect('/login');
 });
 
 

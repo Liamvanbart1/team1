@@ -122,6 +122,9 @@ app.post('/login', async (req, res) => {
   });
 // redirection
 
+app.post('/register',  upload.single('artwork'), (req, res) =>{
+
+})
 
 
 

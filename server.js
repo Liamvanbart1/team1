@@ -106,6 +106,7 @@ app.post('/register', async (req, res) => {
 
   res.redirect('/login');
 });
+// redirection
 
 
 

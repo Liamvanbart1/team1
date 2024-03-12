@@ -105,27 +105,25 @@ app.post('/login', async (req, res) => {
 });
 
 
+app.post('/register', async (req, res) => {
+  console.log(req.body);
 
-  app.post('/register', async (req, res) => {
-    console.log(req.body);
   
-    
-     const username= req.body.username
-     const password= req.body.password
-    
+   const username= req.body.username
+   const password= req.body.password
   
-    const hashedPassword = bcrypt.hashSync(password, saltRounds);
-  
-    await collection.insertOne({username, password: hashedPassword});
-  
-    res.redirect('/login');
-  });
+
+  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+
+  await collection.insertOne({username, password: hashedPassword});
+
+  res.redirect('/login');
+});
 // redirection
 
 app.post('/register',  upload.single('artwork'), (req, res) =>{
 
 })
-
 
 
 

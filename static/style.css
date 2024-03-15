@@ -41,7 +41,6 @@ nav {
     position: fixed;
     bottom: 0;
 
-
 }
 
 nav ul {
@@ -125,7 +124,8 @@ li.active .nav-ico {
 
 .artwork-container img {
     border-radius: 1em;
-    height: 30em;
+    height: auto;
+    width:90vw;
 }
 
 .artwork-description {

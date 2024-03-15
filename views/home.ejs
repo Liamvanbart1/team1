@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +11,36 @@
 
 <body>
     <header>
-        <img src="./svg/Group 41.svg"> 
+        <img src="./svg/Group 41.svg">
     </header>
     <main>
         <div class="artwork-container">
-            <img src="images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg" alt="Kunstwerk">
+            <img src="/uploads/<%= art._id %>.jpg" alt="<%= art.kunstwerk %>">
             <!-- Beschrijving toevoegen -->
             <div class="artwork-description">
-                <h3>Mona lisa</h3>
-                <p>Leonardo da Vinci - 1517</p>
-                <p>Louvre - Paris, 429km</p>
+                <p>Naam: <%= art.kunstwerk %></p>
+                <p>Museum: <%= art.museum %></p>
+                <p>Artiest: <%= art.artiest %></p>
+                <p>Jaartal: <%= art.jaartal %></p>
             </div>
         </div>
 
         <div class="rating-smileys">
-            <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
+            <form action="/home" method="post">
+                <button type="submit">Boos</button>
+                <button type="submit">Verdrietig</button>
+                <button type="submit">Neutraal</button>
+                <button type="submit">Blij</button>
+                <button type="submit">Heel Blij</button>
+            </form>
+        </div>
+        <!-- <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
             <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
             <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">
             <img class="rating-smiley" src="svg/smiley4.svg" alt="Blij">
-            <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij">
-        </div>
+            <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij"> -->
+
+
     </main>
 
     <nav>
@@ -41,4 +52,5 @@
         </ul>
     </nav>
 </body>
+
 </html>

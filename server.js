@@ -53,11 +53,6 @@ app.use(express.static('static'));
 
 // Routes
 
-app.get('/home', (req, res) => {
-  const name = xss(req.query.name);
-  res.render('home', {name});
-});
-
 app.get('/index', async (req, res) => {
   const users = await collection.find().toArray();
   res.render('index', { users });
@@ -140,10 +135,10 @@ app.post('/register',  upload.single('artwork'), (req, res) =>{
 
 
 
-app.get('/filter', async (req, res) => {
+app.get('/home', async (req, res) => {
   try {
     const art = await collectionArt.findOne();
-    res.render('filter', { art });
+    res.render('home', { art });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -156,7 +151,7 @@ app.get('/filter', async (req, res) => {
 let usedArtworks = [];
 let clickCount = 0;
 
-app.post('/filter', async (req, res) => {
+app.post('/home', async (req, res) => {
   try {
     if (clickCount >= 20) {
       // Als er 20 keer is geklikt, stuur de gebruiker door naar de '/index' pagina
@@ -191,7 +186,7 @@ app.post('/filter', async (req, res) => {
     clickCount++;
     
     // Render the view with the random artwork
-    res.render('filter', { art: randomArtwork[0] });
+    res.render('home', { art: randomArtwork[0] });
   } catch (error) {
     console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);
     res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74.5 49.91">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: AncientGeek, 'Ancient Geek';
+        font-size: 15px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #f9f7ef;
+      }
+
+      .cls-1, .cls-3 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Group_41" data-name="Group 41">
+      <g>
+        <g id="Pantheon" class="cls-3">
+          <text class="cls-1" transform="translate(0 47.3)"><tspan x="0" y="0">Pantheon</tspan></text>
+        </g>
+        <path id="Icon_map-museum" data-name="Icon map-museum" class="cls-2" d="m50.1,11.66h-3.26l-.5,14.98h4.2l-.43-14.98h0Zm2.72,15.82h-31.63v1.66h-2.5v2.5h-1.66v1.66h39.96v-1.67h-1.67v-2.5h-2.5v-1.66ZM19.52,7.34L37,0l17.48,7.34v.99H19.52v-.99Zm31.63,1.82h-28.3v1.66h28.3v-1.66Zm-23.92,2.5h-3.26l-.51,14.98h4.2l-.44-14.98h0Zm7.62,0h-3.26l-.5,14.98h4.2l-.44-14.98h0Zm7.62,0h-3.26l-.5,14.98h4.19l-.44-14.98h0Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

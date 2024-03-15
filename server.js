@@ -123,7 +123,6 @@ app.post('/register', async (req, res) => {
 
 
 
-
 app.get('/filter', async (req, res) => {
   try {
     const art = await collectionArt.findOne();

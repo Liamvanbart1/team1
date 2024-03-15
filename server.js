@@ -53,8 +53,6 @@ app.use(express.static('static'));
 
 // Routes
 
-
-
 app.get('/index', async (req, res) => {
   const users = await collection.find().toArray();
   res.render('index', { users });
@@ -72,6 +70,14 @@ app.get('/login', (req, res) => {
 
 app.get('/likes', (req, res) => {
   res.render('likes');
+});
+
+app.get('/musea', (req, res) => {
+  res.render('musea');
+});
+
+app.get('/account', (req, res) => {
+  res.render('account');
 });
 
 

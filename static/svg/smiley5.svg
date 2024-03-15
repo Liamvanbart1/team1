@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+  <g id="Group_29" data-name="Group 29" transform="translate(-2496 -3533)">
+    <g id="Ellipse_53" data-name="Ellipse 53" transform="translate(2496 3533)" fill="#35631e" stroke="#428828" stroke-width="2">
+      <circle cx="27.5" cy="27.5" r="27.5" stroke="none"/>
+      <circle cx="27.5" cy="27.5" r="26.5" fill="none"/>
+    </g>
+    <g id="Group_19" data-name="Group 19" transform="translate(2496 3533)">
+      <g id="SVGRepo_iconCarrier" transform="translate(0 0)">
+        <path id="Path_24" data-name="Path 24" d="M51.5,24A27.5,27.5,0,1,0,79,51.5,27.5,27.5,0,0,0,51.5,24Zm9.519,19.038a3.173,3.173,0,1,1-3.173,3.173,3.173,3.173,0,0,1,3.173-3.173Zm-19.038,0a3.173,3.173,0,1,1-3.173,3.173,3.173,3.173,0,0,1,3.173-3.173ZM64.326,58.9a14.812,14.812,0,0,1-25.652,0,2.115,2.115,0,0,1,3.662-2.118,10.581,10.581,0,0,0,18.327,0A2.115,2.115,0,1,1,64.326,58.9Z" transform="translate(-24 -24)" fill="#6ac73c"/>
+      </g>
+      <path id="Icon_awesome-heart" data-name="Icon awesome-heart" d="M12.873,3.1a3.808,3.808,0,0,0-5.2.379l-.549.565L6.58,3.479a3.808,3.808,0,0,0-5.2-.379A4,4,0,0,0,1.108,8.89L6.5,14.454a.873.873,0,0,0,1.261,0L13.146,8.89A4,4,0,0,0,12.873,3.1Z" transform="translate(29.093 14.134)" fill="#35631e"/>
+      <path id="Icon_awesome-heart-2" data-name="Icon awesome-heart" d="M12.873,3.1a3.808,3.808,0,0,0-5.2.379l-.549.565L6.58,3.479a3.808,3.808,0,0,0-5.2-.379A4,4,0,0,0,1.108,8.89L6.5,14.454a.873.873,0,0,0,1.261,0L13.146,8.89A4,4,0,0,0,12.873,3.1Z" transform="translate(11.323 14.134)" fill="#35631e"/>
+    </g>
+    <g id="Ellipse_58" data-name="Ellipse 58" transform="translate(2496 3533)" fill="none" stroke="#428828" stroke-width="2">
+      <circle cx="27.5" cy="27.5" r="27.5" stroke="none"/>
+      <circle cx="27.5" cy="27.5" r="26.5" fill="none"/>
+    </g>
+  </g>
+</svg>

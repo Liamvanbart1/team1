@@ -53,7 +53,7 @@ app.use(express.static('static'));
 
 // Routes
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
   const name = xss(req.query.name);
   res.render('home', {name});
 });
@@ -75,6 +75,14 @@ app.get('/login', (req, res) => {
 
 app.get('/likes', (req, res) => {
   res.render('likes');
+});
+
+app.get('/musea', (req, res) => {
+  res.render('musea');
+});
+
+app.get('/account', (req, res) => {
+  res.render('account');
 });
 
 

@@ -15,6 +15,11 @@ header {
     text-align: center;
 }
 
+header img {
+    height: 3em;
+    width: auto;
+}
+
 main {
 
     margin: 20px auto;
@@ -152,16 +157,24 @@ li.active .nav-ico {
     margin: 0;
 }
 
+
+
+
+/*  */
+
 .rating-smileys {
     display: flex;
     justify-content: space-between;
-    padding: 3em 0em 0em 0em;
+    position: absolute;
+    left: 50%; /* Plaats de container in het midden van de pagina */
+    transform: translateX(-50%); /* Centreren van de container */
 }
 
 .rating-smiley {
     width: 4em;
     height: auto;
     cursor: pointer;
+    padding: 0.3em;
 }
 
 

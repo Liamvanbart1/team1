@@ -60,6 +60,10 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+app.get('/likes', (req, res) => {
+  res.render('likes');
+});
+
 
 app.post('/login', async (req, res) => {
   console.log(req.body);

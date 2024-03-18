@@ -18,22 +18,40 @@
             <img src="/uploads/<%= art._id %>.jpg" alt="<%= art.kunstwerk %>">
             <!-- Beschrijving toevoegen -->
             <div class="artwork-description">
-                <p>Naam: <%= art.kunstwerk %></p>
-                <p>Museum: <%= art.museum %></p>
-                <p>Artiest: <%= art.artiest %></p>
-                <p>Jaartal: <%= art.jaartal %></p>
+                <p>
+                    <%= art.kunstwerk %>
+                </p>
+                <p>
+                    <%= art.museum %>
+                </p>
+                <p>
+                    <%= art.artiest %> -
+                    <%= art.jaartal %>
+                </p>
             </div>
         </div>
 
         <div class="rating-smileys">
-            <form action="/home" method="post">
-                <button type="submit">Boos</button>
-                <button type="submit">Verdrietig</button>
-                <button type="submit">Neutraal</button>
-                <button type="submit">Blij</button>
-                <button type="submit">Heel Blij</button>
+            <form action="/home" method="post" class="rating-form">
+                <button type="submit" class="rating-button">
+                    <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
+                </button>
+                <button type="submit" class="rating-button">
+                    <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
+                </button>
+                <button type="submit" class="rating-button">
+                    <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">
+                </button>
+                <button type="submit" class="rating-button">
+                    <img class="rating-smiley" src="svg/smiley4.svg" alt="Blij">
+                </button>
+                <button type="submit" class="rating-button">
+                    <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij">
+                </button>
             </form>
         </div>
+
+
         <!-- <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
             <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
             <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">

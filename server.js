@@ -52,6 +52,9 @@ app.use(express.static('static'));
 
 
 // Routes
+app.get('/', async (req, res) => {
+  res.render('home')
+})
 
 app.get('/index', async (req, res) => {
   const users = await collection.find().toArray();

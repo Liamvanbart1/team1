@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Register Page</title>
 </head>
-<body>
+<body class="loginBody">
+    <header>
+        <img src="./svg/Group 41.svg">
+    </header>
 
-    <h1>Register</h1>
+    <h2 class="loginH2">
+        Welcome to Pantheon!
+    </h2>
 
-    <form action="/register" method="POST" enctype="multipart/form-data">
-        
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+    <p class="loginP">
+        Create a Pantheon account to view your favorite art.
+    </p>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        
-        <input type="file" name="artwork">
-
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <form class="form" method="POST" action="/register">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <input type="email" placeholder="example@example.com" required>
+            <input type="tel" placeholder="+31 xx-xxxxxxxx" pattern="\+31 [0-9]{1,2}-[0-9]{6,8}" inputmode="numeric" maxlength="15" required>
+            <input type="file" name="artwork">
+            <input type="submit" value="Register">
+        </form>
+    </div>
 
 </body>
 </html>

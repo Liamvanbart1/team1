@@ -89,6 +89,7 @@ app.post('/login', async (req, res) => {
   try {
     // Check if the user exists in the database
     const existingUser = await collection.findOne({ username});
+    
 
     console.log(existingUser)
 
@@ -118,11 +119,13 @@ app.post('/register', async (req, res) => {
   
    const username= req.body.username
    const password= req.body.password
+   const email= req.body.email
+   const tel= req.body.phonenumber
   
 
-  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+  const hashedPassword = bcrypt.hashSync(password,saltRounds);
 
-  await collection.insertOne({username, password: hashedPassword});
+  await collection.insertOne({username, email, tel, password: hashedPassword});
 
   res.redirect('/login');
 });

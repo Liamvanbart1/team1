@@ -125,13 +125,16 @@ li.active .nav-ico {
     position: relative;
     text-align: center;
     margin-bottom: 20px;
+    border: none;
+
 }
 
 .artwork-container img {
     border-radius: 1em;
-    height: auto;
-    width:90vw;
+    height: 25em;
+    width: 21.75em;
 }
+
 
 .artwork-description {
     position: absolute;
@@ -164,10 +167,17 @@ li.active .nav-ico {
 
 .rating-smileys {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center de container horizontaal */
     position: absolute;
+    top: calc(90vh - 9em ); /* Plaats de container vlak boven de navigatie */
     left: 50%; /* Plaats de container in het midden van de pagina */
     transform: translateX(-50%); /* Centreren van de container */
+    width: 20em; /* Breedte van de container */
+    margin-bottom: 10px; /* Voeg een kleine marge onder de container toe */
+}
+
+.rating-smileys form {
+    display: flex; /* Laat de knoppen naast elkaar staan */
 }
 
 .rating-smiley {
@@ -177,6 +187,16 @@ li.active .nav-ico {
     padding: 0.3em;
 }
 
+button {
+    appearance: none;
+    -webkit-appearance: none; /* Voor oudere versies van webkit browsers */
+    -moz-appearance: none; /* Voor oudere versies van Firefox */
+    border: none; /* Verwijder de standaard knoprand */
+    background: none; /* Verwijder de standaard achtergrond */
+    padding: 0; /* Verwijder standaard opvulling */
+    margin: 0; /* Verwijder standaard marges */
+    display: inline-block; /* Laat knoppen naast elkaar staan */
+}
 
 
 .loginBody {

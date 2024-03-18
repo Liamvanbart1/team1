@@ -82,35 +82,7 @@ app.get('/account', (req, res) => {
 
 
 
-app.post('/login', async (req, res) => {
-  console.log(req.body);
-  const username = req.body.username
-  const password = req.body.password
-  try {
-    // Check if the user exists in the database
-    const existingUser = await collection.findOne({ username});
-    
 
-    console.log(existingUser)
-
-    if (existingUser) {
-      // Check if the password is correct
-      if (existingUser.password === password) {
-        // Successful login
-        let bericht = "je bent ingelogd"
-        res.render('home', {bericht}); // Redirect to a dashboard or home page after successful login
-      } else {
-        res.send('Incorrect password');
-      }
-    } else {
-      res.send('User not found');
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error'); 
-  }
-  
-});
 
 
 app.post('/register', async (req, res) => {
@@ -132,6 +104,38 @@ app.post('/register', async (req, res) => {
 // redirection
 
 
+app.post('/login', async (req, res) => {
+  console.log(req.body);
+  const username = req.body.username
+  const password = req.body.password
+  try {
+    // Check if the user exists in the database
+    const existingUser = await collection.findOne({ username});
+
+    console.log(existingUser)
+
+    if (existingUser) {
+
+      const hashedPassword = existingUser.password
+
+      const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
+      // Check if the password is correct
+      if (isPasswordCorrect) {
+        // Successful login
+        
+        res.redirect('home'); // Redirect to a dashboard or home page after successful login
+      } else {
+        res.send('Incorrect password');
+      }
+    } else {
+      res.send('User not found');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error'); 
+  }
+  
+});
 
 app.get('/home', async (req, res) => {
   try {

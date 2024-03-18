@@ -53,11 +53,6 @@ app.use(express.static('static'));
 
 // Routes
 
-app.get('/', (req, res) => {
-  const name = xss(req.query.name);
-  res.render('home', {name});
-});
-
 app.get('/index', async (req, res) => {
   const users = await collection.find().toArray();
   res.render('index', { users });
@@ -71,6 +66,18 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
   const name = xss(req.query.name);
   res.render('login', {name});
+});
+
+app.get('/likes', (req, res) => {
+  res.render('likes');
+});
+
+app.get('/musea', (req, res) => {
+  res.render('musea');
+});
+
+app.get('/account', (req, res) => {
+  res.render('account');
 });
 
 
@@ -99,7 +106,7 @@ app.post('/login', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Internal Server Error'); 
   }
   
 });
@@ -123,30 +130,65 @@ app.post('/register', async (req, res) => {
 
 
 
-app.get('/filter', async (req, res) => {
+app.get('/home', async (req, res) => {
   try {
     const art = await collectionArt.findOne();
-    res.render('filter', { art });
+    res.render('home', { art });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-let currentIndex = 0; // Houd de huidige index van het kunstwerk bij
+// FILTEREN
 
-app.post('/filter', async (req, res) => {
+// Buiten de route handler, declareer een array om bij te houden welke kunstwerken al zijn gebruikt
+let usedArtworks = [];
+let clickCount = 0;
+
+app.post('/home', async (req, res) => {
   try {
-    const nextArtwork = await collectionArt.find().skip(currentIndex + 1).limit(1).toArray();
-    if (currentIndex < 18) currentIndex += 1;
-    else currentIndex = -1; // Verhoog de huidige index
-    res.render('filter', { art: nextArtwork[0], nextIndex: currentIndex });
+    if (clickCount >= 20) {
+      // Als er 20 keer is geklikt, stuur de gebruiker door naar de '/index' pagina
+      res.redirect('/index');
+      return;
+    }
+
+    // Count the total number of documents in the collection
+    const totalCount = await collectionArt.countDocuments();
+    
+    // If all artworks have been used, reset the array
+    if (usedArtworks.length === totalCount) {
+      usedArtworks = [];
+    }
+    
+    // Generate a random index that hasn't been used yet
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * totalCount);
+    } while (usedArtworks.includes(randomIndex));
+    
+    // Add the random index to the used artworks array
+    usedArtworks.push(randomIndex);
+    
+    // Find a random artwork
+    const randomArtwork = await collectionArt.aggregate([
+      { $skip: randomIndex }, // Skip to the random index
+      { $limit: 1 } // Limit the result to 1 document
+    ]).toArray();
+    
+    // Increment the click count
+    clickCount++;
+    
+    // Render the view with the random artwork
+    res.render('home', { art: randomArtwork[0] });
   } catch (error) {
     console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);
     res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
   }
 });
-  
+
+
   
 
 app.listen(port, () => {

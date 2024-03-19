@@ -5,31 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunstbeoordeling</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 
 
 <body>
     <header>
-        <img src="./svg/logo-pantheon.svg">
+        <!-- <img src="./svg/logo-pantheon.svg"> -->
     </header>
     <main>
-        <!-- <div class="artwork-container">
-            <img src="/uploads/<%= art._id %>.jpg" alt="<%= art.kunstwerk %>">
-            Beschrijving toevoegen
-            <div class="artwork-description">
-                <p>
-                    <%= art.kunstwerk %>
-                </p>
-                <p>
-                    <%= art.museum %>
-                </p>
-                <p>
-                    <%= art.artiest %> -
-                    <%= art.jaartal %>
-                </p>
-            </div>
-        </div> -->
+        <% data.forEach(function(item) { %>
+            <% item.arts.forEach(function(artwork) { %>
+                <div class="artwork-container">
+                    <!-- Hier de afbeelding van het kunstwerk, indien beschikbaar -->
+                    <img src="/uploads/<%= artwork.kunstwerk %>.jpg" alt="<%= artwork.kunstwerk %>">
+                    <!-- Beschrijving toevoegen -->
+                    <div class="artwork-description">
+                        <p>Museum: <%= item.museum %></p> 
+                        <p>Naam: <%= artwork.kunstwerk %></p>
+                        <p>Artiest: <%= artwork.artiest %></p>
+                        <p>Jaartal: <%= artwork.jaartal %></p>
+                        <br>
+                    </div>
+                </div>
+            <% }); %>
+        <% }); %>
+
+
 
         <div class="rating-smileys">
             <form action="/home" method="post" class="rating-form">
@@ -50,13 +52,6 @@
                 </button>
             </form>
         </div>
-
-
-        <!-- <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
-            <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
-            <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">
-            <img class="rating-smiley" src="svg/smiley4.svg" alt="Blij">
-            <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij"> -->
 
 
     </main>

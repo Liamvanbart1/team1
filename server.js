@@ -140,8 +140,9 @@ app.post('/login', async (req, res) => {
 
 app.get('/home', async (req, res) => {
   try {
-    const art = await collectionArt.findOne();
-    res.render('home', { art });
+    // Haal de kunstwerken op uit de database
+    const data = await collectionArt.find().toArray();
+    res.render('home', { data });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

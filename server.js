@@ -3,18 +3,15 @@ require('dotenv').config();
 const app = express();
 const xss = require("xss");
 
-const session = require('express-session')
-const { query } = require('express-validator');
+const session = require('express-session');
+const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const port = 8000;
 
 // multer
-
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
-
-
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -27,8 +24,6 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-// kdbascjbwixnakxnlqx
-
 
 async function run() {
   try {
@@ -50,9 +45,21 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static('static'));
 
+// Validation middleware for registration
+const validateRegistration = [
+  body('username').notEmpty().withMessage('Username is required'),
+  body('email').isEmail().withMessage('Invalid email'),
+  body('phonenumber').notEmpty().withMessage('Phone number is required'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+];
+
+// Validation middleware for login
+const validateLogin = [
+  body('username').notEmpty().withMessage('Username is required'),
+  body('password').notEmpty().withMessage('Password is required')
+];
 
 // Routes
-
 
 app.get('/', async (req, res) => {
   const users = await collection.find().toArray();
@@ -61,12 +68,12 @@ app.get('/', async (req, res) => {
 
 app.get('/register', (req, res) => {
   const name = xss(req.query.name);
-  res.render('register', {name});
+  res.render('register', { name });
 });
 
 app.get('/login', (req, res) => {
   const name = xss(req.query.name);
-  res.render('login', {name});
+  res.render('login', { name });
 });
 
 app.get('/likes', (req, res) => {
@@ -81,50 +88,40 @@ app.get('/account', (req, res) => {
   res.render('account');
 });
 
+app.post('/register', validateRegistration, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { username, email, phonenumber } = req.body;
+    return res.render('register', { errors: errors.array(), username, email, phonenumber });
+  }
 
+  const { username, password, email, phonenumber } = req.body;
+  const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-
-
-
-app.post('/register', async (req, res) => {
-  console.log(req.body);
-
-  
-   const username= req.body.username
-   const password= req.body.password
-   const email= req.body.email
-   const tel= req.body.phonenumber
-  
-
-  const hashedPassword = bcrypt.hashSync(password,saltRounds);
-
-  await collection.insertOne({username, email, tel, password: hashedPassword});
+  await collection.insertOne({ username, email, phonenumber, password: hashedPassword });
 
   res.redirect('/login');
 });
-// redirection
 
 
-app.post('/login', async (req, res) => {
-  console.log(req.body);
-  const username = req.body.username
-  const password = req.body.password
+app.post('/login', validateLogin, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { username, password } = req.body;
+    return res.render('login', { errors: errors.array(), username, password})
+  }
+
+  // If there are no validation errors, proceed with login logic
+  const { username, password } = req.body;
   try {
-    // Check if the user exists in the database
-    const existingUser = await collection.findOne({ username});
-
-    console.log(existingUser)
+    const existingUser = await collection.findOne({ username });
 
     if (existingUser) {
+      const hashedPassword = existingUser.password;
+      const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
 
-      const hashedPassword = existingUser.password
-
-      const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword)
-      // Check if the password is correct
       if (isPasswordCorrect) {
-        // Successful login
-        
-        res.redirect('home'); // Redirect to a dashboard or home page after successful login
+        res.redirect('/'); // Redirect to a dashboard or home page after successful login
       } else {
         res.send('Incorrect password');
       }
@@ -133,16 +130,15 @@ app.post('/login', async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error'); 
+    res.status(500).send('Internal Server Error');
   }
-  
 });
+
 
 app.get('/home', async (req, res) => {
   try {
-    // Haal de kunstwerken op uit de database
-    const data = await collectionArt.find().toArray();
-    res.render('home', { data });
+    const art = await collectionArt.findOne();
+    res.render('home', { art });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -165,30 +161,30 @@ app.post('/home', async (req, res) => {
 
     // Count the total number of documents in the collection
     const totalCount = await collectionArt.countDocuments();
-    
+
     // If all artworks have been used, reset the array
     if (usedArtworks.length === totalCount) {
       usedArtworks = [];
     }
-    
+
     // Generate a random index that hasn't been used yet
     let randomIndex;
     do {
       randomIndex = Math.floor(Math.random() * totalCount);
     } while (usedArtworks.includes(randomIndex));
-    
+
     // Add the random index to the used artworks array
     usedArtworks.push(randomIndex);
-    
+
     // Find a random artwork
     const randomArtwork = await collectionArt.aggregate([
       { $skip: randomIndex }, // Skip to the random index
       { $limit: 1 } // Limit the result to 1 document
     ]).toArray();
-    
+
     // Increment the click count
     clickCount++;
-    
+
     // Render the view with the random artwork
     res.render('home', { art: randomArtwork[0] });
   } catch (error) {
@@ -196,9 +192,6 @@ app.post('/home', async (req, res) => {
     res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
   }
 });
-
-
-  
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

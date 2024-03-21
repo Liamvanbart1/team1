@@ -137,14 +137,33 @@ app.post('/login', validateLogin, async (req, res) => {
 
 app.get('/home', async (req, res) => {
   try {
-    const art = await collectionArt.findOne();
-    res.render('home', { art });
+    // Haal alle kunstwerken op uit de database
+    const artworks = await collectionArt.find().toArray();
+
+    // Maak een object om kunstwerken te groeperen op museum
+    const artworksByMuseum = {};
+    artworks.forEach(artwork => {
+      if (!artworksByMuseum[artwork.museum]) {
+        artworksByMuseum[artwork.museum] = [];
+      }
+      artworksByMuseum[artwork.museum].push(artwork);
+    });
+
+    // Maak een array voor de willekeurig geselecteerde kunstwerken
+    const randomArtworks = [];
+
+    // Voor elk museum, kies een willekeurig kunstwerk
+    Object.values(artworksByMuseum).forEach(artworks => {
+      const randomIndex = Math.floor(Math.random() * artworks.length);
+      randomArtworks.push(artworks[randomIndex]);
+    });
+
+    res.render('home', { artworks: randomArtworks });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
-
 // FILTEREN
 
 // Buiten de route handler, declareer een array om bij te houden welke kunstwerken al zijn gebruikt
@@ -192,6 +211,7 @@ app.post('/home', async (req, res) => {
     res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

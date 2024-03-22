@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunstbeoordeling</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
     <header>
         <img src="./svg/logo-pantheon.svg">
     </header>
+    <div class="musea-box">
+        <form action="#">
+            <div class="musea-input-box">
+                <input type="text" placeholder="Search..." required>
+                <div class="musea-selection">
+                    <p>Filters</p><span></span>
+                </div>
+                <div class="musea-categories">
+                    <p class="musea-option">Distance</p>
+                    <p class="musea-option">Style</p>
+                    <p class="musea-option">Location</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="musea-selected-filters"></div>
+
     <main>
-
+        <div class="musea-like-box">
+            <img src="./uploads/download.jpg" alt="Afbeelding 1">
+            <div class="musea-text-content">
+                <p>Rijksmuseum</p>
+                <p>Gotiek, renaissance, vaderlands symboliek</p>
+                <p>42 kilometer</p>
+            </div>
+        </div>
     </main>
-
-
+<script src="script.js"></script>
+</body>
 
     <nav>
         <ul class="navigation">
             <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>
-            <li class="active"><a href="/likes"><img src="./svg/thumb-nav-active.svg" /><span></span></a></li>
-            <li><a href="/musea"><img src="./svg/pantheon-nav.svg" /><span></span></a></li>
+            <li><a href="/likes"><img src="./svg/thumb-nav-unactive.svg" /><span></span></a></li>
+            <li class="active"><a href="/musea"><img src="./svg/pantheon-active.svg" /><span></span></a></li>
             <li><a href="/account"><img src="./svg/account-nav.svg" /><span></span></a></li>
         </ul>
     </nav>
-</body>
 
 </html>

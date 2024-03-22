@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #9B1B30;
     color: white;
+    background-color: #9B1B30;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(173,720,406)'%3E%3Cstop offset='0' stop-color='%239B1B30'/%3E%3Cstop offset='1' stop-color='%23561C24'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='514' height='428.3' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.07'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
     background-attachment: fixed;
     background-size: cover;
+    z-index: -1; /* Zet de z-index van de achtergrond naar beneden */
 }
 
 header {
@@ -22,21 +24,311 @@ header img {
 
 main {
 
-    margin: 20px auto;
-    padding: 20px;
+    margin: 0.4em 0em 0em 0em;
+   padding-left: 1em;
+   padding-right: 1em;
     border-radius: 5px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.box{
+    width: 90%;
+    background-color: #fff;
+    border-radius: 1em;
+    padding: 0.3125em;
+    margin-left: 1em;
+    margin-top: 3em;
+}
+
+.box form .input_box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.box form .input_box input{
+    width: 100%;
+    padding: 0.625em 0.9375em;
+    border: none;
+    outline: none;
+}
+
+.box form .selection{
+    background-color: #9B1B30;
+    padding: 0.625em 1.25em;
+    border-radius: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.box form .selection p{
+    color: #fff;
+}
+
+.box form .selection span{
+    border-right: 0.3125em solid #fff;
+    border-bottom: 0.3125em solid #fff;
+    border-left: 0.3125em solid #9B1B30;
+    border-top: 0.3125em solid #9B1B30;
+    display: inline-block;
+    rotate: 45deg;
+    margin-left: 0.625em;
+    margin-bottom: 0.3125em;
+}
+
+.box form .categories{
+    position: absolute;
+    top: 110%;
+    right: 0em;
+    background-color: #9B1B30;
+    color: #fff;
+    padding: 0.625em;
+    opacity: 0;
+    pointer-events: none;
+    margin-top: 0.0625em;
+    border-radius: 1em;
+}
+
+.box form .active{
+    opacity: 1;
+    pointer-events: fill;
+}
+
+.box form .categories p{
+    margin: 0.3125em 0em;
+    padding: 0.5em 0.75em;
+    border-radius: 0.3125em;
+    cursor: pointer;
+}
+
+.box form .categories p:hover{
+    background-color: #1e1e1e;
+}
+
+.selected-filters {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5em;
+}
+
+.selected-filter-item {
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 0.75em;
+    padding: 0.25em 0.35em 0.30em 0.45em;
+    margin: 0.5em 0em 0.5em 1em;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.close-icon {
+    margin-left: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+
+
+/* Schilderijen Likes page */
+.like-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+    background-color: #fff;
+    border-radius: 1em;
+    height: 6em;
+}
+
+.like-box img {
+    width: 5em;
+    height: 5em;
+    border-radius: 1em;
+    padding-left: 0.3em;
+    margin-right: 10px;
+    object-fit: cover; /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
+}
+
+.like-box p:first-of-type {
+    font-weight: 600;
+}
+
+.like-box p:last-of-type {
+    font-style: italic;
+}
+
+.text-content {
+    flex-grow: 1;
+}
+
+.text-content p {
+    margin: 0;
+    padding: 5px;
+    color: #000;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+
+/* Musea */
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.musea-box {
+    width: 90%;
+    background-color: #fff;
+    border-radius: 1em;
+    padding: 0.3125em;
+    margin-left: 1em;
+    margin-top: 3em;
+}
+
+.musea-box form .musea-input-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.musea-box form .musea-input-box input {
+    width: 100%;
+    padding: 0.625em 0.9375em;
+    border: none;
+    outline: none;
+}
+
+.musea-box form .musea-selection {
+    background-color: #9B1B30;
+    padding: 0.625em 1.25em;
+    border-radius: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.musea-box form .musea-selection p {
+    color: #fff;
+}
+
+.musea-box form .musea-selection span {
+    border-right: 0.3125em solid #fff;
+    border-bottom: 0.3125em solid #fff;
+    border-left: 0.3125em solid #9B1B30;
+    border-top: 0.3125em solid #9B1B30;
+    display: inline-block;
+    rotate: 45deg;
+    margin-left: 0.625em;
+    margin-bottom: 0.3125em;
+}
+
+.musea-box form .musea-categories {
+    position: absolute;
+    top: 110%;
+    right: 0em;
+    background-color: #9B1B30;
+    color: #fff;
+    padding: 0.625em;
+    opacity: 0;
+    pointer-events: none;
+    margin-top: 0.0625em;
+    border-radius: 1em;
+}
+
+.musea-box form .active {
+    opacity: 1;
+    pointer-events: fill;
+}
+
+.musea-box form .musea-categories p {
+    margin: 0.3125em 0em;
+    padding: 0.5em 0.75em;
+    border-radius: 0.3125em;
+    cursor: pointer;
+}
+
+.musea-box form .musea-categories p:hover {
+    background-color: #1e1e1e;
+}
+
+.musea-selected-filters {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5em;
+}
+
+.musea-selected-filter-item {
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 0.75em;
+    padding: 0.25em 0.35em 0.30em 0.45em;
+    margin: 0.5em 0em 0.5em 1em;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.musea-close-icon {
+    margin-left: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.musea-like-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+    background-color: #fff;
+    border-radius: 1em;
+    height: 6em;
+}
+
+.musea-like-box img {
+    width: 5em;
+    height: 5em;
+    border-radius: 1em;
+    padding-left: 0.3em;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.musea-like-box p:first-of-type {
+    font-weight: 600;
+}
+
+.musea-like-box p:last-of-type {
+    font-style: italic;
+}
+
+.musea-text-content {
+    flex-grow: 1;
+}
+
+.musea-text-content p {
+    margin: 0;
+    padding: 5px;
+    color: #000;
+    border-radius: 10px;
 }
 
 
 
 
-
-
-
-
-
-
-
+/* navigation */
 nav {
     background: rgb(255, 255, 255);
     text-align: center;
@@ -60,9 +352,6 @@ nav li img {
     height: 2.5em;
     width: 2.5em;
 }
-
-
-
 
 nav li a {
     margin: 0;
@@ -111,16 +400,7 @@ li.active .nav-ico {
 }
 
 
-
-
-
-
-
-
-
-
-
-
+/* Home page */
 .artwork-container {
     position: relative;
     text-align: center;
@@ -163,8 +443,8 @@ li.active .nav-ico {
 
 
 
-/*  */
 
+/* smileys homepage*/
 .rating-smileys {
     display: flex;
     justify-content: center; /* Center de container horizontaal */
@@ -198,7 +478,7 @@ button {
     display: inline-block; /* Laat knoppen naast elkaar staan */
 }
 
-
+/* Login/Register pages */
 .loginBody {
     font-family: 'Arial', sans-serif;
     margin: 0;

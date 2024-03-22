@@ -5,31 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunstbeoordeling</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 
 
 <body>
     <header>
-        <img src="./svg/logo-pantheon.svg">
+        <!-- <img src="./svg/logo-pantheon.svg"> -->
     </header>
     <main>
         <div class="artwork-container">
-            <img src="/uploads/<%= art._id %>.jpg" alt="<%= art.kunstwerk %>">
+            <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
+            <!-- Hier de afbeelding van het kunstwerk, indien beschikbaar -->
+            <img src="/uploads/<%= artwork.arts[randomArtworkIndex].kunstwerk %>.jpg" alt="<%= artwork.arts[randomArtworkIndex].kunstwerk %>">
             <!-- Beschrijving toevoegen -->
             <div class="artwork-description">
-                <p>
-                    <%= art.kunstwerk %>
-                </p>
-                <p>
-                    <%= art.museum %>
-                </p>
-                <p>
-                    <%= art.artiest %> -
-                    <%= art.jaartal %>
-                </p>
+                <!-- Het museum -->
+                <p>Museum: <%= artwork.museum %></p>
+                <!-- De details van het willekeurige kunstwerk -->
+                <p>Naam: <%= artwork.arts[randomArtworkIndex].kunstwerk %></p>
+                <p>Artiest: <%= artwork.arts[randomArtworkIndex].artiest %></p>
+                <p>Jaartal: <%= artwork.arts[randomArtworkIndex].jaartal %></p>
+                <br>
             </div>
         </div>
+        
 
         <div class="rating-smileys">
             <form action="/home" method="post" class="rating-form">
@@ -50,13 +50,6 @@
                 </button>
             </form>
         </div>
-
-
-        <!-- <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
-            <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
-            <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">
-            <img class="rating-smiley" src="svg/smiley4.svg" alt="Blij">
-            <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij"> -->
 
 
     </main>

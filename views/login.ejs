@@ -14,22 +14,29 @@
         <img src="./svg/logo-pantheon.svg">
     </header>
 
-    <%= locals.bericht %>
+    <h2 class="loginH2">
+        Welcome to Pantheon!
+    </h2>
+    <p class="loginP">
+        Please login to your Pantheon account.
+    </p>
 
-        <h2 class="loginH2">
-            Welcome to Pantheon!
-        </h2>
-        <p class="loginP">
-            Please login to your Pantheon account.
-        </p>
-
-        <div class="container">
-            <form class="form" method="POST" action="/login">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <input type="submit" value="Login">
-            </form>
-        </div>
+    <div class="container">
+        <form action="/login"  method="POST" class="form" >
+            <input type="text" name="username" placeholder="Username" required value="<%= typeof username !== 'undefined' ? username : '' %>">
+            <input type="password" name="password" placeholder="Password" required value="<%= typeof password !== 'undefined' ? password : '' %>">
+            
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <div style="color: white;">
+                    <% errors.forEach(error => { %>
+                        <p><%= error.msg %></p>
+                    <% }) %>
+                </div>
+            <% } %>
+            
+            <input type="submit">
+        </form>
+    </div>
 
 </body>
 

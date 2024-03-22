@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #9B1B30;
@@ -27,16 +29,7 @@ main {
     border-radius: 5px;
 }
 
-
-
-
-
-
-
-
-
-
-
+/* nav bar */
 nav {
     background: rgb(255, 255, 255);
     text-align: center;
@@ -60,9 +53,6 @@ nav li img {
     height: 2.5em;
     width: 2.5em;
 }
-
-
-
 
 nav li a {
     margin: 0;
@@ -111,16 +101,7 @@ li.active .nav-ico {
 }
 
 
-
-
-
-
-
-
-
-
-
-
+/* Home page */
 .artwork-container {
     position: relative;
     text-align: center;
@@ -163,7 +144,7 @@ li.active .nav-ico {
 
 
 
-/*  */
+/* like Smileys  */
 
 .rating-smileys {
     display: flex;
@@ -198,7 +179,7 @@ button {
     display: inline-block; /* Laat knoppen naast elkaar staan */
 }
 
-
+/* Login/Register pages */
 .loginBody {
     font-family: 'Arial', sans-serif;
     margin: 0;

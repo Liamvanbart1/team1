@@ -134,7 +134,6 @@ app.post('/login', validateLogin, async (req, res) => {
   }
 });
 
-
 app.get('/home', async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
@@ -149,21 +148,26 @@ app.get('/home', async (req, res) => {
       artworksByMuseum[artwork.museum].push(artwork);
     });
 
-    // Maak een array voor de willekeurig geselecteerde kunstwerken
-    const randomArtworks = [];
+    // Kies willekeurig een museum
+    const museums = Object.keys(artworksByMuseum);
+    const randomMuseumIndex = Math.floor(Math.random() * museums.length);
+    const randomMuseum = museums[randomMuseumIndex];
 
-    // Voor elk museum, kies een willekeurig kunstwerk
-    Object.values(artworksByMuseum).forEach(artworks => {
-      const randomIndex = Math.floor(Math.random() * artworks.length);
-      randomArtworks.push(artworks[randomIndex]);
-    });
+    // Kies willekeurig een kunstwerk uit het gekozen museum
+    const randomArtwork = artworksByMuseum[randomMuseum][Math.floor(Math.random() * artworksByMuseum[randomMuseum].length)];
 
-    res.render('home', { artworks: randomArtworks });
+    res.render('home', { artwork: randomArtwork });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
+
+
+
 // FILTEREN
 
 // Buiten de route handler, declareer een array om bij te houden welke kunstwerken al zijn gebruikt

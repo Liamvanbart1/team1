@@ -171,50 +171,25 @@ app.get('/home', async (req, res) => {
 // FILTEREN
 
 // Buiten de route handler, declareer een array om bij te houden welke kunstwerken al zijn gebruikt
-let usedArtworks = [];
-let clickCount = 0;
-
 app.post('/home', async (req, res) => {
   try {
-    if (clickCount >= 20) {
-      // Als er 20 keer is geklikt, stuur de gebruiker door naar de '/index' pagina
-      res.redirect('/index');
-      return;
-    }
+    const artworkId = req.body.artworkId;
+    const rating = parseInt(req.body.rating);
 
-    // Count the total number of documents in the collection
-    const totalCount = await collectionArt.countDocuments();
+    // Update de beoordeling voor het specifieke kunstwerk in de database
+    await collectionArt.updateOne({ "arts.kunstwerk": artworkId }, { $set: { "arts.$.beoordeling": rating } });
 
-    // If all artworks have been used, reset the array
-    if (usedArtworks.length === totalCount) {
-      usedArtworks = [];
-    }
-
-    // Generate a random index that hasn't been used yet
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * totalCount);
-    } while (usedArtworks.includes(randomIndex));
-
-    // Add the random index to the used artworks array
-    usedArtworks.push(randomIndex);
-
-    // Find a random artwork
-    const randomArtwork = await collectionArt.aggregate([
-      { $skip: randomIndex }, // Skip to the random index
-      { $limit: 1 } // Limit the result to 1 document
-    ]).toArray();
-
-    // Increment the click count
-    clickCount++;
-
-    // Render the view with the random artwork
-    res.render('home', { art: randomArtwork[0] });
+    res.redirect('/home'); // Stuur de gebruiker terug naar de homepage
   } catch (error) {
-    console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);
-    res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
+    console.error('Er is een fout opgetreden bij het verwerken van de beoordeling:', error);
+    res.status(500).json({ error: 'Er is een fout opgetreden bij het verwerken van de beoordeling' });
   }
 });
+
+
+
+
+
 
 
 app.listen(port, () => {

@@ -168,7 +168,7 @@ app.post('/login', validateLogin, async (req, res) => {
 });
 
 
-app.get('/home', async (req, res) => {
+app.get('/home', requireLogin, async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
     const artworks = await collectionArt.find().toArray();

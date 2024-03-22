@@ -276,6 +276,7 @@ button {
     pointer-events: none;
     margin-top: 0.0625em;
     border-radius: 1em;
+    z-index: 999;
 }
 
 .box form .active {
@@ -291,7 +292,7 @@ button {
 }
 
 .box form .categories p:hover {
-    background-color: #1e1e1e;
+    background-color: #550101;
 }
 
 .selected-filters {
@@ -328,6 +329,7 @@ button {
     background-color: #fff;
     border-radius: 1em;
     height: 6em;
+    margin: 1em;
 }
 
 .like-box img {
@@ -338,6 +340,16 @@ button {
     margin-right: 10px;
     object-fit: cover;
     /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
+}
+
+.like-box .extra-image {
+    position: absolute; /* Absoluut positioneren binnen de .like-box */
+    right: 1.4em; /* Plaats de afbeelding aan de rechterkant */
+    margin-bottom: 3.8em;
+    width: 1.5em; /* Breedte van de afbeelding */
+    height: 1.5em; /* Hoogte van de afbeelding */
+    background-image: url('./svg/smiley5.svg'); /* Voeg hier de URL van je afbeelding toe */
+    background-size: cover; /* Schaal de achtergrondafbeelding om de hele ruimte te bedekken */
 }
 
 .like-box p:first-of-type {
@@ -447,6 +459,7 @@ button {
     border-radius: 1em;
 }
 
+
 .musea-box form .active {
     opacity: 1;
     pointer-events: fill;
@@ -459,9 +472,7 @@ button {
     cursor: pointer;
 }
 
-.musea-box form .musea-categories p:hover {
-    background-color: #1e1e1e;
-}
+
 
 .musea-selected-filters {
     display: flex;
@@ -493,12 +504,13 @@ button {
     margin-bottom: 1em;
     background-color: #fff;
     border-radius: 1em;
-    height: 6em;
+    height: 6.3em;
+    margin-top:1em ;
 }
 
 .musea-like-box img {
     width: 5em;
-    height: 5em;
+    height: 5.3em;
     border-radius: 1em;
     padding-left: 0.3em;
     margin-right: 10px;
@@ -507,10 +519,12 @@ button {
 
 .musea-like-box p:first-of-type {
     font-weight: 600;
+
 }
 
 .musea-like-box p:last-of-type {
     font-style: italic;
+    
 }
 
 .musea-text-content {
@@ -519,10 +533,11 @@ button {
 
 .musea-text-content p {
     margin: 0;
-    padding: 5px;
+    padding: 0.2em; /* Verklein de padding tussen paragrafen */
     color: #000;
     border-radius: 10px;
 }
+
 
 
 

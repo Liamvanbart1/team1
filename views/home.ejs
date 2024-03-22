@@ -14,24 +14,22 @@
         <!-- <img src="./svg/logo-pantheon.svg"> -->
     </header>
     <main>
-        <% artworks.forEach(function(artwork) { %>
-            <div class="artwork-container">
-                <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
-                <!-- Hier de afbeelding van het kunstwerk, indien beschikbaar -->
-                <img src="/uploads/<%= artwork.arts[randomArtworkIndex].kunstwerk %>.jpg" alt="<%= artwork.kunstwerk %>">
-                <!-- Beschrijving toevoegen -->
-                <div class="artwork-description">
-                    <!-- Het museum -->
-                    <p>Museum: <%= artwork.museum %></p>
-                    <!-- De details van een willekeurig kunstwerk -->
-
-                    <p>Naam: <%= artwork.arts[randomArtworkIndex].kunstwerk %></p>
-                    <p>Artiest: <%= artwork.arts[randomArtworkIndex].artiest %></p>
-                    <p>Jaartal: <%= artwork.arts[randomArtworkIndex].jaartal %></p>
-                    <br>
-                </div>
+        <div class="artwork-container">
+            <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
+            <!-- Hier de afbeelding van het kunstwerk, indien beschikbaar -->
+            <img src="/uploads/<%= artwork.arts[randomArtworkIndex].kunstwerk %>.jpg" alt="<%= artwork.arts[randomArtworkIndex].kunstwerk %>">
+            <!-- Beschrijving toevoegen -->
+            <div class="artwork-description">
+                <!-- Het museum -->
+                <p>Museum: <%= artwork.museum %></p>
+                <!-- De details van het willekeurige kunstwerk -->
+                <p>Naam: <%= artwork.arts[randomArtworkIndex].kunstwerk %></p>
+                <p>Artiest: <%= artwork.arts[randomArtworkIndex].artiest %></p>
+                <p>Jaartal: <%= artwork.arts[randomArtworkIndex].jaartal %></p>
+                <br>
             </div>
-          <% }); %>
+        </div>
+        
 
         <div class="rating-smileys">
             <form action="/home" method="post" class="rating-form">

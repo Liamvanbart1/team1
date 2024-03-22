@@ -29,6 +29,21 @@
             <input type="tel" placeholder="+31 xx-xxxxxxxx"  inputmode="numeric" maxlength="15" required name="phonenumber" value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
             <!-- <input type="file" name="artwork"> -->
 
+            <div class="formsection2">
+                <ul>
+                    <li>
+                	    <input type="checkbox" >
+                        <label></label>
+                    </li>
+                    <li>
+                	    <input type="checkbox" >
+                    </li>
+                    <li>
+                	    <input type="checkbox" >
+                    </li>
+                </ul>
+            </div>
+
             <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
                 <div style="color: white;">
                     <% errors.forEach(error => { %>

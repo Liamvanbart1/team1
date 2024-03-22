@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunstbeoordeling</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 
 <body>
     <header>
-        <!-- <img src="./svg/logo-pantheon.svg"> -->
+        <img src="./svg/logo-pantheon.svg">
     </header>
     <main>
         <div class="artwork-container">
@@ -31,25 +31,25 @@
         </div>
         
 
-        <div class="rating-smileys">
-            <form action="/home" method="post" class="rating-form">
-                <button type="submit" class="rating-button">
-                    <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
-                </button>
-                <button type="submit" class="rating-button">
-                    <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
-                </button>
-                <button type="submit" class="rating-button">
-                    <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">
-                </button>
-                <button type="submit" class="rating-button">
-                    <img class="rating-smiley" src="svg/smiley4.svg" alt="Blij">
-                </button>
-                <button type="submit" class="rating-button">
-                    <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij">
-                </button>
-            </form>
-        </div>
+        <form action="/home" method="post" class="rating-form">
+            <input type="hidden" name="artworkId" value="<%= artwork.arts[randomArtworkIndex].kunstwerk %>"> <!-- Verborgen veld om het ID van het huidige kunstwerk door te geven -->
+            <button type="submit" name="rating" value="-2">
+                <img class="rating-smiley" src="svg/smiley1.svg" alt="Boos">
+            </button>
+            <button type="submit" name="rating" value="-1">
+                <img class="rating-smiley" src="svg/smiley2.svg" alt="Verdrietig">
+            </button>
+            <button type="submit" name="rating" value="0">
+                <img class="rating-smiley" src="svg/smiley3.svg" alt="Neutraal">
+            </button>
+            <button type="submit" name="rating" value="1">
+                <img class="rating-smiley" src="svg/smiley4.svg" alt="Blij">
+            </button>
+            <button type="submit" name="rating" value="2">
+                <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij">
+            </button>
+        </form>
+        
 
 
     </main>
@@ -62,6 +62,7 @@
             <li><a href="/account"><img src="./svg/account-nav.svg" /><span></span></a></li>
         </ul>
     </nav>
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -20,24 +20,24 @@
     <p class="loginP">
         Please login to your Pantheon account.
     </p>
+    <form action="/login" method="POST" class="form">
+        <input type="text" name="username" placeholder="Username" required
+            value="<%= typeof username !== 'undefined' ? username : '' %>">
+        <input type="password" name="password" placeholder="Password" required
+            value="<%= typeof password !== 'undefined' ? password : '' %>">
 
-    <div class="container">
-        <form action="/login"  method="POST" class="form" >
-            <input type="text" name="username" placeholder="Username" required value="<%= typeof username !== 'undefined' ? username : '' %>">
-            <input type="password" name="password" placeholder="Password" required value="<%= typeof password !== 'undefined' ? password : '' %>">
-            
-            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-                <div style="color: white;">
-                    <% errors.forEach(error => { %>
-                        <p><%= error.msg %></p>
+        <% if (typeof errors !=='undefined' && errors.length> 0) { %>
+            <div style="color: white;">
+                <% errors.forEach(error=> { %>
+                    <p>
+                        <%= error.msg %>
+                    </p>
                     <% }) %>
-                </div>
+            </div>
             <% } %>
-            
-            <input type="submit">
-        </form>
-    </div>
 
+                <input type="submit">
+    </form>
 </body>
 
 </html>

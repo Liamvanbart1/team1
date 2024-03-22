@@ -194,6 +194,33 @@ button {
     cursor: pointer;
 }
 
+/* Index Page */
+
+.indexButton{
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #333333;
+    border: none;
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+}
+
+.indexP {
+    text-align: left;
+    font-size: 0.8em;
+    margin: 1em 1em 0em 1em;
+}
+
+.indexP2{
+    text-align: left;
+    font-size: 0.8em;
+    margin: 2em 1em 0em 1em;
+}
 
 
 

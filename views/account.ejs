@@ -16,14 +16,19 @@
     <main>
 
     </main>
-    <h1>Welcome, <%= username %> !</h1>
+    <h1>Welcome, <%= users.username %> !</h1>
     <p>This is your account settings page.</p>
     <!-- Logout button -->
     <form action="/logout" method="GET">
         <button type="submit">Logout</button>
     </form>
 
-
+    <h1>User Profile</h1>
+    <p>Username: <%= users.username %>
+    </p>
+    <p>Email: <%= users.email %>
+    </p>
+    </section>
     <nav>
         <ul class="navigation">
             <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>

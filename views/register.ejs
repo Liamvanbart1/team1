@@ -9,7 +9,7 @@
 </head>
 <body class="loginBody">
     <header>
-        <img src="./svg/Group 41.svg">
+        <img src="./svg/logo-pantheon.svg">
     </header>
 
     <h2 class="loginH2">
@@ -28,6 +28,21 @@
             <input type="email" placeholder="example@example.com" required name="email" value="<%= typeof email !== 'undefined' ? email : '' %>">
             <input type="tel" placeholder="+31 xx-xxxxxxxx"  inputmode="numeric" maxlength="15" required name="phonenumber" value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
             <!-- <input type="file" name="artwork"> -->
+
+            <div class="formsection2">
+                <ul>
+                    <li>
+                	    <input type="checkbox" >
+                        <label></label>
+                    </li>
+                    <li>
+                	    <input type="checkbox" >
+                    </li>
+                    <li>
+                	    <input type="checkbox" >
+                    </li>
+                </ul>
+            </div>
 
             <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
                 <div style="color: white;">

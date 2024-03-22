@@ -59,6 +59,27 @@ const validateLogin = [
   body('password').notEmpty().withMessage('Password is required')
 ];
 
+const requireLogin = (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/');
+    }
+    next();
+};
+
+// Session middleware //
+
+app.use(session({
+    secret: 'de_secret_key_voor_inloggen', // Change this to a more secure secret in production
+    resave: false,
+    saveUninitialized: true,
+    rolling: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24, // 24 hours,
+  }
+}));
+
+
 // Routes
 
 app.get('/', async (req, res) => {
@@ -76,16 +97,26 @@ app.get('/login', (req, res) => {
   res.render('login', { name });
 });
 
-app.get('/likes', (req, res) => {
+app.get('/likes', requireLogin, (req, res) => {
   res.render('likes');
 });
 
-app.get('/musea', (req, res) => {
+app.get('/musea', requireLogin, (req, res) => {
   res.render('musea');
 });
 
-app.get('/account', (req, res) => {
-  res.render('account');
+app.get('/account', requireLogin, (req, res) => {
+  const name = xss(req.query.name);
+  res.render('account', { username: req.session.user });
+});
+
+app.get('/logout', requireLogin, (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.send('Error logging out');
+        }
+        res.redirect('/login');
+    });
 });
 
 app.post('/register', validateRegistration, async (req, res) => {
@@ -105,36 +136,39 @@ app.post('/register', validateRegistration, async (req, res) => {
 
 
 app.post('/login', validateLogin, async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const { username, password } = req.body;
-    return res.render('login', { errors: errors.array(), username, password})
-  }
-
-  // If there are no validation errors, proceed with login logic
-  const { username, password } = req.body;
-  try {
-    const existingUser = await collection.findOne({ username });
-
-    if (existingUser) {
-      const hashedPassword = existingUser.password;
-      const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
-
-      if (isPasswordCorrect) {
-        res.redirect('/'); // Redirect to a dashboard or home page after successful login
-      } else {
-        res.send('Incorrect password');
-      }
-    } else {
-      res.send('User not found');
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const { username, password } = req.body;
+        return res.render('login', { errors: errors.array(), username, password });
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
-  }
+
+    // If there are no validation errors, proceed with login logic
+    const { username, password } = req.body;
+    try {
+        const existingUser = await collection.findOne({ username });
+
+        if (existingUser) {
+            const hashedPassword = existingUser.password;
+            const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
+
+            if (isPasswordCorrect) {
+                // Store the username in the session
+                req.session.user = username;
+                res.redirect('/account'); // Redirect to a dashboard or home page after successful login
+            } else {
+                res.send('Incorrect password');
+            }
+        } else {
+            res.send('User not found');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-app.get('/home', async (req, res) => {
+
+app.get('/home', requireLogin, async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
     const artworks = await collectionArt.find().toArray();

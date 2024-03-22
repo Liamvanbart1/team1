@@ -16,15 +16,20 @@
     <main>
 
     </main>
-
+    <h1>Welcome, <%= username %> !</h1>
+    <p>This is your account settings page.</p>
+    <!-- Logout button -->
+    <form action="/logout" method="GET">
+        <button type="submit">Logout</button>
+    </form>
 
 
     <nav>
         <ul class="navigation">
             <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>
-            <li><a href="/likes"><img src="./svg/thumb-nav-active.svg" /><span></span></a></li>
+            <li><a href="/likes"><img src="./svg/thumb-nav-unactive.svg" /><span></span></a></li>
             <li><a href="/musea"><img src="./svg/pantheon-nav.svg" /><span></span></a></li>
-            <li class="active"><a href="/account"><img src="./svg/account-nav.svg" /><span></span></a></li>
+            <li class="active"><a href="/account"><img src="./svg/account-active.svg" /><span></span></a></li>
         </ul>
     </nav>
 </body>

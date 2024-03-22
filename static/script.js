@@ -1,3 +1,4 @@
+
 // rating.js
 
 // Functie om de beoordeling van een kunstwerk te verzenden naar de server

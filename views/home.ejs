@@ -17,7 +17,7 @@
         <div class="artwork-container">
             <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
             <!-- Hier de afbeelding van het kunstwerk, indien beschikbaar -->
-            <img src="/uploads/<%= artwork.arts[randomArtworkIndex].kunstwerk %>.jpg" alt="<%= artwork.arts[randomArtworkIndex].kunstwerk %>">
+            <img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg" alt="<%= artwork.arts[randomArtworkIndex].kunstwerk %>">
             <!-- Beschrijving toevoegen -->
             <div class="artwork-description">
                 <!-- Het museum -->
@@ -49,9 +49,6 @@
                 <img class="rating-smiley" src="svg/smiley5.svg" alt="Heel Blij">
             </button>
         </form>
-        
-
-
     </main>
 
     <nav>

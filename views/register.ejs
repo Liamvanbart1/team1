@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Register Page</title>
 </head>
+
 <body class="loginBody">
     <header>
         <img src="./svg/logo-pantheon.svg">
@@ -21,39 +23,43 @@
         Create a Pantheon account to view your favorite art.
     </p>
 
-    <div class="container">
-        <form class="form" method="POST" action="/register">
-            <input type="text" placeholder="Username" required name="username" value="<%= typeof username !== 'undefined' ? username : '' %>">
-            <input type="password" placeholder="Password" required name="password">
-            <input type="email" placeholder="example@example.com" required name="email" value="<%= typeof email !== 'undefined' ? email : '' %>">
-            <input type="tel" placeholder="+31 xx-xxxxxxxx"  inputmode="numeric" maxlength="15" required name="phonenumber" value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
-            <!-- <input type="file" name="artwork"> -->
+    <form class="form" method="POST" action="/register">
+        <input type="text" placeholder="Username" required name="username"
+            value="<%= typeof username !== 'undefined' ? username : '' %>">
+        <input type="password" placeholder="Password" required name="password">
+        <input type="email" placeholder="example@example.com" required name="email"
+            value="<%= typeof email !== 'undefined' ? email : '' %>">
+        <input type="tel" placeholder="+31 xx-xxxxxxxx" inputmode="numeric" maxlength="15" required name="phonenumber"
+            value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
+        <!-- <input type="file" name="artwork"> -->
 
-            <div class="formsection2">
-                <ul>
-                    <li>
-                	    <input type="checkbox" >
-                        <label></label>
-                    </li>
-                    <li>
-                	    <input type="checkbox" >
-                    </li>
-                    <li>
-                	    <input type="checkbox" >
-                    </li>
-                </ul>
-            </div>
+        <div class="formsection2">
+            <ul>
+                <li>
+                    <input type="checkbox">
+                    <label></label>
+                </li>
+                <li>
+                    <input type="checkbox">
+                </li>
+                <li>
+                    <input type="checkbox">
+                </li>
+            </ul>
+        </div>
 
-            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-                <div style="color: white;">
-                    <% errors.forEach(error => { %>
-                        <p><%= error.msg %></p>
+        <% if (typeof errors !=='undefined' && errors.length> 0) { %>
+            <div style="color: white;">
+                <% errors.forEach(error=> { %>
+                    <p>
+                        <%= error.msg %>
+                    </p>
                     <% }) %>
-                </div>
+            </div>
             <% } %>
 
-            <input type="submit" value="Register">
-        </form>
-    </div>
+                <input type="submit" value="Create account">
+    </form>
 </body>
+
 </html>

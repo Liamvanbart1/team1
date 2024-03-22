@@ -71,7 +71,12 @@ const requireLogin = (req, res, next) => {
 app.use(session({
     secret: 'de_secret_key_voor_inloggen', // Change this to a more secure secret in production
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    rolling: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24, // 24 hours,
+  }
 }));
 
 

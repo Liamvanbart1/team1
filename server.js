@@ -13,7 +13,7 @@ const port = 8000;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const uri = process.env.DB_URI;
 
@@ -105,11 +105,9 @@ app.get('/musea', requireLogin, (req, res) => {
   res.render('musea');
 });
 
-app.get('/account', requireLogin, async(req, res) => {
+app.get('/account', requireLogin, (req, res) => {
   const name = xss(req.query.name);
-  const objectId = new ObjectId(req.session.username);
-  const users = await collection.findOne({ "_id": objectId });
-  res.render('account', { users });
+  res.render('account', { username: req.session.user });
 });
 
 app.get('/logout', requireLogin, (req, res) => {
@@ -147,9 +145,7 @@ app.post('/login', validateLogin, async (req, res) => {
     // If there are no validation errors, proceed with login logic
     const { username, password } = req.body;
     try {
-      const existingUser = await collection.findOne({ username });
-      
-      req.session.username = existingUser._id;
+        const existingUser = await collection.findOne({ username });
 
         if (existingUser) {
             const hashedPassword = existingUser.password;

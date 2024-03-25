@@ -97,9 +97,17 @@ app.get('/login', (req, res) => {
   res.render('login', { name });
 });
 
-app.get('/likes', requireLogin, (req, res) => {
-  res.render('likes');
+app.get('/likes', async (req, res) => {
+  try {
+    // Haal de kunstwerken op uit de database
+    const data = await collectionArt.find().toArray();
+    res.render('likes', { data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
 
 app.get('/musea', requireLogin, (req, res) => {
   res.render('musea');

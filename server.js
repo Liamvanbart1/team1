@@ -13,7 +13,7 @@ const port = 8000;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const uri = process.env.DB_URI;
 
@@ -105,9 +105,11 @@ app.get('/musea', requireLogin, (req, res) => {
   res.render('musea');
 });
 
-app.get('/account', requireLogin, (req, res) => {
+app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
-  res.render('account', { username: req.session.user });
+  const objectId = new ObjectId(req.session.username);
+  const users = await collection.findOne({ "_id": objectId });
+  res.render('account', { users });
 });
 
 app.get('/logout', requireLogin, (req, res) => {
@@ -145,7 +147,9 @@ app.post('/login', validateLogin, async (req, res) => {
     // If there are no validation errors, proceed with login logic
     const { username, password } = req.body;
     try {
-        const existingUser = await collection.findOne({ username });
+      const existingUser = await collection.findOne({ username });
+      
+      req.session.username = existingUser._id;
 
         if (existingUser) {
             const hashedPassword = existingUser.password;
@@ -168,7 +172,7 @@ app.post('/login', validateLogin, async (req, res) => {
 });
 
 
-app.get('/home', requireLogin, async (req, res) => {
+app.get('/home', async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
     const artworks = await collectionArt.find().toArray();
@@ -205,25 +209,50 @@ app.get('/home', requireLogin, async (req, res) => {
 // FILTEREN
 
 // Buiten de route handler, declareer een array om bij te houden welke kunstwerken al zijn gebruikt
+let usedArtworks = [];
+let clickCount = 0;
+
 app.post('/home', async (req, res) => {
   try {
-    const artworkId = req.body.artworkId;
-    const rating = parseInt(req.body.rating);
+    if (clickCount >= 20) {
+      // Als er 20 keer is geklikt, stuur de gebruiker door naar de '/index' pagina
+      res.redirect('/index');
+      return;
+    }
 
-    // Update de beoordeling voor het specifieke kunstwerk in de database
-    await collectionArt.updateOne({ "arts.kunstwerk": artworkId }, { $set: { "arts.$.beoordeling": rating } });
+    // Count the total number of documents in the collection
+    const totalCount = await collectionArt.countDocuments();
 
-    res.redirect('/home'); // Stuur de gebruiker terug naar de homepage
+    // If all artworks have been used, reset the array
+    if (usedArtworks.length === totalCount) {
+      usedArtworks = [];
+    }
+
+    // Generate a random index that hasn't been used yet
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * totalCount);
+    } while (usedArtworks.includes(randomIndex));
+
+    // Add the random index to the used artworks array
+    usedArtworks.push(randomIndex);
+
+    // Find a random artwork
+    const randomArtwork = await collectionArt.aggregate([
+      { $skip: randomIndex }, // Skip to the random index
+      { $limit: 1 } // Limit the result to 1 document
+    ]).toArray();
+
+    // Increment the click count
+    clickCount++;
+
+    // Render the view with the random artwork
+    res.render('home', { art: randomArtwork[0] });
   } catch (error) {
-    console.error('Er is een fout opgetreden bij het verwerken van de beoordeling:', error);
-    res.status(500).json({ error: 'Er is een fout opgetreden bij het verwerken van de beoordeling' });
+    console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);
+    res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
   }
 });
-
-
-
-
-
 
 
 app.listen(port, () => {

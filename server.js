@@ -56,7 +56,7 @@ const validateRegistration = [
 // Validation middleware for login
 const validateLogin = [
   body('username').notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required')
+  body('password').notEmpty().withMessage('Password is required') 
 ];
 
 // Routes
@@ -66,9 +66,11 @@ app.get('/', async (req, res) => {
   res.render('index', { users });
 });
 
-app.get('/register', (req, res) => {
+app.get('/register', async (req, res) => {
   const name = xss(req.query.name);
-  res.render('register', { name });
+  const artworks = await collectionArt.find().toArray();
+  console.log(artworks);
+  res.render('register', { artworks });
 });
 
 app.get('/login', (req, res) => {
@@ -89,18 +91,18 @@ app.get('/account', (req, res) => {
 });
 
 app.post('/register', validateRegistration, async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const { username, email, phonenumber } = req.body;
-    return res.render('register', { errors: errors.array(), username, email, phonenumber });
-  }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const { username, email, phonenumber } = req.body;
+      return res.render('register', { errors: errors.array(), username, email, phonenumber });
+    }
 
-  const { username, password, email, phonenumber } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+    const { username, password, email, phonenumber } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-  await collection.insertOne({ username, email, phonenumber, password: hashedPassword });
+    await collection.insertOne({ username, email, phonenumber, password: hashedPassword });
 
-  res.redirect('/login');
+    res.redirect('/login');
 });
 
 
@@ -220,3 +222,4 @@ app.post('/home', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+

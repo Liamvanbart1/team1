@@ -10,7 +10,7 @@
 
   "scripts": {
 
-    "dev": "nodemon server.js && npx eslint server.js"
+    "dev": "nodemon server.js"
 
   },
 

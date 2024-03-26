@@ -51,6 +51,7 @@ const validateRegistration = [
   body('email').isEmail().withMessage('Invalid email'),
   body('phonenumber').notEmpty().withMessage('Phone number is required'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+
 ];
 
 // Validation middleware for login

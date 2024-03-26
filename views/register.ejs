@@ -29,12 +29,7 @@
             <input type="tel" placeholder="+31 xx-xxxxxxxx"  inputmode="numeric" maxlength="15" required name="phonenumber" value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
             <!-- <input type="file" name="artwork"> -->
 
-            <input type="checkbox" name="kunstwerk">
-            <input type="checkbox" name="kunstwerk">
-            <input type="checkbox" name="kunstwerk">
-            <input type="checkbox" name="kunstwerk">
-            <input type="checkbox" name="kunstwerk">
-            <input type="checkbox" name="kunstwerk">
+
                 
     </div> 
 
@@ -45,6 +40,18 @@
                     <% }) %>
                 </div>
             <% } %>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    <div>
+        <form class="form" method="POST" action="/register">
+            <input type="checkbox" name="kunstwerk">
+            <input type="checkbox" name="kunstwerk">
+            <input type="checkbox" name="kunstwerk">
+            <input type="checkbox" name="kunstwerk">
+            <input type="checkbox" name="kunstwerk">
+            <input type="checkbox" name="kunstwerk">
 
             <input type="submit" value="Register">
         </form>

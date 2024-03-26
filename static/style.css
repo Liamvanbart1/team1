@@ -27,6 +27,7 @@ main {
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 5px;
+    height: 40em;
 }
 
 
@@ -43,34 +44,37 @@ main {
 .artwork-container {
     position: relative;
     text-align: center;
-    margin-bottom: 20px;
     border: none;
+    justify-content: space-between;
 
 }
 
 .artwork-container img {
-    border-radius: 1em 1em 0em 0em;
+    display: block; /* Zorg ervoor dat de afbeelding een blokelement is */
+    width: 100%; /* Laat de afbeelding de volledige breedte van de container innemen */
     height: 25em;
-    width: 21.875em;
+    object-fit: cover; /* Behoud de aspect ratio van de afbeelding en bedek de container */
+    border-radius: 1em 1em 0em 0em;
+    margin-top: 2em;
 }
+
 
 
 .artwork-description {
     display: flex;
     flex-direction: column;
     gap: 0.3em;
-padding: 2em 1em;
-margin: -1.5em 1em 1em 1em;
+    padding: 1.3em 1em;
     text-align: left;
     background-color: #F9F7EF;
     color: #000000;
-    border-radius: 1em;
+    border-radius: 0em 0em 1em 1em;
     height: fit-content;
-    width: 19.8em;
+
 }
 
 .artwork-description p:first-child {
-font-weight: bold;    
+    font-weight: bold;
 }
 
 
@@ -86,12 +90,12 @@ font-weight: bold;
 
 
 /* smileys homepage*/
-.rating-smileys {
+.rating-form {
     display: flex;
     justify-content: center;
     /* Center de container horizontaal */
     position: absolute;
-    top: calc(1550vh - 9em);
+    top: calc(93vh - 9em);
     /* Plaats de container vlak boven de navigatie */
     left: 50%;
     /* Plaats de container in het midden van de pagina */
@@ -99,15 +103,10 @@ font-weight: bold;
     /* Centreren van de container */
     width: 20em;
     /* Breedte van de container */
-    margin-bottom: 10px;
+    margin-bottom: 0.7em;
     /* Voeg een kleine marge onder de container toe */
 }
 
-.rating-form {
-    display: flex;
-    justify-content: center;
-    /* Laat de knoppen naast elkaar staan */
-}
 
 .rating-smiley {
     width: 4em;

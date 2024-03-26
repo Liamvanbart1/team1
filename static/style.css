@@ -196,7 +196,7 @@ button {
 
 /* Index Page */
 
-.indexButton{
+.indexButton {
     padding: 1em 0em 1em 0em;
     text-decoration: none;
     color: #fff;
@@ -216,7 +216,7 @@ button {
     margin: 1em 1em 0em 1em;
 }
 
-.indexP2{
+.indexP2 {
     text-align: left;
     font-size: 0.8em;
     margin: 2em 1em 0em 1em;
@@ -369,14 +369,12 @@ button {
     /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
 }
 
-.like-box .extra-image {
-    position: absolute; /* Absoluut positioneren binnen de .like-box */
-    right: 1.4em; /* Plaats de afbeelding aan de rechterkant */
-    margin-bottom: 3.8em;
-    width: 1.5em; /* Breedte van de afbeelding */
-    height: 1.5em; /* Hoogte van de afbeelding */
-    background-image: url('./svg/smiley5.svg'); /* Voeg hier de URL van je afbeelding toe */
-    background-size: cover; /* Schaal de achtergrondafbeelding om de hele ruimte te bedekken */
+.smiley-likepage-image img {
+    position: absolute;
+    right: 1em;
+    margin-top: -2.4em;
+    width: 1.7em;
+    height: 1.7em;
 }
 
 .like-box p:first-of-type {
@@ -532,7 +530,7 @@ button {
     background-color: #fff;
     border-radius: 1em;
     height: 6.3em;
-    margin-top:1em ;
+    margin-top: 1em;
 }
 
 .musea-like-box img {
@@ -551,7 +549,7 @@ button {
 
 .musea-like-box p:last-of-type {
     font-style: italic;
-    
+
 }
 
 .musea-text-content {
@@ -560,7 +558,8 @@ button {
 
 .musea-text-content p {
     margin: 0;
-    padding: 0.2em; /* Verklein de padding tussen paragrafen */
+    padding: 0.2em;
+    /* Verklein de padding tussen paragrafen */
     color: #000;
     border-radius: 10px;
 }
@@ -649,4 +648,3 @@ li.active .nav-ico {
     width: 40px;
     border: #000 2px;
 }
-

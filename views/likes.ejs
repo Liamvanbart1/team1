@@ -33,6 +33,8 @@
 
     <div class="selected-filters"></div>
 
+
+
     <% data.forEach(function(item) { %>
         <% item.arts.forEach(function(artwork) { %>
                 <div class="like-box">
@@ -42,11 +44,13 @@
                         <p><%= item.museum %></p>
                         <p><%= artwork.artiest %> <%= artwork.jaartal %></p>
                     </div>
-                    <div class="extra-image">
-                    </div> 
+        <div class="smiley-likepage-image">
+            <img src="./svg/smiley5.svg">
+        </div> 
                 </div>
             <% }); %>
     <% }); %>
+
 
 
 

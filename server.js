@@ -13,7 +13,7 @@ const port = 8000;
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const uri = process.env.DB_URI;
 
@@ -97,17 +97,34 @@ app.get('/login', (req, res) => {
   res.render('login', { name });
 });
 
-app.get('/likes', requireLogin, (req, res) => {
-  res.render('likes');
+app.get('/likes', async (req, res) => {
+  try {
+    // Haal de kunstwerken op uit de database
+    const data = await collectionArt.find().toArray();
+    res.render('likes', { data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-app.get('/musea', requireLogin, (req, res) => {
-  res.render('musea');
+
+app.get('/musea', async (req, res) => {
+  try {
+    // Haal de kunstwerken op uit de database
+    const data = await collectionArt.find().toArray();
+    res.render('musea', { data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-app.get('/account', requireLogin, (req, res) => {
+app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
-  res.render('account', { username: req.session.user });
+  const objectId = new ObjectId(req.session.username);
+  const users = await collection.findOne({ "_id": objectId });
+  res.render('account', { users });
 });
 
 app.get('/logout', requireLogin, (req, res) => {
@@ -145,7 +162,9 @@ app.post('/login', validateLogin, async (req, res) => {
     // If there are no validation errors, proceed with login logic
     const { username, password } = req.body;
     try {
-        const existingUser = await collection.findOne({ username });
+      const existingUser = await collection.findOne({ username });
+      
+      req.session.username = existingUser._id;
 
         if (existingUser) {
             const hashedPassword = existingUser.password;
@@ -168,7 +187,7 @@ app.post('/login', validateLogin, async (req, res) => {
 });
 
 
-app.get('/home', requireLogin, async (req, res) => {
+app.get('/home', async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
     const artworks = await collectionArt.find().toArray();

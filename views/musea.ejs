@@ -32,14 +32,17 @@
     <div class="musea-selected-filters"></div>
 
     <main>
+        <% data.forEach(function(item) { %>
+
         <div class="musea-like-box">
-            <img src="./uploads/download.jpg" alt="Afbeelding 1">
+            <img src="/uploads/<%= item.arts[0]._id %>.jpg" alt="Afbeelding 1">
             <div class="musea-text-content">
-                <p>Rijksmuseum</p>
-                <p>Gotiek, renaissance, vaderlands symboliek</p>
-                <p>42 kilometer</p>
+                <p><%= item.museum %></p>
+                <p>BESCHRIJVING KOMT LATER</p>
+                <p>AFSTAND KOMT LATER</p>
             </div>
         </div>
+        <% }); %>
     </main>
 <script src="script.js"></script>
 </body>

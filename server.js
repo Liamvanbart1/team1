@@ -113,12 +113,51 @@ app.get('/musea', async (req, res) => {
   try {
     // Haal de kunstwerken op uit de database
     const data = await collectionArt.find().toArray();
+
+    // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
+    const museumsWithRatings = await collectionArt.aggregate([
+      {
+        $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
+      },
+      {
+        $group: {
+          _id: "$museum",
+          totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
+          ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
+        }
+      }
+    ]).toArray();
+
+    console.log("Museums with ratings:", museumsWithRatings);
+
+    // Voeg de gemiddelde beoordeling toe aan de museumgegevens
+    data.forEach(item => {
+      const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
+      if (museumRating && museumRating.ratingsCount > 0) {
+        item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
+      } else {
+        item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
+      }
+    });
+
+    console.log("Data with average ratings:", data);
+
+    // Render de musea.ejs-sjabloon met de geaggregeerde gegevens
     res.render('musea', { data });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
+
+
+
+
+
+
 
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);

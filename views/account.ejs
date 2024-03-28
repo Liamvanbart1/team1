@@ -9,27 +9,39 @@
 </head>
 
 
-<body>
+<body class="accountBody">
     <header>
         <img src="./svg/logo-pantheon.svg">
     </header>
     <main>
+        <h2 class="accountH2">Welcome, <%= users.username %> !</h2>
 
+        <div class="form">
+            <p class="labelP">Username:</p>
+
+            <p class="infoP">
+                <%= users.username %>
+            </p>
+            <p class="labelP">Password:</p>
+            <p class="infoP">******** </p>
+            <!-- <img src="./svg/eye-slash.svg" class="hidden"> -->
+            <p class="labelP">Email:</p>
+            <p class="infoP">
+                <%= users.email %>
+            </p>
+            <p class="labelP">Phonenumber:</p>
+            <p class="infoP">
+                <%= users.phonenumber %>
+            </p>
+        </div>
+
+        <!-- Logout button -->
+        <div class="form">
+            <form action="/logout" method="GET">
+                <button type="submit" class="logoutbutton">Logout</button>
+            </form>
+        </div>
     </main>
-    <h1>Welcome, <%= users.username %> !</h1>
-    <p>This is your account settings page.</p>
-    <!-- Logout button -->
-    <form action="/logout" method="GET">
-        <button type="submit">Logout</button>
-    </form>
-
-    <h1>User Profile</h1>
-    <p>Username: <%= users.username %>
-    </p>
-    <p>Email: <%= users.email %>
-    </p>
-    <p>Telefoon: <%= users.tel %>
-    </p>
 
     <nav>
         <ul class="navigation">

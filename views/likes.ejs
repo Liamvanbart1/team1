@@ -18,7 +18,11 @@
     <div class="box">
         <form action="#">
             <div class="input_box">
-                <input type="text" placeholder="Search..." required>
+                <form action="/likes" method="GET">
+                    <input type="text" name="searchTerm" placeholder="Search...">
+                </form>
+                
+
                 <div class="selection">
                     <p>Filters</p><span></span>
                 </div>
@@ -44,9 +48,9 @@
                         <p><%= item.museum %></p>
                         <p><%= artwork.artiest %> <%= artwork.jaartal %></p>
                     </div>
-        <div class="smiley-likepage-image">
-            <img src="./svg/smiley<%= artwork.beoordeling %>.svg" alt="Smiley Score <%= artwork.beoordeling %>">
-        </div> 
+                    <div class="smiley-likepage-image">
+                        <img src="./svg/smiley<%= artwork.beoordeling %>.svg" alt="Smiley Score <%= artwork.beoordeling %>">
+                    </div> 
                 </div>
             <% }); %>
     <% }); %>

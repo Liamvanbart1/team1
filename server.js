@@ -7,7 +7,7 @@ const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const port = 9000;
+const port = 8000;
 
 // multer
 const multer = require('multer');
@@ -143,56 +143,89 @@ app.get('/login', async (req, res) => {
 
 app.get('/likes', async (req, res) => {
   try {
-    // Haal de kunstwerken op uit de database
-    const data = await collectionArt.find().toArray();
-    res.render('likes', { data });
+      let data = await collectionArt.find().toArray();
+
+      const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
+      
+      // Filter de data op basis van de zoekterm
+      if (searchTerm) {
+          data = data.filter(museum => {
+              // Filter de kunstwerken van elk museum
+              museum.arts = museum.arts.filter(artwork => {
+                  return (
+                      artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
+                      artwork.artiest.toLowerCase().includes(searchTerm) ||
+                      artwork.jaartal.toLowerCase().includes(searchTerm) ||
+                      museum.museum.toLowerCase().includes(searchTerm)
+                  );
+              });
+
+              // Geef alleen musea weer die kunstwerken hebben na filtering
+              return museum.arts.length > 0;
+          });
+      }
+
+      res.render('likes', { data });
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
+      console.error(error);
+      res.status(500).send('Internal Server Error');
   }
 });
+
+
 
 
 app.get('/musea', async (req, res) => {
   try {
-    // Haal de kunstwerken op uit de database
-    const data = await collectionArt.find().toArray();
+      let data = await collectionArt.find().toArray();
 
-    // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
-    const museumsWithRatings = await collectionArt.aggregate([
-      {
-        $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
-      },
-      {
-        $group: {
-          _id: "$museum",
-          totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
-          ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
-        }
+      const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
+      
+      // Filter de data op basis van de zoekterm
+      if (searchTerm) {
+          data = data.filter(item => {
+              return (
+                  item.museum.toLowerCase().includes(searchTerm)
+              );
+          });
       }
-    ]).toArray();
 
-    console.log("Museums with ratings:", museumsWithRatings);
+      // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
+      const museumsWithRatings = await collectionArt.aggregate([
+          {
+              $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
+          },
+          {
+              $group: {
+                  _id: "$museum",
+                  totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
+                  ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
+              }
+          }
+      ]).toArray();
 
-    // Voeg de gemiddelde beoordeling toe aan de museumgegevens
-    data.forEach(item => {
-      const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
-      if (museumRating && museumRating.ratingsCount > 0) {
-        item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
-      } else {
-        item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
-      }
-    });
+      console.log("Museums with ratings:", museumsWithRatings);
 
-    console.log("Data with average ratings:", data);
+      // Voeg de gemiddelde beoordeling toe aan de museumgegevens
+      data.forEach(item => {
+          const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
+          if (museumRating && museumRating.ratingsCount > 0) {
+              item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
+          } else {
+              item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
+          }
+      });
 
-    // Render de musea.ejs-sjabloon met de geaggregeerde gegevens
-    res.render('musea', { data });
+      console.log("Data with average ratings:", data);
+
+      // Render de musea.ejs-sjabloon met de gefilterde gegevens
+      res.render('musea', { data });
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal Server Error');
+      console.error(error);
+      res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 

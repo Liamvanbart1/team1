@@ -282,6 +282,7 @@ app.post('/login', validateLogin, async (req, res) => {
     try {
       const existingUser = await collection.findOne({ username });
       
+      req.session.username = existingUser._id; 
       
         if (existingUser) {
             const hashedPassword = existingUser.password;

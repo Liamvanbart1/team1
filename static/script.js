@@ -28,4 +28,17 @@ async function rateArtwork(artworkId, rating) {
       await rateArtwork(artworkId, rating);
     });
   });
-  
+
+  function limitCheckboxSelection(max) {
+    var checkboxes = document.querySelectorAll('input[name="images"]');
+    var checkedCount = 0;
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            checkedCount++;
+        }
+    });
+    if (checkedCount > max) {
+        alert("You can only select a maximum of " + max + " images.");
+        event.preventDefault();
+    }
+}

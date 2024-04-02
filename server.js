@@ -57,7 +57,7 @@ const validateRegistration = [
 // Validation middleware for login
 const validateLogin = [
   body('username').notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required')
+  body('password').notEmpty().withMessage('Password is required'),
 ];
 
 const requireLogin = (req, res, next) => {
@@ -91,6 +91,7 @@ app.get('/', async (req, res) => {
 
 
 app.get('/register', async (req, res) => {
+  const name = xss(req.query.name);
 
   try {
       // Haal alle kunstwerken op uit de database
@@ -213,38 +214,38 @@ app.post('/register', validateRegistration, async (req, res) => {
 
 
 app.post('/login', validateLogin, async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const { username, password } = req.body;
-        return res.render('login', { errors: errors.array(), username, password });
-    }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      const { username, password } = req.body;
+      return res.render('login', { errors: errors.array(), username, password });
+  }
 
-    // If there are no validation errors, proceed with login logic
-    const { username, password } = req.body;
-    try {
+  // If there are no validation errors, proceed with login logic
+  const { username, password } = req.body;
+  try {
       const existingUser = await collection.findOne({ username });
-      
-      req.session.username = existingUser._id;
 
-        if (existingUser) {
-            const hashedPassword = existingUser.password;
-            const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
+      if (!existingUser) {
+          return res.render('login', { errors: [{ msg: 'User not found' }], username });
+      }
 
-            if (isPasswordCorrect) {
-                // Store the username in the session
-                req.session.user = username;
-                res.redirect('/account'); // Redirect to a dashboard or home page after successful login
-            } else {
-                res.send('Incorrect password');
-            }
-        } else {
-            res.send('User not found');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
+      const hashedPassword = existingUser.password;
+      const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
+
+      if (isPasswordCorrect) {
+          // Store the username in the session
+          req.session.user = username;
+          req.session.username = existingUser._id;
+          res.redirect('/account'); // Redirect to a dashboard or home page after successful login
+      } else {
+          res.render('login', { errors: [{ msg: 'Incorrect password' }], username });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
 });
+
 
 
 app.get('/home', requireLogin, async (req, res) => {

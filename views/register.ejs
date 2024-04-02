@@ -33,18 +33,6 @@
             value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
         <!-- <input type="file" name="artwork"> -->
 
-        
-        <div class="formsection2">
-            <% if(allIds.length > 0) { %>
-                <% const selectedId = allIds[0]; %>
-                <input type="checkbox" name="images" id="image<%= selectedId %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
-                <% const selectedId2 = allIds[7]; %>
-                <input type="checkbox" name="images" id="image<%= selectedId2 %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId2 %>.jpg"></label>
-            <% } %>
-        </div>
-        
         <% if (typeof errors !=='undefined' && errors.length> 0) { %>
             <div style="color: white;">
                 <% errors.forEach(error=> { %>
@@ -55,8 +43,35 @@
             </div>
             <% } %>
 
-                <input type="submit" value="Create account">
+        <input type="submit" value="Create account">
     </form>
+
+    <form id="checkboxForm">    
+        <div class="formsection2">
+            <% if(allIds.length > 0) { %>
+                <% const selectedId = allIds[0]; %>
+                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId %>" >
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
+                <% const selectedId2 = allIds[7]; %>
+                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId2 %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId2 %>.jpg"></label>
+                <% const selectedId3 = allIds[9]; %>
+                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId3 %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId3 %>.jpg"></label>
+                <% const selectedId4 = allIds[12]; %>
+                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId4 %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId4 %>.jpg"></label>
+                <% const selectedId5 = allIds[16]; %>
+                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId5 %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId5 %>.jpg"></label>
+                <% const selectedId6 = allIds[20]; %>
+                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId6 %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId6 %>.jpg"></label>
+            <% } %>
+        </div>
+        
+    </form>
+    <script src="script.js"></script>
 </body>
 
 </html>

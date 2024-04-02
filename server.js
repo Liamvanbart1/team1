@@ -7,7 +7,7 @@ const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const port = 9000;
+const port = 9001;
 
 // multer
 const multer = require('multer');
@@ -88,51 +88,28 @@ app.get('/', async (req, res) => {
   res.render('index', { users });
 });
 
-function imagesInRegister() {
-  
-}
 
-app.get('/register', async(req, res) => {
-    const name = xss(req.query.name);
-    
-    try {
+
+app.get('/register', async (req, res) => {
+
+  try {
       // Haal alle kunstwerken op uit de database
-      const artworks = await collectionArt.find().toArray();
-  
-      // Maak een object om kunstwerken te groeperen op museum
-      const artworksByMuseum = {};
-      artworks.forEach(artwork => {
-        if (!artworksByMuseum[artwork.museum]) {
-          artworksByMuseum[artwork.museum] = [];
-        }
-        artworksByMuseum[artwork.museum].push(artwork);
-      });
-  
-      // Kies willekeurig een museum
-// Get all museums from artworksByMuseum object
-const museums = Object.keys(artworksByMuseum)
-// Shuffle the museums array randomly
-  for (let i = museums.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [museums[i], museums[j]] = [museums[j], museums[i]];
-  }
+      const museumData = await collectionArt.find().toArray();
+      // console.log(museumData[0].arts)
 
-  // Select the first six museums
-  const selectedMuseums = museums.slice(0, 6);
+      const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
 
-  console.log(selectedMuseums[0])
-    
-      // Kies willekeurig een kunstwerk uit het gekozen museum
-      const randomArtwork = artworksByMuseum[selectedMuseums[0]][Math.floor(Math.random() * artworksByMuseum[selectedMuseums[0]].length)];
-      res.render('register', { artwork: randomArtwork });
-    } catch (error) {
+      console.log(allIds);
+
+
+      res.render('register', {allIds});
+  } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
-    }
-      
+  }
+ 
 
-
-  });
+});
 
 
 

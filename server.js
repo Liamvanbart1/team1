@@ -143,88 +143,90 @@ app.get('/login', async (req, res) => {
 
 app.get('/likes', async (req, res) => {
   try {
-      let data = await collectionArt.find().toArray();
+    let data = await collectionArt.find().toArray();
 
-      const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
-      
-      // Filter de data op basis van de zoekterm
-      if (searchTerm) {
-          data = data.filter(museum => {
-              // Filter de kunstwerken van elk museum
-              museum.arts = museum.arts.filter(artwork => {
-                  return (
-                      artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
-                      artwork.artiest.toLowerCase().includes(searchTerm) ||
-                      artwork.jaartal.toLowerCase().includes(searchTerm) ||
-                      museum.museum.toLowerCase().includes(searchTerm)
-                  );
-              });
+    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
+    
+    // Filter de data op basis van de zoekterm
+    if (searchTerm) {
+      data = data.filter(museum => {
+        // Filter de kunstwerken van elk museum
+        museum.arts = museum.arts.filter(artwork => {
+          return (
+            artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
+            artwork.artiest.toLowerCase().includes(searchTerm) ||
+            artwork.jaartal.toLowerCase().includes(searchTerm) ||
+            museum.museum.toLowerCase().includes(searchTerm)
+          );
+        });
 
-              // Geef alleen musea weer die kunstwerken hebben na filtering
-              return museum.arts.length > 0;
-          });
-      }
+        // Geef alleen musea weer die kunstwerken hebben na filtering
+        return museum.arts.length > 0;
+      });
+    }
 
-      res.render('likes', { data });
+    // Verzamel alle kunstwerken in één array met hun respectievelijke museum
+    let allArtworks = [];
+    data.forEach(museum => {
+      museum.arts.forEach(artwork => {
+        allArtworks.push({ museum: museum.museum, ...artwork });
+      });
+    });
+
+    // Sorteer alle kunstwerken op beoordeling (van hoog naar laag)
+    allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+
+    res.render('likes', { data: allArtworks });
   } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
+    console.error(error);
+    res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 
 
 app.get('/musea', async (req, res) => {
   try {
-      let data = await collectionArt.find().toArray();
+    // Haal de kunstwerken op uit de database
+    const data = await collectionArt.find().toArray();
 
-      const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
-      
-      // Filter de data op basis van de zoekterm
-      if (searchTerm) {
-          data = data.filter(item => {
-              return (
-                  item.museum.toLowerCase().includes(searchTerm)
-              );
-          });
+    // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
+    const museumsWithRatings = await collectionArt.aggregate([
+      {
+        $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
+      },
+      {
+        $group: {
+          _id: "$museum",
+          totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
+          ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
+        }
       }
+    ]).toArray();
 
-      // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
-      const museumsWithRatings = await collectionArt.aggregate([
-          {
-              $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
-          },
-          {
-              $group: {
-                  _id: "$museum",
-                  totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
-                  ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
-              }
-          }
-      ]).toArray();
+    // Voeg de gemiddelde beoordeling toe aan de museumgegevens
+    data.forEach(item => {
+      const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
+      if (museumRating && museumRating.ratingsCount > 0) {
+        item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
+      } else {
+        item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
+      }
+    });
 
-      console.log("Museums with ratings:", museumsWithRatings);
+    // Sorteer de musea op basis van de gemiddelde beoordeling (hoogste eerst)
+    data.sort((a, b) => b.averageRating - a.averageRating);
 
-      // Voeg de gemiddelde beoordeling toe aan de museumgegevens
-      data.forEach(item => {
-          const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
-          if (museumRating && museumRating.ratingsCount > 0) {
-              item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
-          } else {
-              item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
-          }
-      });
-
-      console.log("Data with average ratings:", data);
-
-      // Render de musea.ejs-sjabloon met de gefilterde gegevens
-      res.render('musea', { data });
+    // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
+    res.render('musea', { data });
   } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
+    console.error(error);
+    res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 

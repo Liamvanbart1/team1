@@ -168,8 +168,15 @@ app.get('/likes', async (req, res) => {
 
 app.get('/musea', async (req, res) => {
   try {
-    // Haal de kunstwerken op uit de database
-    const data = await collectionArt.find().toArray();
+    let query = {}; // Standaardquery om alle musea op te halen
+
+    // Als er een zoekterm is opgegeven, filteren we op museumnaam
+    if (req.query.searchTerm) {
+      query = { museum: { $regex: req.query.searchTerm, $options: 'i' } };
+    }
+
+    // Haal de kunstwerken op uit de database met optionele zoekterm
+    const data = await collectionArt.find(query).toArray();
 
     // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
     const museumsWithRatings = await collectionArt.aggregate([
@@ -205,6 +212,7 @@ app.get('/musea', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 

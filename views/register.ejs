@@ -35,20 +35,16 @@
 
         
         <div class="formsection2">
-            <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-
+            <% if(allIds.length > 0) { %>
+                <% const selectedId = allIds[0]; %>
+                <input type="checkbox" name="images" id="image<%= selectedId %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
+                <% const selectedId2 = allIds[7]; %>
+                <input type="checkbox" name="images" id="image<%= selectedId2 %>">
+                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId2 %>.jpg"></label>
+            <% } %>
+        </div>
+        
         <% if (typeof errors !=='undefined' && errors.length> 0) { %>
             <div style="color: white;">
                 <% errors.forEach(error=> { %>

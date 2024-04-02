@@ -282,8 +282,7 @@ app.post('/login', validateLogin, async (req, res) => {
     try {
       const existingUser = await collection.findOne({ username });
       
-      req.session.username = existingUser._id;
-
+      
         if (existingUser) {
             const hashedPassword = existingUser.password;
             const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
@@ -296,7 +295,7 @@ app.post('/login', validateLogin, async (req, res) => {
                 res.send('Incorrect password');
             }
         } else {
-            res.send('User not found');
+          res.send('User not found');
         }
     } catch (error) {
         console.error(error);

@@ -59,7 +59,7 @@ const validateRegistration = [
 // Validation middleware for login
 const validateLogin = [
   body('username').notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required')
+  body('password').notEmpty().withMessage('Password is required'),
 ];
 
 const requireLogin = (req, res, next) => {
@@ -268,12 +268,11 @@ app.post('/login', validateLogin, async (req, res) => {
     const { username, password } = req.body;
     try {
       const existingUser = await collection.findOne({ username });
-      
-      req.session.username = existingUser._id; 
-      
+    
         if (existingUser) {
             const hashedPassword = existingUser.password;
             const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
+            req.session.username = existingUser._id;  
 
             if (isPasswordCorrect) {
                 // Store the username in the session
@@ -290,6 +289,8 @@ app.post('/login', validateLogin, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
 
 app.post('/edit/:userId', async (req, res) => {
   const userId = req.params.userId;

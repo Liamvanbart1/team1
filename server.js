@@ -171,6 +171,24 @@ app.post('/login', validateLogin, async (req, res) => {
     }
 });
 
+app.post('/edit/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  const newData = req.body; // Assuming you're sending the updated data in the request body
+  console.log(newData);
+  try {
+    // Update the data in the MongoDB collection
+    await collection.updateOne({ "_id": new ObjectId(`${userId}`) }, { $set: newData });
+
+    // Redirect to the data page or send a success response
+    res.redirect('/account');
+    // or res.send('Data updated successfully');
+  } catch (error) {
+    // Handle errors
+    console.error('Error updating data:', error);
+    res.status(500).send('Error updating data');
+  }
+});
 
 app.get('/home', async (req, res) => {
   try {

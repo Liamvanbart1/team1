@@ -31,6 +31,13 @@
     <p>Telefoon: <%= users.tel %>
     </p>
 
+    <form action="/edit/<%= users._id %>" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="username" value="<%= users.username %>">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= users.email %>">
+        <button type="submit">Update</button>
+    </form>
     <nav>
         <ul class="navigation">
             <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>

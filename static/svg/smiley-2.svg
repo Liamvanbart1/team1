@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+  <g id="Group_25" data-name="Group 25" transform="translate(-2180 -3478)">
+    <g id="Ellipse_46" data-name="Ellipse 46" transform="translate(2180 3478)" fill="#801a19" stroke="#ad1110" stroke-width="2">
+      <circle cx="27.5" cy="27.5" r="27.5" stroke="none"/>
+      <circle cx="27.5" cy="27.5" r="26.5" fill="none"/>
+    </g>
+    <g id="SVGRepo_iconCarrier" transform="translate(2180 3478)">
+      <path id="Path_25" data-name="Path 25" d="M51.5,24A27.5,27.5,0,1,0,79,51.5,27.5,27.5,0,0,0,51.5,24Zm9.519,19.038a3.173,3.173,0,1,1-3.173,3.173A3.173,3.173,0,0,1,61.019,43.038Zm-19.038,0a3.173,3.173,0,1,1-3.173,3.173A3.173,3.173,0,0,1,41.981,43.038ZM65.514,64.786a2.115,2.115,0,0,1-2.973-.33l-2.579-3.224-2.579,3.224a2.115,2.115,0,0,1-3.3,0L51.5,61.232l-2.579,3.224a2.115,2.115,0,0,1-3.3,0l-2.579-3.224L40.46,64.456a2.115,2.115,0,0,1-3.3-2.643l4.231-5.288a2.115,2.115,0,0,1,3.3,0l2.579,3.224,2.579-3.224a2.115,2.115,0,0,1,3.3,0l2.579,3.224,2.579-3.224a2.115,2.115,0,0,1,3.3,0l4.231,5.288a2.116,2.116,0,0,1-.33,2.973Z" transform="translate(-24 -24)" fill="#ff3631"/>
+    </g>
+    <g id="Ellipse_45" data-name="Ellipse 45" transform="translate(2180 3478)" fill="none" stroke="#ad1110" stroke-width="2">
+      <circle cx="27.5" cy="27.5" r="27.5" stroke="none"/>
+      <circle cx="27.5" cy="27.5" r="26.5" fill="none"/>
+    </g>
+  </g>
+</svg>

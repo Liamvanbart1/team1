@@ -14,6 +14,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { object } = require('webidl-conversions');
 
 const uri = process.env.DB_URI;
 
@@ -87,23 +88,155 @@ app.get('/', async (req, res) => {
   res.render('index', { users });
 });
 
-app.get('/register', (req, res) => {
-  const name = xss(req.query.name);
-  res.render('register', { name });
-});
+function imagesInRegister() {
+  
+}
 
-app.get('/login', (req, res) => {
+app.get('/register', async(req, res) => {
+    const name = xss(req.query.name);
+    
+    try {
+      // Haal alle kunstwerken op uit de database
+      const artworks = await collectionArt.find().toArray();
+  
+      // Maak een object om kunstwerken te groeperen op museum
+      const artworksByMuseum = {};
+      artworks.forEach(artwork => {
+        if (!artworksByMuseum[artwork.museum]) {
+          artworksByMuseum[artwork.museum] = [];
+        }
+        artworksByMuseum[artwork.museum].push(artwork);
+      });
+  
+      // Kies willekeurig een museum
+// Get all museums from artworksByMuseum object
+const museums = Object.keys(artworksByMuseum)
+// Shuffle the museums array randomly
+  for (let i = museums.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [museums[i], museums[j]] = [museums[j], museums[i]];
+  }
+
+  // Select the first six museums
+  const selectedMuseums = museums.slice(0, 6);
+
+  console.log(selectedMuseums[0])
+    
+      // Kies willekeurig een kunstwerk uit het gekozen museum
+      const randomArtwork = artworksByMuseum[selectedMuseums[0]][Math.floor(Math.random() * artworksByMuseum[selectedMuseums[0]].length)];
+      res.render('register', { artwork: randomArtwork });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+      
+
+
+  });
+
+
+
+app.get('/login', async (req, res) => {
   const name = xss(req.query.name);
   res.render('login', { name });
 });
 
-app.get('/likes', requireLogin, (req, res) => {
-  res.render('likes');
+app.get('/likes', async (req, res) => {
+  try {
+    let data = await collectionArt.find().toArray();
+
+    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
+    
+    // Filter de data op basis van de zoekterm
+    if (searchTerm) {
+      data = data.filter(museum => {
+        // Filter de kunstwerken van elk museum
+        museum.arts = museum.arts.filter(artwork => {
+          return (
+            artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
+            artwork.artiest.toLowerCase().includes(searchTerm) ||
+            artwork.jaartal.toLowerCase().includes(searchTerm) ||
+            museum.museum.toLowerCase().includes(searchTerm)
+          );
+        });
+
+        // Geef alleen musea weer die kunstwerken hebben na filtering
+        return museum.arts.length > 0;
+      });
+    }
+
+    // Verzamel alle kunstwerken in één array met hun respectievelijke museum
+    let allArtworks = [];
+    data.forEach(museum => {
+      museum.arts.forEach(artwork => {
+        allArtworks.push({ museum: museum.museum, ...artwork });
+      });
+    });
+
+    // Sorteer alle kunstwerken op beoordeling (van hoog naar laag)
+    allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+
+    res.render('likes', { data: allArtworks });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-app.get('/musea', requireLogin, (req, res) => {
-  res.render('musea');
+
+
+
+
+app.get('/musea', async (req, res) => {
+  try {
+    // Haal de kunstwerken op uit de database
+    const data = await collectionArt.find().toArray();
+
+    // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
+    const museumsWithRatings = await collectionArt.aggregate([
+      {
+        $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
+      },
+      {
+        $group: {
+          _id: "$museum",
+          totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
+          ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
+        }
+      }
+    ]).toArray();
+
+    // Voeg de gemiddelde beoordeling toe aan de museumgegevens
+    data.forEach(item => {
+      const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
+      if (museumRating && museumRating.ratingsCount > 0) {
+        item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
+      } else {
+        item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
+      }
+    });
+
+    // Sorteer de musea op basis van de gemiddelde beoordeling (hoogste eerst)
+    data.sort((a, b) => b.averageRating - a.averageRating);
+
+    // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
+    res.render('musea', { data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
@@ -190,7 +323,7 @@ app.post('/edit/:userId', async (req, res) => {
   }
 });
 
-app.get('/home', async (req, res) => {
+app.get('/home', requireLogin, async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
     const artworks = await collectionArt.find().toArray();
@@ -211,7 +344,6 @@ app.get('/home', async (req, res) => {
 
     // Kies willekeurig een kunstwerk uit het gekozen museum
     const randomArtwork = artworksByMuseum[randomMuseum][Math.floor(Math.random() * artworksByMuseum[randomMuseum].length)];
-
     res.render('home', { artwork: randomArtwork });
   } catch (error) {
     console.error(error);
@@ -227,48 +359,18 @@ app.get('/home', async (req, res) => {
 // FILTEREN
 
 // Buiten de route handler, declareer een array om bij te houden welke kunstwerken al zijn gebruikt
-let usedArtworks = [];
-let clickCount = 0;
-
 app.post('/home', async (req, res) => {
   try {
-    if (clickCount >= 20) {
-      // Als er 20 keer is geklikt, stuur de gebruiker door naar de '/index' pagina
-      res.redirect('/index');
-      return;
-    }
+    const artworkId = req.body.artworkId;
+    const rating = parseInt(req.body.rating);
 
-    // Count the total number of documents in the collection
-    const totalCount = await collectionArt.countDocuments();
+    // Update de beoordeling voor het specifieke kunstwerk in de database
+    await collectionArt.updateOne({ "arts.kunstwerk": artworkId }, { $set: { "arts.$.beoordeling": rating } });
 
-    // If all artworks have been used, reset the array
-    if (usedArtworks.length === totalCount) {
-      usedArtworks = [];
-    }
-
-    // Generate a random index that hasn't been used yet
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * totalCount);
-    } while (usedArtworks.includes(randomIndex));
-
-    // Add the random index to the used artworks array
-    usedArtworks.push(randomIndex);
-
-    // Find a random artwork
-    const randomArtwork = await collectionArt.aggregate([
-      { $skip: randomIndex }, // Skip to the random index
-      { $limit: 1 } // Limit the result to 1 document
-    ]).toArray();
-
-    // Increment the click count
-    clickCount++;
-
-    // Render the view with the random artwork
-    res.render('home', { art: randomArtwork[0] });
+    res.redirect('/home'); // Stuur de gebruiker terug naar de homepage
   } catch (error) {
-    console.error('Er is een fout opgetreden bij het ophalen van het volgende kunstwerk:', error);
-    res.status(500).json({ error: 'Er is een fout opgetreden bij het ophalen van het volgende kunstwerk' });
+    console.error('Er is een fout opgetreden bij het verwerken van de beoordeling:', error);
+    res.status(500).json({ error: 'Er is een fout opgetreden bij het verwerken van de beoordeling' });
   }
 });
 

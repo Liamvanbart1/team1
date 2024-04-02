@@ -29,3 +29,7 @@ async function rateArtwork(artworkId, rating) {
     });
   });
   
+
+
+
+  

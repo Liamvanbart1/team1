@@ -16,7 +16,9 @@
     <div class="musea-box">
         <form action="#">
             <div class="musea-input-box">
-                <input type="text" placeholder="Search..." required>
+                <form action="/likes" method="GET">
+                    <input type="text" name="searchTerm" placeholder="Search...">
+                </form>
                 <div class="musea-selection">
                     <p>Filters</p><span></span>
                 </div>
@@ -32,14 +34,18 @@
     <div class="musea-selected-filters"></div>
 
     <main>
+        <% data.forEach(function(item) { %>
+
         <div class="musea-like-box">
-            <img src="./uploads/download.jpg" alt="Afbeelding 1">
+            <img src="/uploads/<%= item.arts[0]._id %>.jpg" alt="Afbeelding 1">
             <div class="musea-text-content">
-                <p>Rijksmuseum</p>
-                <p>Gotiek, renaissance, vaderlands symboliek</p>
-                <p>42 kilometer</p>
+                <p><%= item.museum %></p>
+                <p>BESCHRIJVING KOMT LATER</p>
+                <p>AFSTAND KOMT LATER</p>
+                <p>Gemiddelde Beoordeling: <%= item.averageRating.toFixed(2) %></p>
             </div>
         </div>
+        <% }); %>
     </main>
 <script src="script.js"></script>
 </body>

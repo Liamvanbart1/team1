@@ -18,15 +18,11 @@
             <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
             <!-- Hier de afbeelding van het kunstwerk, indien beschikbaar -->
             <img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg" alt="<%= artwork.arts[randomArtworkIndex].kunstwerk %>">
-            <!-- Beschrijving toevoegen -->
             <div class="artwork-description">
-                <!-- Het museum -->
-                <p>Museum: <%= artwork.museum %></p>
-                <!-- De details van het willekeurige kunstwerk -->
-                <p>Naam: <%= artwork.arts[randomArtworkIndex].kunstwerk %></p>
-                <p>Artiest: <%= artwork.arts[randomArtworkIndex].artiest %></p>
-                <p>Jaartal: <%= artwork.arts[randomArtworkIndex].jaartal %></p>
-                <br>
+                <p> <%= artwork.arts[randomArtworkIndex].kunstwerk %></p>
+                <p> <%= artwork.arts[randomArtworkIndex].artiest %> - <%= artwork.arts[randomArtworkIndex].jaartal %></p>
+                <p> <%= artwork.museum %></p>
+
             </div>
         </div>
         
@@ -34,10 +30,10 @@
         <form action="/home" method="post" class="rating-form">
             <input type="hidden" name="artworkId" value="<%= artwork.arts[randomArtworkIndex].kunstwerk %>"> <!-- Verborgen veld om het ID van het huidige kunstwerk door te geven -->
             <button type="submit" name="rating" value="-2">
-                <img class="rating-smiley" src="svg/smiley-1.svg" alt="Boos">
+                <img class="rating-smiley" src="svg/smiley-2.svg" alt="Boos">
             </button>
             <button type="submit" name="rating" value="-1">
-                <img class="rating-smiley" src="svg/smiley-2.svg" alt="Verdrietig">
+                <img class="rating-smiley" src="svg/smiley-1.svg" alt="Verdrietig">
             </button>
             <button type="submit" name="rating" value="0">
                 <img class="rating-smiley" src="svg/smiley0.svg" alt="Neutraal">

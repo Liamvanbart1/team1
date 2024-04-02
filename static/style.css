@@ -710,3 +710,11 @@ li.active .nav-ico {
     padding: 0;
     margin: -2em 0em 0em 18em;
 }
+
+.musea-smiley-likepage-image img {
+    position: absolute;
+    right: 1em;
+    margin-top: -2.4em;
+    width: 1.7em;
+    height: 1.7em;
+}

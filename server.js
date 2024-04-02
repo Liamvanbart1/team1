@@ -14,6 +14,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { object } = require('webidl-conversions');
 
 const uri = process.env.DB_URI;
 
@@ -87,38 +88,155 @@ app.get('/', async (req, res) => {
   res.render('index', { users });
 });
 
-app.get('/register', (req, res) => {
-  const name = xss(req.query.name);
-  res.render('register', { name });
-});
+function imagesInRegister() {
+  
+}
 
-app.get('/login', (req, res) => {
+app.get('/register', async(req, res) => {
+    const name = xss(req.query.name);
+    
+    try {
+      // Haal alle kunstwerken op uit de database
+      const artworks = await collectionArt.find().toArray();
+  
+      // Maak een object om kunstwerken te groeperen op museum
+      const artworksByMuseum = {};
+      artworks.forEach(artwork => {
+        if (!artworksByMuseum[artwork.museum]) {
+          artworksByMuseum[artwork.museum] = [];
+        }
+        artworksByMuseum[artwork.museum].push(artwork);
+      });
+  
+      // Kies willekeurig een museum
+// Get all museums from artworksByMuseum object
+const museums = Object.keys(artworksByMuseum)
+// Shuffle the museums array randomly
+  for (let i = museums.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [museums[i], museums[j]] = [museums[j], museums[i]];
+  }
+
+  // Select the first six museums
+  const selectedMuseums = museums.slice(0, 6);
+
+  console.log(selectedMuseums[0])
+    
+      // Kies willekeurig een kunstwerk uit het gekozen museum
+      const randomArtwork = artworksByMuseum[selectedMuseums[0]][Math.floor(Math.random() * artworksByMuseum[selectedMuseums[0]].length)];
+      res.render('register', { artwork: randomArtwork });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+      
+
+
+  });
+
+
+
+app.get('/login', async (req, res) => {
   const name = xss(req.query.name);
   res.render('login', { name });
 });
 
 app.get('/likes', async (req, res) => {
   try {
-    // Haal de kunstwerken op uit de database
-    const data = await collectionArt.find().toArray();
-    res.render('likes', { data });
+    let data = await collectionArt.find().toArray();
+
+    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
+    
+    // Filter de data op basis van de zoekterm
+    if (searchTerm) {
+      data = data.filter(museum => {
+        // Filter de kunstwerken van elk museum
+        museum.arts = museum.arts.filter(artwork => {
+          return (
+            artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
+            artwork.artiest.toLowerCase().includes(searchTerm) ||
+            artwork.jaartal.toLowerCase().includes(searchTerm) ||
+            museum.museum.toLowerCase().includes(searchTerm)
+          );
+        });
+
+        // Geef alleen musea weer die kunstwerken hebben na filtering
+        return museum.arts.length > 0;
+      });
+    }
+
+    // Verzamel alle kunstwerken in één array met hun respectievelijke museum
+    let allArtworks = [];
+    data.forEach(museum => {
+      museum.arts.forEach(artwork => {
+        allArtworks.push({ museum: museum.museum, ...artwork });
+      });
+    });
+
+    // Sorteer alle kunstwerken op beoordeling (van hoog naar laag)
+    allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+
+    res.render('likes', { data: allArtworks });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
 
 
 app.get('/musea', async (req, res) => {
   try {
     // Haal de kunstwerken op uit de database
     const data = await collectionArt.find().toArray();
+
+    // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
+    const museumsWithRatings = await collectionArt.aggregate([
+      {
+        $unwind: "$arts" // Maak individuele documenten voor elk kunstwerk in de "arts" array
+      },
+      {
+        $group: {
+          _id: "$museum",
+          totalRating: { $sum: "$arts.beoordeling" }, // Optellen van alle beoordelingen per museum
+          ratingsCount: { $sum: 1 } // Tellen van het aantal beoordelingen per museum
+        }
+      }
+    ]).toArray();
+
+    // Voeg de gemiddelde beoordeling toe aan de museumgegevens
+    data.forEach(item => {
+      const museumRating = museumsWithRatings.find(museum => museum._id === item.museum);
+      if (museumRating && museumRating.ratingsCount > 0) {
+        item.averageRating = museumRating.totalRating / museumRating.ratingsCount;
+      } else {
+        item.averageRating = 0; // Stel gemiddelde in op 0 als er geen beoordelingen zijn
+      }
+    });
+
+    // Sorteer de musea op basis van de gemiddelde beoordeling (hoogste eerst)
+    data.sort((a, b) => b.averageRating - a.averageRating);
+
+    // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
     res.render('musea', { data });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
@@ -186,6 +304,24 @@ app.post('/login', validateLogin, async (req, res) => {
     }
 });
 
+app.post('/edit/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  console.log(userId);
+  const newData = req.body; // Assuming you're sending the updated data in the request body
+  console.log(newData);
+  try {
+    // Update the data in the MongoDB collection
+    await collection.updateOne({ "_id": new ObjectId(`${userId}`) }, { $set: newData });
+
+    // Redirect to the data page or send a success response
+    res.redirect('/account');
+    // or res.send('Data updated successfully');
+  } catch (error) {
+    // Handle errors
+    console.error('Error updating data:', error);
+    res.status(500).send('Error updating data');
+  }
+});
 
 app.get('/home', requireLogin, async (req, res) => {
   try {
@@ -208,7 +344,6 @@ app.get('/home', requireLogin, async (req, res) => {
 
     // Kies willekeurig een kunstwerk uit het gekozen museum
     const randomArtwork = artworksByMuseum[randomMuseum][Math.floor(Math.random() * artworksByMuseum[randomMuseum].length)];
-
     res.render('home', { artwork: randomArtwork });
   } catch (error) {
     console.error(error);

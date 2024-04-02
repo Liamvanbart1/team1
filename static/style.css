@@ -657,12 +657,12 @@ li.active .nav-ico {
     margin: 1.5em 1em 1.5em 1.8em;
 }
 
-.labelP {
+label {
     padding-left: 0.4em;
     font-weight: 600;
 }
 
-.infoP {
+.accountBody p {
     width: 95%;
     padding: 1em 0em 1em 0.6em;
     margin-top: 0.4em;
@@ -693,20 +693,4 @@ li.active .nav-ico {
     background-color: white;
     border: none;
     border-radius: 0.3em;
-}
-
-.logoutsvg {
-    padding: 0;
-    margin: -2em 0em -0em -1em;
-    float: left;
-}
-
-.hidden {
-    padding: 0;
-    margin: -2em 0em 0em 18em;
-}
-
-.shown {
-    padding: 0;
-    margin: -2em 0em 0em 18em;
 }

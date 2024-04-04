@@ -23,7 +23,6 @@ header img {
 
 main {
 
-    margin: 0.4em 0em 0em 0em;
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 5px;
@@ -50,12 +49,14 @@ main {
 }
 
 .artwork-container img {
-    display: block; /* Zorg ervoor dat de afbeelding een blokelement is */
-    width: 100%; /* Laat de afbeelding de volledige breedte van de container innemen */
+    display: block;
+    /* Zorg ervoor dat de afbeelding een blokelement is */
+    width: 100%;
+    /* Laat de afbeelding de volledige breedte van de container innemen */
     height: 25em;
-    object-fit: cover; /* Behoud de aspect ratio van de afbeelding en bedek de container */
+    object-fit: cover;
+    /* Behoud de aspect ratio van de afbeelding en bedek de container */
     border-radius: 1em 1em 0em 0em;
-    margin-top: 2em;
 }
 
 
@@ -93,18 +94,12 @@ main {
 .rating-form {
     display: flex;
     justify-content: center;
-    /* Center de container horizontaal */
-    position: absolute;
-    top: calc(93vh - 9em);
-    /* Plaats de container vlak boven de navigatie */
+    position: fixed;
+    padding-top: 3.5em;
     left: 50%;
-    /* Plaats de container in het midden van de pagina */
     transform: translateX(-50%);
-    /* Centreren van de container */
     width: 20em;
-    /* Breedte van de container */
     margin-bottom: 0.7em;
-    /* Voeg een kleine marge onder de container toe */
 }
 
 
@@ -356,9 +351,8 @@ button {
 
 .like-box img {
     width: 5em;
-    height: 5em;
-    border-radius: 1em;
-    padding-left: 0.3em;
+    height: 100%;
+    border-radius: 1em 0em 0em 1em;
     margin-right: 10px;
     object-fit: cover;
     /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
@@ -366,30 +360,35 @@ button {
 
 .smiley-likepage-image img {
     position: absolute;
-    right: 1em;
-    margin-top: -2.4em;
+    right: 0.8em;
+    margin-top: -2.9em;
     width: 1.7em;
     height: 1.7em;
 }
 
 .like-box p:first-of-type {
     font-weight: 600;
-    padding: 0;
+    max-width: 13em;
+    position: sticky;
+    margin: -1em 0em 1em 0em;
 }
+
+
 
 .like-box p:last-of-type {
     font-style: italic;
+
 }
 
 .text-content {
-    flex-grow: 1;
+ margin: 0em 0em 0em 0em;
 }
 
 .text-content p {
     margin: 0;
     color: #000;
-    padding-top: 0.5em;
     max-width: 17em;
+    margin-bottom: 0.5em;
 }
 
 

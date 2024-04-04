@@ -16,7 +16,9 @@
     <div class="musea-box">
         <form action="#">
             <div class="musea-input-box">
-                <input type="text" placeholder="Search..." required>
+                <form action="/likes" method="GET">
+                    <input type="text" name="searchTerm" placeholder="Search...">
+                </form>
                 <div class="musea-selection">
                     <p>Filters</p><span></span>
                 </div>
@@ -40,6 +42,7 @@
                 <p><%= item.museum %></p>
                 <p>BESCHRIJVING KOMT LATER</p>
                 <p>AFSTAND KOMT LATER</p>
+                <p>Gemiddelde Beoordeling: <%= item.averageRating.toFixed(2) %></p>
             </div>
         </div>
         <% }); %>

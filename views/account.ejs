@@ -9,28 +9,46 @@
 </head>
 
 
-<body>
+<body class="accountBody">
     <header>
         <img src="./svg/logo-pantheon.svg">
     </header>
     <main>
+        <h2 class="accountH2">Welcome, <%= users.username %> !</h2>
 
+        <div class="form">
+            <label>Username:</label>
+            <p>
+                <%= users.username %>
+            </p>
+            <label>Password:</label>
+            <!-- <p class="labelP">Password:</p> -->
+            <p>******** </p>
+            <label>Email:</label>
+            <p>
+                <%= users.email %>
+            </p>
+            <label>Phonenumber:</label>
+            <p>
+                <%= users.phonenumber %>
+            </p>
+        </div>
+
+        <!-- Logout button -->
+        <div class="form">
+            <form action="/logout" method="GET">
+                <button type="submit" class="logoutbutton">Logout</button>
+            </form>
+        </div>
     </main>
-    <h1>Welcome, <%= users.username %> !</h1>
-    <p>This is your account settings page.</p>
-    <!-- Logout button -->
-    <form action="/logout" method="GET">
-        <button type="submit">Logout</button>
+
+    <form action="/edit/<%= users._id %>" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="username" value="<%= users.username %>">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= users.email %>">
+        <button type="submit">Update</button>
     </form>
-
-    <h1>User Profile</h1>
-    <p>Username: <%= users.username %>
-    </p>
-    <p>Email: <%= users.email %>
-    </p>
-    <p>Telefoon: <%= users.tel %>
-    </p>
-
     <nav>
         <ul class="navigation">
             <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>

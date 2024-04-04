@@ -29,6 +29,7 @@ async function rateArtwork(artworkId, rating) {
     });
   });
   
+
   document.addEventListener("DOMContentLoaded", function() {
     // Controleer of de selectieknop voor de "likes" pagina aanwezig is
     let selection = document.querySelector(".selection");
@@ -109,3 +110,8 @@ async function rateArtwork(artworkId, rating) {
         }
     }
 });
+
+
+
+  
+

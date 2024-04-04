@@ -45,7 +45,6 @@ main {
     text-align: center;
     border: none;
     justify-content: space-between;
-
 }
 
 .artwork-container img {
@@ -100,6 +99,8 @@ main {
     transform: translateX(-50%);
     width: 20em;
     margin-bottom: 0.7em;
+    /* Voeg een kleine marge onder de container toe */
+    margin-top: 1.1em;
 }
 
 
@@ -693,3 +694,25 @@ label {
     border: none;
     border-radius: 0.3em;
 }
+
+body.super-dislike-flash {
+    background-color: #BF0C0A; /* Red */
+}
+
+body.dislike-flash {
+    background-color: #BF5200; /* Orange */
+}
+
+body.neutral-flash {
+    background-color: #BF8C07; /* Yellow */
+}
+
+body.like-flash {
+    background-color: #7F8D0B; /* Light Green */
+}
+
+body.super-like-flash {
+    background-color: #476E1D; /* Green */
+}
+
+

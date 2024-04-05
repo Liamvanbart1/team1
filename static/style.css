@@ -55,7 +55,6 @@ p {
     text-align: center;
     border: none;
     justify-content: space-between;
-
 }
 
 .artwork-container img {
@@ -141,17 +140,17 @@ button {
     background-size: cover;
 }
 
-.loginH1 {
+.loginBody h1 {
     text-align: left;
     margin: 0.5em 1em 0em 1em;
 }
 
-.loginH2 {
+.loginBody h2 {
     text-align: left;
     margin: 2.75em 1em 1.5em 1.8em;
 }
 
-.loginP {
+.loginBody p {
     text-align: left;
     font-size: 0.8em;
     margin: 1em 1em 0em 3.25em;
@@ -181,7 +180,7 @@ button {
     border-radius: 0.5em;
 }
 
-.form input[type="submit"] {
+.form input[type="submit"]{
     width: 100%;
     padding: 1em 0.6em 1em 0.6em;
     margin-top: 0.4em;
@@ -206,19 +205,9 @@ button {
     width: 100%;
     margin-top: 0.4em;
     display: flex;
+    margin-bottom: 2em;
 }
 
-.indexP {
-    text-align: left;
-    font-size: 0.8em;
-    margin: 1em 1em 0em 1em;
-}
-
-.indexP2 {
-    text-align: left;
-    font-size: 0.8em;
-    margin: 2em 1em 0em 1em;
-}
 
 
 
@@ -705,4 +694,48 @@ label {
     background-color: white;
     border: none;
     border-radius: 0.3em;
+}
+
+body.super-dislike-flash {
+    background-color: #BF0C0A; /* Red */
+}
+
+body.dislike-flash {
+    background-color: #BF5200; /* Orange */
+}
+
+body.neutral-flash {
+    background-color: #BF8C07; /* Yellow */
+}
+
+body.like-flash {
+    background-color: #7F8D0B; /* Light Green */
+}
+
+body.super-like-flash {
+    background-color: #476E1D; /* Green */
+}
+
+#logoutForm {
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+#editButton{
+    float: right;
+    margin-top: -4.5em;
+    margin-right: 3em;
+}
+.editFormContainer{
+    margin-top: -35em;
+}
+
+.editButton{
+    width: 100%;
+    padding: 1em 0.6em 1em 0.6em;
+    margin-top: 0.4em;
+    background-color: #333333;
+    color: #fff;
+    border: none;
+    border-radius: 0.8em;
+    cursor: pointer;
 }

@@ -343,7 +343,7 @@ button {
     border-radius: 1em;
     margin: 1em;
     overflow: hidden;
-    height: 7em; /* Verberg eventuele overflow om te voorkomen dat de .like-box de pagina uitrekt */
+    height: 8em; /* Verberg eventuele overflow om te voorkomen dat de .like-box de pagina uitrekt */
 }
 
 .like-box img {
@@ -367,7 +367,7 @@ button {
      display: flex;
      flex-direction: column;   
      justify-content: space-between;
-    padding: 0.5em 0em 0.5em 0em; /* Verwijder de padding om te voorkomen dat de tekstvak de achtergrond van de .like-box overschrijdt */
+    padding: 1em 0em 0.5em 0em; /* Verwijder de padding om te voorkomen dat de tekstvak de achtergrond van de .like-box overschrijdt */
     margin: 0; 
     height: 6em;
     width: 13em;
@@ -379,10 +379,7 @@ button {
 
 }
 
-.text-content p:nth-child(2) {
 
-    
-}
 
 .text-content p:last-of-type {
     font-style: italic;
@@ -418,12 +415,12 @@ button {
 
 
 .musea-box {
-    width: 90%;
     background-color: #fff;
     border-radius: 1em;
     padding: 0.3125em;
     margin-left: 1em;
-    margin-top: 3em;
+    margin-right: 1em;
+    
 }
 
 .musea-box form .musea-input-box {
@@ -516,21 +513,24 @@ button {
     font-size: 1.5em;
 }
 
+
+/* musea-lijst */
 .musea-like-box {
     display: flex;
-    align-items: center;
-    margin-bottom: 1em;
+    align-items: flex-start; /* Plaats de inhoud aan de bovenkant van de .like-box */
+    color: #000;
     background-color: #fff;
     border-radius: 1em;
-    height: 6.3em;
-    margin-top: 1em;
+    margin: 1em;
+    overflow: hidden;
+    height: 8em;
 }
 
 .musea-like-box img {
+  
     width: 5em;
-    height: 5.3em;
-    border-radius: 1em;
-    padding-left: 0.3em;
+    height: 100%; /* Neem de volledige hoogte van de .like-box in */
+    border-radius: 1em 0em 0em 1em;
     margin-right: 10px;
     object-fit: cover;
 }
@@ -545,16 +545,16 @@ button {
 
 }
 
-.musea-text-content {
-    flex-grow: 1;
-}
 
-.musea-text-content p {
-    margin: 0;
-    padding: 0.2em;
-    /* Verklein de padding tussen paragrafen */
-    color: #000;
-    border-radius: 10px;
+
+.musea-text-content  {
+    display: flex;
+    flex-direction: column;   
+    justify-content: space-between;
+   padding: 1em 0em 0.5em 0em; /* Verwijder de padding om te voorkomen dat de tekstvak de achtergrond van de .like-box overschrijdt */
+   margin: 0; 
+   height: 6em;
+   width: 12em;
 }
 
 

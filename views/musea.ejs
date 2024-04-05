@@ -33,7 +33,7 @@
 
     <div class="musea-selected-filters"></div>
 
-    <main>
+    
         <% data.forEach(function(item) { %>
 
         <div class="musea-like-box">
@@ -44,9 +44,13 @@
                 <p>AFSTAND KOMT LATER</p>
                 <p>Gemiddelde Beoordeling: <%= item.averageRating.toFixed(2) %></p>
             </div>
+
         </div>
         <% }); %>
-    </main>
+        
+<div class="empty-space"> 
+
+    
 <script src="script.js"></script>
 </body>
 

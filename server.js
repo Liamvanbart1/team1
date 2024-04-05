@@ -93,10 +93,11 @@ app.get('/', async (req, res) => {
 
 
 app.get('/register', async (req, res) => {
+  const name = xss(req.query.name);
   try {
     const museumData = await collectionArt.find().toArray();
     const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
-    res.render('register', { allIds }); // Pass allIds to the template
+    res.render('register', { name, allIds }); // Pass allIds to the template
   } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
@@ -111,7 +112,7 @@ app.get('/login', async (req, res) => {
   res.render('login', { name });
 });
 
-app.get('/likes', async (req, res) => {
+app.get('/likes', requireLogin, async (req, res) => {
   try {
     let data = await collectionArt.find().toArray();
 // xnknxkfujkbn.j
@@ -157,7 +158,7 @@ app.get('/likes', async (req, res) => {
 
 
 
-app.get('/musea', async (req, res) => {
+app.get('/musea',requireLogin, async (req, res) => {
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 

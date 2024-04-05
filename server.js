@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const xss = require("xss");
+const compression = require('compression');
 
 const session = require('express-session');
 const { body, validationResult } = require('express-validator');
@@ -63,13 +64,6 @@ const validateLogin = [
   body('password').notEmpty().withMessage('Password is required'),
 ];
 
-const validateaccount = [
-  body('username').notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required'),
-  body('email').notEmpty().withMessage('Email is required'),
-  body('phonenumber').notEmpty().withMessage('Phonenumber is required'),
-];
-
 const requireLogin = (req, res, next) => {
     if (!req.session.user) {
         return res.redirect('/');
@@ -95,7 +89,7 @@ app.use(session({
 
 app.get('/', async (req, res) => {
   const users = await collection.find().toArray();
-
+  res.render('index', { users });
 });
 
 
@@ -310,7 +304,7 @@ app.post('/login', validateLogin, async (req, res) => {
 
 });
 
-// akbjbxkmdqwkdq
+
 
 app.post('/edit/:userId', async (req, res) => {
   const userId = req.params.userId;

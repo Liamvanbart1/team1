@@ -737,7 +737,8 @@ body.super-like-flash {
     margin-right: 3em;
 }
 .editFormContainer{
-    margin-top: -35em;
+    display: none;
+    z-index: 0 ;
 }
 
 .editButton{

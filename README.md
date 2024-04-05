@@ -30,14 +30,17 @@ een pagina waar je kan zien welke musea het beste is volgens jouw favorieten kun
 
 <h2>Pacakges</h2>
 De packages die we hebben gebruikt waren:
-1. Node.js
-2. Nodemon
-3. "bcrypt": "^5.1.1",
-4. "dotenv": "^16.4.5",
-5. "ejs": "^3.1.9",
-6. "express": "^4.18.3",
-7. "express-session": "^1.18.0",
-8. "express-validator": "^7.0.1",
-9. "mongodb": "^6.4.0",
-10. "multer": "^1.4.5-lts.1",
-11. "xss": "^1.0.15"
+<ol>
+  <li>Node.js</li>
+  <li>Nodemon</li>
+  <li>"bcrypt": "^5.1.1"</li>
+  <li>"dotenv": "^16.4.5",</li>
+  <li>"ejs": "^3.1.9"</li>
+  <li> "express": "^4.18.3"</li>
+  <li>"express-session": "^1.18.0"</li>
+  <li>"express-validator": "^7.0.1"</li>
+  <li>"mongodb": "^6.4.0"</li>
+  <li>"multer": "^1.4.5-lts.1"</li>
+  <li>"xss": "^1.0.15"</li>
+</ol>
+

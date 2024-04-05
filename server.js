@@ -324,6 +324,7 @@ app.post('/edit/:userId', async (req, res) => {
 app.get('/home', requireLogin, async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
+    await new Promise(resolve => setTimeout(resolve, 360));
     const artworks = await collectionArt.find().toArray();
 
     // Maak een object om kunstwerken te groeperen op museum

@@ -23,11 +23,20 @@ header img {
 
 main {
 
-    margin: 0.4em 0em 0em 0em;
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 5px;
     height: 40em;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    font-size: 0.9em;
+    line-height: 1;
 }
 
 
@@ -46,16 +55,17 @@ main {
     text-align: center;
     border: none;
     justify-content: space-between;
-
 }
 
 .artwork-container img {
-    display: block; /* Zorg ervoor dat de afbeelding een blokelement is */
-    width: 100%; /* Laat de afbeelding de volledige breedte van de container innemen */
+    display: block;
+    /* Zorg ervoor dat de afbeelding een blokelement is */
+    width: 100%;
+    /* Laat de afbeelding de volledige breedte van de container innemen */
     height: 25em;
-    object-fit: cover; /* Behoud de aspect ratio van de afbeelding en bedek de container */
+    object-fit: cover;
+    /* Behoud de aspect ratio van de afbeelding en bedek de container */
     border-radius: 1em 1em 0em 0em;
-    margin-top: 2em;
 }
 
 
@@ -91,22 +101,14 @@ main {
 
 /* smileys homepage*/
 .rating-form {
+    position: fixed; 
+    bottom: 8.5em; 
+    left: 0;
+    width: 100%; 
     display: flex;
     justify-content: center;
-    /* Center de container horizontaal */
-    position: absolute;
-    top: calc(93vh - 9em);
-    /* Plaats de container vlak boven de navigatie */
-    left: 50%;
-    /* Plaats de container in het midden van de pagina */
-    transform: translateX(-50%);
-    /* Centreren van de container */
-    width: 20em;
-    /* Breedte van de container */
-    margin-bottom: 0.7em;
-    /* Voeg een kleine marge onder de container toe */
+    z-index: 9999; 
 }
-
 
 .rating-smiley {
     width: 4em;
@@ -138,17 +140,17 @@ button {
     background-size: cover;
 }
 
-.loginH1 {
+.loginBody h1 {
     text-align: left;
     margin: 0.5em 1em 0em 1em;
 }
 
-.loginH2 {
+.loginBody h2 {
     text-align: left;
     margin: 2.75em 1em 1.5em 1.8em;
 }
 
-.loginP {
+.loginBody p {
     text-align: left;
     font-size: 0.8em;
     margin: 1em 1em 0em 3.25em;
@@ -178,7 +180,7 @@ button {
     border-radius: 0.5em;
 }
 
-.form input[type="submit"] {
+.form input[type="submit"]{
     width: 100%;
     padding: 1em 0.6em 1em 0.6em;
     margin-top: 0.4em;
@@ -203,19 +205,9 @@ button {
     width: 100%;
     margin-top: 0.4em;
     display: flex;
+    margin-bottom: 2em;
 }
 
-.indexP {
-    text-align: left;
-    font-size: 0.8em;
-    margin: 1em 1em 0em 1em;
-}
-
-.indexP2 {
-    text-align: left;
-    font-size: 0.8em;
-    margin: 2em 1em 0em 1em;
-}
 
 
 
@@ -234,19 +226,16 @@ button {
 
 
 /* likes page */
-* {
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-}
+
 
 .box {
-    width: 90%;
+ 
     background-color: #fff;
     border-radius: 1em;
     padding: 0.3125em;
     margin-left: 1em;
-    margin-top: 3em;
+    margin-right: 1em;
+    
 }
 
 .box form .input_box {
@@ -344,55 +333,70 @@ button {
 
 
 /* Schilderijen Likes page */
+
+
 .like-box {
     display: flex;
-    align-items: center;
-    margin-bottom: 1em;
+    align-items: flex-start; /* Plaats de inhoud aan de bovenkant van de .like-box */
+    color: #000;
     background-color: #fff;
     border-radius: 1em;
-    height: 7em;
     margin: 1em;
+    overflow: hidden;
+    height: 7em; /* Verberg eventuele overflow om te voorkomen dat de .like-box de pagina uitrekt */
 }
 
 .like-box img {
+    
     width: 5em;
-    height: 5em;
-    border-radius: 1em;
-    padding-left: 0.3em;
+    height: 100%; /* Neem de volledige hoogte van de .like-box in */
+    border-radius: 1em 0em 0em 1em;
     margin-right: 10px;
-    object-fit: cover;
-    /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
+    object-fit: cover; /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
 }
 
 .smiley-likepage-image img {
     position: absolute;
-    right: 1em;
-    margin-top: -2.4em;
+    right: 0.8em;
+    margin-top: 0.5em;
     width: 1.7em;
     height: 1.7em;
 }
 
-.like-box p:first-of-type {
-    font-weight: 600;
-    padding: 0;
-}
-
-.like-box p:last-of-type {
-    font-style: italic;
-}
-
 .text-content {
-    flex-grow: 1;
+     display: flex;
+     flex-direction: column;   
+     justify-content: space-between;
+    padding: 0.5em 0em 0.5em 0em; /* Verwijder de padding om te voorkomen dat de tekstvak de achtergrond van de .like-box overschrijdt */
+    margin: 0; 
+    height: 6em;
+    width: 13em;
 }
 
-.text-content p {
-    margin: 0;
-    color: #000;
-    padding-top: 0.5em;
-    max-width: 17em;
+
+.text-content p:first-of-type {
+    font-weight: 600;
+
+}
+
+.text-content p:nth-child(2) {
+
+    
+}
+
+.text-content p:last-of-type {
+    font-style: italic;
+
+
 }
 
 
+
+
+
+.empty-space {
+    height: 6em;
+}
 
 
 
@@ -411,11 +415,7 @@ button {
 
 /* Musea page */
 
-* {
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-}
+
 
 .musea-box {
     width: 90%;
@@ -580,6 +580,7 @@ nav {
     height: 3.7em;
     position: fixed;
     bottom: 0;
+ 
 
 }
 
@@ -657,12 +658,12 @@ li.active .nav-ico {
     margin: 1.5em 1em 1.5em 1.8em;
 }
 
-.labelP {
+label {
     padding-left: 0.4em;
     font-weight: 600;
 }
 
-.infoP {
+.accountBody p {
     width: 95%;
     padding: 1em 0em 1em 0.6em;
     margin-top: 0.4em;
@@ -695,21 +696,51 @@ li.active .nav-ico {
     border-radius: 0.3em;
 }
 
-.logoutsvg {
-    padding: 0;
-    margin: -2em 0em -0em -1em;
-    float: left;
+body.super-dislike-flash {
+    background-color: #BF0C0A; /* Red */
 }
 
-.hidden {
-    padding: 0;
-    margin: -2em 0em 0em 18em;
+body.dislike-flash {
+    background-color: #BF5200; /* Orange */
 }
 
-.shown {
-    padding: 0;
-    margin: -2em 0em 0em 18em;
+
+body.neutral-flash {
+    background-color: #BF8C07; /* Yellow */
 }
+
+body.like-flash {
+    background-color: #7F8D0B; /* Light Green */
+}
+
+body.super-like-flash {
+    background-color: #476E1D; /* Green */
+}
+
+#logoutForm {
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+#editButton{
+    float: right;
+    margin-top: -4.5em;
+    margin-right: 3em;
+}
+.editFormContainer{
+    margin-top: -35em;
+}
+
+.editButton{
+    width: 100%;
+    padding: 1em 0.6em 1em 0.6em;
+    margin-top: 0.4em;
+    background-color: #333333;
+    color: #fff;
+    border: none;
+    border-radius: 0.8em;
+    cursor: pointer;
+}
+
 
 .musea-smiley-likepage-image img {
     position: absolute;
@@ -718,3 +749,4 @@ li.active .nav-ico {
     width: 1.7em;
     height: 1.7em;
 }
+

@@ -7,6 +7,7 @@ const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+app.use(compression());
 
 const port = 8000;
 
@@ -62,6 +63,13 @@ const validateLogin = [
   body('password').notEmpty().withMessage('Password is required'),
 ];
 
+const validateaccount = [
+  body('username').notEmpty().withMessage('Username is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+  body('email').notEmpty().withMessage('Email is required'),
+  body('phonenumber').notEmpty().withMessage('Phonenumber is required'),
+];
+
 const requireLogin = (req, res, next) => {
     if (!req.session.user) {
         return res.redirect('/');
@@ -87,13 +95,14 @@ app.use(session({
 
 app.get('/', async (req, res) => {
   const users = await collection.find().toArray();
-  res.render('index', { users });
+
 });
 
 
 
 app.get('/register', async (req, res) => {
   const name = xss(req.query.name);
+
   try {
     const museumData = await collectionArt.find().toArray();
     const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
@@ -102,6 +111,7 @@ app.get('/register', async (req, res) => {
       console.error(error);
       res.status(500).send('Internal Server Error');
   }
+
 });
 
 
@@ -158,7 +168,9 @@ app.get('/likes', requireLogin, async (req, res) => {
 
 
 
-app.get('/musea',requireLogin, async (req, res) => {
+
+app.get('/musea', requireLogin, async (req, res) => {
+
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 
@@ -300,7 +312,7 @@ app.post('/login', validateLogin, async (req, res) => {
 
 });
 
-
+// akbjbxkmdqwkdq
 
 app.post('/edit/:userId', async (req, res) => {
   const userId = req.params.userId;

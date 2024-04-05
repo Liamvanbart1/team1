@@ -36,7 +36,6 @@ main {
 
 p {
     font-size: 0.9em;
-    line-height: 1;
 }
 
 
@@ -358,7 +357,7 @@ button {
 .smiley-likepage-image img {
     position: absolute;
     right: 0.8em;
-    margin-top: 0.5em;
+    margin-top: 1em;
     width: 1.7em;
     height: 1.7em;
 }
@@ -472,6 +471,7 @@ button {
     pointer-events: none;
     margin-top: 0.0625em;
     border-radius: 1em;
+    z-index: 999;
 }
 
 
@@ -534,6 +534,14 @@ button {
     margin-right: 10px;
     object-fit: cover;
 }
+.musea-smiley-likepage-image img {
+    position: absolute;
+    right: 0.8em;
+    margin-top: 1em;
+    width: 1.7em;
+    height: 1.7em;
+}
+
 
 .musea-like-box p:first-of-type {
     font-weight: 600;
@@ -742,11 +750,4 @@ body.super-like-flash {
 }
 
 
-.musea-smiley-likepage-image img {
-    position: absolute;
-    right: 1em;
-    margin-top: -2.4em;
-    width: 1.7em;
-    height: 1.7em;
-}
 

@@ -114,7 +114,7 @@ app.get('/login', async (req, res) => {
 app.get('/likes', async (req, res) => {
   try {
     let data = await collectionArt.find().toArray();
-// xnknxk
+// xnknxkfujkbn.j
     const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
     
     // Filter de data op basis van de zoekterm

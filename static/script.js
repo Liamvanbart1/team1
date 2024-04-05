@@ -111,6 +111,22 @@ async function rateArtwork(artworkId, rating) {
     }
 });
 
+document.getElementById("showSecondPartButton").addEventListener("click", function() {
+
+  document.getElementById("secondPartForm").style.display = "block";
+
+
+});
+
+
+function limitCheckboxSelection(max) {
+  const checkboxes = document.querySelectorAll('input[name="images"]:checked');
+  if (checkboxes.length > max) {
+      alert(`You can only select ${max} images.`);
+      event.preventDefault(); // Prevent further checkbox selection
+  }
+}
+
 
 
   

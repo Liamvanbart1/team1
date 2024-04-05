@@ -44,7 +44,24 @@
                 <p>AFSTAND KOMT LATER</p>
                 <p>Gemiddelde Beoordeling: <%= item.averageRating.toFixed(2) %></p>
             </div>
-
+            <div class="musea-smiley-likepage-image">
+                <% 
+                    var smileyImage = '';
+                    var averageRating = item.averageRating;
+                    if (averageRating >= -2 && averageRating < -1.5) {
+                        smileyImage = '-2';
+                    } else if (averageRating >= -1.5 && averageRating < -0.5) {
+                        smileyImage = '-1';
+                    } else if (averageRating >= -0.5 && averageRating < 0.5) {
+                        smileyImage = '0';
+                    } else if (averageRating >= 0.5 && averageRating < 1.5) {
+                        smileyImage = '1';
+                    } else if (averageRating >= 1.5 && averageRating <= 2) {
+                        smileyImage = '2';
+                    }
+                %>
+                <img src="./svg/smiley<%= smileyImage %>.svg" alt="Smiley Score <%= smileyImage %>">
+            </div> 
         </div>
         <% }); %>
         

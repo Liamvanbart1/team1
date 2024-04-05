@@ -7,7 +7,9 @@ const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
 const port = 8000;
+
 
 // multer
 const multer = require('multer');
@@ -57,7 +59,7 @@ const validateRegistration = [
 // Validation middleware for login
 const validateLogin = [
   body('username').notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required')
+  body('password').notEmpty().withMessage('Password is required'),
 ];
 
 const requireLogin = (req, res, next) => {
@@ -88,51 +90,19 @@ app.get('/', async (req, res) => {
   res.render('index', { users });
 });
 
-function imagesInRegister() {
-  
-}
 
-app.get('/register', async(req, res) => {
-    const name = xss(req.query.name);
-    
-    try {
-      // Haal alle kunstwerken op uit de database
-      const artworks = await collectionArt.find().toArray();
-  
-      // Maak een object om kunstwerken te groeperen op museum
-      const artworksByMuseum = {};
-      artworks.forEach(artwork => {
-        if (!artworksByMuseum[artwork.museum]) {
-          artworksByMuseum[artwork.museum] = [];
-        }
-        artworksByMuseum[artwork.museum].push(artwork);
-      });
-  
-      // Kies willekeurig een museum
-// Get all museums from artworksByMuseum object
-const museums = Object.keys(artworksByMuseum)
-// Shuffle the museums array randomly
-  for (let i = museums.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [museums[i], museums[j]] = [museums[j], museums[i]];
-  }
 
-  // Select the first six museums
-  const selectedMuseums = museums.slice(0, 6);
-
-  console.log(selectedMuseums[0])
-    
-      // Kies willekeurig een kunstwerk uit het gekozen museum
-      const randomArtwork = artworksByMuseum[selectedMuseums[0]][Math.floor(Math.random() * artworksByMuseum[selectedMuseums[0]].length)];
-      res.render('register', { artwork: randomArtwork });
-    } catch (error) {
+app.get('/register', async (req, res) => {
+  try {
+    const museumData = await collectionArt.find().toArray();
+    const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
+    res.render('register', { allIds }); // Pass allIds to the template
+  } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
-    }
-      
+  }
+});
 
-
-  });
 
 
 
@@ -189,8 +159,15 @@ app.get('/likes', async (req, res) => {
 
 app.get('/musea', async (req, res) => {
   try {
-    // Haal de kunstwerken op uit de database
-    const data = await collectionArt.find().toArray();
+    let query = {}; // Standaardquery om alle musea op te halen
+
+    // Als er een zoekterm is opgegeven, filteren we op museumnaam
+    if (req.query.searchTerm) {
+      query = { museum: { $regex: req.query.searchTerm, $options: 'i' } };
+    }
+
+    // Haal de kunstwerken op uit de database met optionele zoekterm
+    const data = await collectionArt.find(query).toArray();
 
     // Bereken de totale beoordelingen per museum en het aantal beoordelingen per museum
     const museumsWithRatings = await collectionArt.aggregate([
@@ -238,6 +215,7 @@ app.get('/musea', async (req, res) => {
 
 
 
+
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
   const objectId = new ObjectId(req.session.username);
@@ -254,55 +232,74 @@ app.get('/logout', requireLogin, (req, res) => {
     });
 });
 
+
 app.post('/register', validateRegistration, async (req, res) => {
+  // Validate form data
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const { username, email, phonenumber } = req.body;
-    return res.render('register', { errors: errors.array(), username, email, phonenumber });
+      // If validation fails, render the registration form with errors
+      return res.render('register', { errors: errors.array() });
   }
 
-  const { username, password, email, phonenumber } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+  // Extract form data
+  const { username, password, email, phonenumber, images } = req.body;
+// 'images' will be an array containing the selected image IDs
 
-  await collection.insertOne({ username, email, phonenumber, password: hashedPassword });
 
-  res.redirect('/login');
+  try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      // Save user data to the database
+      await collection.insertOne({ username, password: hashedPassword, email, phonenumber, images });
+
+      // Redirect to login page after successful registration
+      res.redirect('/login');
+  } catch (error) {
+      console.error('Error registering user:', error);
+      res.status(500).send('Internal Server Error');
+  }
 });
+
+
 
 
 app.post('/login', validateLogin, async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        const { username, password } = req.body;
-        return res.render('login', { errors: errors.array(), username, password });
-    }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      const { username, password } = req.body;
+      return res.render('login', { errors: errors.array(), username, password });
+  }
 
-    // If there are no validation errors, proceed with login logic
-    const { username, password } = req.body;
-    try {
+  // If there are no validation errors, proceed with login logic
+  const { username, password } = req.body;
+  try {
       const existingUser = await collection.findOne({ username });
-      
-      req.session.username = existingUser._id;
 
-        if (existingUser) {
-            const hashedPassword = existingUser.password;
-            const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
 
-            if (isPasswordCorrect) {
-                // Store the username in the session
-                req.session.user = username;
-                res.redirect('/account'); // Redirect to a dashboard or home page after successful login
-            } else {
-                res.send('Incorrect password');
-            }
-        } else {
-            res.send('User not found');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
+      if (!existingUser) {
+          return res.render('login', { errors: [{ msg: 'User not found' }], username });
+      }
+
+      const hashedPassword = existingUser.password;
+      const isPasswordCorrect = await bcrypt.compareSync(password, hashedPassword);
+
+      if (isPasswordCorrect) {
+          // Store the username in the session
+          req.session.user = username;
+          req.session.username = existingUser._id;
+          res.redirect('/account'); // Redirect to a dashboard or home page after successful login
+      } else {
+          res.render('login', { errors: [{ msg: 'Incorrect password' }], username });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+  }
+
 });
+
+
 
 app.post('/edit/:userId', async (req, res) => {
   const userId = req.params.userId;
@@ -323,9 +320,11 @@ app.post('/edit/:userId', async (req, res) => {
   }
 });
 
+
 app.get('/home', requireLogin, async (req, res) => {
   try {
     // Haal alle kunstwerken op uit de database
+    await new Promise(resolve => setTimeout(resolve, 360));
     const artworks = await collectionArt.find().toArray();
 
     // Maak een object om kunstwerken te groeperen op museum

@@ -28,8 +28,8 @@
         
 
         <form action="/home" method="post" class="rating-form">
-            <input type="hidden" id="artworkId" name="artworkId" value=""> <!-- Verborgen veld om het ID van het huidige kunstwerk door te geven -->
-            <button type="submit" data-rating="super-dislike" name="rating" value="-2">
+            <input type="hidden" id="artworkId" name="artworkId" value="<%= artwork.arts[randomArtworkIndex].kunstwerk %>"> <!-- Verborgen veld om het ID van het huidige kunstwerk door te geven -->
+            <button type="submit" data-rating="super-dislike" name="rating" value="-2"> 
                 <img class="rating-smiley" src="svg/smiley-2.svg" alt="Boos">
             </button>
             <button type="submit" data-rating="dislike" name="rating" value="-1">

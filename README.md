@@ -1,7 +1,6 @@
 # team1
 <h1>Repository van team 1</h1>
 
-
 <h2>eerste keer gebruiken</h2>
 
 Dit is een project voor de HvA. De opdracht was om een matching site te maken die mensen met een zelf bedacht onderwerp zou moeten matchen. Wij als groep hebben ervoor gekozen om een site te maken die mensen zouden matchen met een museum waar ze naar toe zouden moeten gaan op basis van de kunst die de gebruiker leuk vind.
@@ -16,7 +15,29 @@ Nu moet je een van de makers contacten zodat alle spullen die niet op github sta
 
 Om de website te starten op je locale server (route /8000), tiep je in de terminal: <i>npm run dev</i>
 
-<h2>De pacakges</h2>
+<h2>Het doel van de website</h2>
+Onze website is gemaakt voor grote kunst liefhebbers. Op deze website kan je naar de mooiste kunst van nederland kijken. Op basis van jouw voorkeuren worden jou musea aangeraden. De functionaliteiten van deze website zijn:
+
+een volledig werkend inlog en registreer systeem:
+
+Een pagina om jouw mening te geven over nederlandse kunst
+
+een pagina waar je jouw meningen terug kan vinden over de kunstwerken.
+
+een pagina waar je kan zien welke musea het beste is volgens jouw favorieten kunstwerken.
+
+
+
+<h2>Pacakges</h2>
 De packages die we hebben gebruikt waren:
 1. Node.js
-2. 
+2. Nodemon
+3. "bcrypt": "^5.1.1",
+4. "dotenv": "^16.4.5",
+5. "ejs": "^3.1.9",
+6. "express": "^4.18.3",
+7. "express-session": "^1.18.0",
+8. "express-validator": "^7.0.1",
+9. "mongodb": "^6.4.0",
+10. "multer": "^1.4.5-lts.1",
+11. "xss": "^1.0.15"

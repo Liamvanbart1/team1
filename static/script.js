@@ -29,7 +29,6 @@ async function rateArtwork(artworkId, rating) {
     });
   });
   
-
   document.addEventListener("DOMContentLoaded", function() {
     // Controleer of de selectieknop voor de "likes" pagina aanwezig is
     let selection = document.querySelector(".selection");
@@ -60,6 +59,10 @@ async function rateArtwork(artworkId, rating) {
                 selectedFiltersContainer.appendChild(selectedFilter);
 
                 categories.classList.toggle("active");
+
+                // Stuur een verzoek naar de server om te sorteren op de geselecteerde optie
+                let sortBy = option.getAttribute("data-sort");
+                window.location.href = "/likes?sortBy=" + sortBy;
             });
         });
 
@@ -69,47 +72,9 @@ async function rateArtwork(artworkId, rating) {
                 event.target.parentElement.remove();
             }
         });
-    } else {
-        // JavaScript voor de "musea" pagina
-        let newSelection = document.querySelector(".musea-selection");
-        if (newSelection) {
-            let newCategories = document.querySelector(".musea-categories");
-            let newOptions = document.querySelectorAll(".musea-categories p");
-            let newSelectedFiltersContainer = document.querySelector(".musea-selected-filters");
-
-            newSelection.addEventListener("click", function() {
-                newCategories.classList.toggle("active");
-            });
-
-            newOptions.forEach(option => {
-                option.addEventListener("click", function() {
-                    // Maak een nieuw element aan voor het gekozen filter
-                    let selectedFilter = document.createElement("div");
-                    selectedFilter.classList.add("musea-selected-filter-item");
-                    selectedFilter.innerHTML = option.innerHTML;
-
-                    // Voeg een kruisje toe aan het gekozen filter
-                    let closeIcon = document.createElement("span");
-                    closeIcon.innerHTML = "&times;";
-                    closeIcon.classList.add("musea-close-icon");
-
-                    // Voeg het gekozen filter en het kruisje toe aan de container
-                    selectedFilter.appendChild(closeIcon);
-                    newSelectedFiltersContainer.appendChild(selectedFilter);
-
-                    newCategories.classList.toggle("active");
-                });
-            });
-
-            // Verwijder het gekozen filter wanneer er op het kruisje wordt geklikt
-            newSelectedFiltersContainer.addEventListener("click", function(event) {
-                if (event.target.classList.contains("musea-close-icon")) {
-                    event.target.parentElement.remove();
-                }
-            });
-        }
     }
 });
+
 
 document.getElementById("showSecondPartButton").addEventListener("click", function() {
 

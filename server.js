@@ -123,15 +123,14 @@ app.get('/login', async (req, res) => {
 });
 
 app.get('/likes', requireLogin, async (req, res) => {
+
   try {
     let data = await collectionArt.find().toArray();
-// xnknxkfujkbn.j
-    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
-    
+
     // Filter de data op basis van de zoekterm
+    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
     if (searchTerm) {
       data = data.filter(museum => {
-        // Filter de kunstwerken van elk museum
         museum.arts = museum.arts.filter(artwork => {
           return (
             artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
@@ -140,8 +139,6 @@ app.get('/likes', requireLogin, async (req, res) => {
             museum.museum.toLowerCase().includes(searchTerm)
           );
         });
-
-        // Geef alleen musea weer die kunstwerken hebben na filtering
         return museum.arts.length > 0;
       });
     }
@@ -154,8 +151,24 @@ app.get('/likes', requireLogin, async (req, res) => {
       });
     });
 
-    // Sorteer alle kunstwerken op beoordeling (van hoog naar laag)
-    allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+    // Sorteer de data op basis van de sorteeroptie
+    const sortBy = req.query.sortBy || 'rating';
+    switch (sortBy) {
+      case 'name':
+        allArtworks.sort((a, b) => (a.kunstwerk > b.kunstwerk) ? 1 : -1);
+        break;
+      case 'artist':
+        allArtworks.sort((a, b) => (a.artiest > b.artiest) ? 1 : -1);
+        break;
+      case 'location':
+        allArtworks.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+        break;
+      case 'year':
+        allArtworks.sort((a, b) => (a.jaartal > b.jaartal) ? 1 : -1);
+        break;
+      default: // Rating
+        allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+    }
 
     res.render('likes', { data: allArtworks });
   } catch (error) {
@@ -169,7 +182,9 @@ app.get('/likes', requireLogin, async (req, res) => {
 
 
 
+
 app.get('/musea', requireLogin, async (req, res) => {
+
 
   try {
     let query = {}; // Standaardquery om alle musea op te halen

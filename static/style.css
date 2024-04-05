@@ -704,6 +704,7 @@ body.dislike-flash {
     background-color: #BF5200; /* Orange */
 }
 
+
 body.neutral-flash {
     background-color: #BF8C07; /* Yellow */
 }
@@ -739,3 +740,13 @@ body.super-like-flash {
     border-radius: 0.8em;
     cursor: pointer;
 }
+
+
+.musea-smiley-likepage-image img {
+    position: absolute;
+    right: 1em;
+    margin-top: -2.4em;
+    width: 1.7em;
+    height: 1.7em;
+}
+

@@ -23,7 +23,7 @@
         Create a Pantheon account to view your favorite art.
     </p>
 
-    <form class="form" method="POST" action="/register">
+    <form id="firstPartForm" class="form" method="POST" action="/register">
         <input type="text" placeholder="Username" required name="username"
             value="<%= typeof username !== 'undefined' ? username : '' %>">
         <input type="password" placeholder="Password" required name="password">
@@ -33,34 +33,38 @@
             value="<%= typeof phonenumber !== 'undefined' ? phonenumber : '' %>">
         <!-- <input type="file" name="artwork"> -->
 
-        
-        <div class="formsection2">
-            <% const randomArtworkIndex = Math.floor(Math.random() * artwork.arts.length); %>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-                <input type="checkbox" name="images" id="image">
-                <label for="image"><img src="/uploads/<%= artwork.arts[randomArtworkIndex]._id %>.jpg"></label>
-
         <% if (typeof errors !=='undefined' && errors.length> 0) { %>
             <div style="color: white;">
                 <% errors.forEach(error=> { %>
                     <p>
                         <%= error.msg %>
                     </p>
-                    <% }) %>
+                <% }) %>
             </div>
-            <% } %>
+        <% } %> 
 
-                <input type="submit" value="Create account">
+        <button id="showSecondPartButton" type="button">Next</button>
+        
+    
+
+    <div id="secondPartForm" style="display: none;">
+        <p>please choose 2 of your favorite art pieces</p>
+
+            <div id="checkboxForm">
+                <% if(allIds.length > 0) { %>
+                    <% allIds.slice(0, 6).forEach(selectedId => { %>
+                        <input type="checkbox" name="images" value="<%= selectedId %>" onclick="limitCheckboxSelection(2)" id="image<%= selectedId %>">
+                        <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
+                    <% }) %>
+                <% } %>
+            </div>
+            <input type="submit" value="Create account">
+                </div>
+            </div>
+        </form>
+    </div>
     </form>
+    <script src="script.js"></script>
 </body>
 
 </html>

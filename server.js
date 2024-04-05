@@ -102,7 +102,7 @@ app.get('/', async (req, res) => {
 
 app.get('/register', async (req, res) => {
   const name = xss(req.query.name);
-  
+
   try {
     const museumData = await collectionArt.find().toArray();
     const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
@@ -168,7 +168,9 @@ app.get('/likes', requireLogin, async (req, res) => {
 
 
 
+
 app.get('/musea', requireLogin, async (req, res) => {
+
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 

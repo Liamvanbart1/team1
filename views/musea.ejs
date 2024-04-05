@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,9 +20,10 @@
                     <p>Filters</p><span></span>
                 </div>
                 <div class="musea-categories">
-                    <p class="musea-option">Distance</p>
-                    <p class="musea-option">Style</p>
+                    <p class="musea-option">Rating</p>
+                    <p class="musea-option">Name</p>
                     <p class="musea-option">Location</p>
+                    <p class="musea-option">Distance</p>
                 </div>
             </div>
         </form>
@@ -40,8 +38,8 @@
             <img src="/uploads/<%= item.arts[0]._id %>.jpg" alt="Afbeelding 1">
             <div class="musea-text-content">
                 <p><%= item.museum %></p>
-                <p>BESCHRIJVING KOMT LATER</p>
-                <p>AFSTAND KOMT LATER</p>
+                <p><%= item.beschrijving %></p>
+                <p><%= item.afstand_km %> km</p>
                 <p>Gemiddelde Beoordeling: <%= item.averageRating.toFixed(2) %></p>
             </div>
             <div class="musea-smiley-likepage-image">

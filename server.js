@@ -285,7 +285,7 @@ app.post('/login', validateLogin, async (req, res) => {
 
 
       if (!existingUser) {
-          return res.render('login', { errors: [{ msg: 'User not found' }], username });
+          return res.render('login', { errors: [{ msg: 'User not found' }] });
       }
 
       const hashedPassword = existingUser.password;
@@ -295,7 +295,7 @@ app.post('/login', validateLogin, async (req, res) => {
           // Store the username in the session
           req.session.user = username;
           req.session.username = existingUser._id;
-          res.redirect('/account'); // Redirect to a dashboard or home page after successful login
+          res.redirect('/home'); // Redirect to a dashboard or home page after successful login
       } else {
           res.render('login', { errors: [{ msg: 'Incorrect password' }], username });
       }

@@ -93,26 +93,16 @@ app.get('/', async (req, res) => {
 
 
 app.get('/register', async (req, res) => {
-  const name = xss(req.query.name);
-
   try {
-      // Haal alle kunstwerken op uit de database
-      const museumData = await collectionArt.find().toArray();
-      // console.log(museumData[0].arts)
-
-      const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
-
-      console.log(allIds);
-
-
-      res.render('register', {allIds});
+    const museumData = await collectionArt.find().toArray();
+    const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
+    res.render('register', { allIds }); // Pass allIds to the template
   } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
   }
- 
-
 });
+
 
 
 
@@ -242,20 +232,36 @@ app.get('/logout', requireLogin, (req, res) => {
     });
 });
 
+
 app.post('/register', validateRegistration, async (req, res) => {
+  // Validate form data
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const { username, email, phonenumber } = req.body;
-    return res.render('register', { errors: errors.array(), username, email, phonenumber });
+      // If validation fails, render the registration form with errors
+      return res.render('register', { errors: errors.array() });
   }
 
-  const { username, password, email, phonenumber } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, saltRounds);
+  // Extract form data
+  const { username, password, email, phonenumber, images } = req.body;
+// 'images' will be an array containing the selected image IDs
 
-  await collection.insertOne({ username, email, phonenumber, password: hashedPassword });
 
-  res.redirect('/login');
+  try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      // Save user data to the database
+      await collection.insertOne({ username, password: hashedPassword, email, phonenumber, images });
+
+      // Redirect to login page after successful registration
+      res.redirect('/login');
+  } catch (error) {
+      console.error('Error registering user:', error);
+      res.status(500).send('Internal Server Error');
+  }
 });
+
+
 
 
 app.post('/login', validateLogin, async (req, res) => {

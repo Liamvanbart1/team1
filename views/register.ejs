@@ -23,7 +23,7 @@
         Create a Pantheon account to view your favorite art.
     </p>
 
-    <form class="form" method="POST" action="/register">
+    <form id="firstPartForm" class="form" method="POST" action="/register">
         <input type="text" placeholder="Username" required name="username"
             value="<%= typeof username !== 'undefined' ? username : '' %>">
         <input type="password" placeholder="Password" required name="password">
@@ -39,37 +39,30 @@
                     <p>
                         <%= error.msg %>
                     </p>
-                    <% }) %>
+                <% }) %>
             </div>
-            <% } %>
+        <% } %> 
 
-        <input type="submit" value="Create account">
-    </form>
-
-    <form id="checkboxForm">    
-        <div class="formsection2">
-            <% if(allIds.length > 0) { %>
-                <% const selectedId = allIds[0]; %>
-                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId %>" >
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
-                <% const selectedId2 = allIds[7]; %>
-                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId2 %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId2 %>.jpg"></label>
-                <% const selectedId3 = allIds[9]; %>
-                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId3 %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId3 %>.jpg"></label>
-                <% const selectedId4 = allIds[12]; %>
-                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId4 %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId4 %>.jpg"></label>
-                <% const selectedId5 = allIds[16]; %>
-                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId5 %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId5 %>.jpg"></label>
-                <% const selectedId6 = allIds[20]; %>
-                <input type="checkbox" name="images" onclick="limitCheckboxSelection(2)" id="image<%= selectedId6 %>">
-                <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId6 %>.jpg"></label>
-            <% } %>
-        </div>
+        <button id="showSecondPartButton" type="button">Next</button>
         
+    
+
+    <div id="secondPartForm" style="display: none;">
+        <p>please choose 2 of your favorite art pieces</p>
+
+            <div id="checkboxForm">
+                <% if(allIds.length > 0) { %>
+                    <% allIds.slice(0, 6).forEach(selectedId => { %>
+                        <input type="checkbox" name="images" value="<%= selectedId %>" onclick="limitCheckboxSelection(2)" id="image<%= selectedId %>">
+                        <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
+                    <% }) %>
+                <% } %>
+            </div>
+            <input type="submit" value="Create account">
+                </div>
+            </div>
+        </form>
+    </div>
     </form>
     <script src="script.js"></script>
 </body>

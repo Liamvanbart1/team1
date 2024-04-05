@@ -26,6 +26,12 @@ een pagina waar je jouw meningen terug kan vinden over de kunstwerken.
 
 een pagina waar je kan zien welke musea het beste is volgens jouw favorieten kunstwerken.
 
+Met deze website kan je de leukste nieuwe kunst ontdekken maar hij is nog niet helemaal af. We hadden nog een aantal andere functionaliteiten toe willen voegen zoals:
+<ul>
+  <li>We hadden graag altijd een live locatie willen krijgen van de gebruiker zodat we ook op afstand hadden kunnen sorteren</li>
+  <li>Graag hadden we ook de musea's echt op basis van de beoordeelde kunstwerken aan willen raden</li>
+</ul>
+
 
 
 <h2>Pacakges</h2>

@@ -255,8 +255,10 @@ app.get('/musea', requireLogin, async (req, res) => {
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
   const objectId = new ObjectId(req.session.username);
+  console.log(objectId);
   const users = await collection.findOne({ "_id": objectId });
-  res.render('account', { users });
+  console.log(users);
+  res.render('account', {name, users });
 });
 
 app.get('/logout', requireLogin, (req, res) => {
@@ -337,24 +339,47 @@ app.post('/login', validateLogin, async (req, res) => {
 
 
 
-app.post('/edit/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  console.log(userId);
-  const newData = req.body; // Assuming you're sending the updated data in the request body
-  console.log(newData);
-  try {
-    // Update the data in the MongoDB collection
-    await collection.updateOne({ "_id": new ObjectId(`${userId}`) }, { $set: newData });
 
-    // Redirect to the data page or send a success response
-    res.redirect('/account');
-    // or res.send('Data updated successfully');
-  } catch (error) {
-    // Handle errors
-    console.error('Error updating data:', error);
-    res.status(500).send('Error updating data');
-  }
+
+app.post('/account', async (req, res) => {
+    const objectId = new ObjectId(req.session.username);
+    const gebruiker = await collection.findOne({ "_id": objectId });
+    console.log('Session Username:', req.session);
+    console.log('Object ID:', objectId);
+    console.log('User Data:', gebruiker);
+
+
+
+    try {
+        // Retrieve the user's current password hash from the database
+      // const users = await collection.findOne({ "_id": objectId });
+      const currentPasswordHash = gebruiker.password;
+
+        // Compare the inputted old password with the stored hash
+        const isPasswordMatch = await bcrypt.compare(req.body.oldPassword, currentPasswordHash);
+
+        if (!isPasswordMatch) {
+          return res.status(400).send('Incorrect old password');
+          return res.render('account', { users: gebruiker, errors: [{ msg: 'Incorrect old password' }] });
+        }
+
+        // Hash the new password
+        const newPasswordHash = await bcrypt.hash(req.body.newPassword, saltRounds);
+
+        // Update the user's password in the database with the new hashed password
+        await collection.updateOne({ "_id": new ObjectId(objectId) }, { $set: { password: newPasswordHash } });
+
+        // Redirect to the account page or send a success response
+        res.redirect('/account');
+        // or res.send('Password updated successfully');
+    } catch (error) {
+        // Handle errors
+        console.error('Error updating password:', error);
+        res.status(500).send('Error updating password');
+    }
 });
+
+
 
 
 app.get('/home', requireLogin, async (req, res) => {

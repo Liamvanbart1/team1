@@ -178,8 +178,6 @@ app.get('/likes', requireLogin, async (req, res) => {
 
 
 app.get('/musea', requireLogin, async (req, res) => {
-
-
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 
@@ -215,8 +213,21 @@ app.get('/musea', requireLogin, async (req, res) => {
       }
     });
 
-    // Sorteer de musea op basis van de gemiddelde beoordeling (hoogste eerst)
-    data.sort((a, b) => b.averageRating - a.averageRating);
+    // Sorteer de musea op basis van de sorteeroptie
+    const sortBy = req.query.sortBy || 'rating';
+    switch (sortBy) {
+      case 'name':
+        data.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+        break;
+      case 'location':
+        data.sort((a, b) => (a.location > b.location) ? 1 : -1);
+        break;
+      case 'distance':
+        data.sort((a, b) => (a.distance - b.distance));
+        break;
+      default: // Rating
+        data.sort((a, b) => b.averageRating - a.averageRating);
+    }
 
     // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
     res.render('musea', { data });
@@ -225,6 +236,9 @@ app.get('/musea', requireLogin, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
 
 
 

@@ -38,16 +38,22 @@
         <button id="changePasswordBtn">Change account details</button>
 
         <div class="editFormContainer">
-            <form id="editForm" action="/edit/<%= users._id %>" method="POST">
+            <form id="editForm" action="/account" method="POST">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="username" value="<%= users.username %>">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" value="<%= users.email %>">
                 <label for="name">Phonenumber:</label>
                 <input type="tel" id="name" name="phonenumber" value="<%= users.phonenumber %>">
+                <label for="oldPassword">Old password:</label>
+                <input type="password" name="oldPassword" placeholder="Old Password" required>
+                <label for="newPassword">New password:</label>
+                <input type="password" name="newPassword" placeholder="New Password" required>
                 <button type="submit" class="editButton">Update</button>
             </form>
         </div>
+
+
 
         <!-- Logout button -->
         <div class="form" id="logoutForm">
@@ -56,10 +62,6 @@
             </form>
         </div>
     </main>
-
-    <!-- Form for updating account details (initially hidden) -->
-    
-
 
     <nav>
         <ul class="navigation">

@@ -64,13 +64,6 @@ const validateLogin = [
   body('password').notEmpty().withMessage('Password is required'),
 ];
 
-const validateaccount = [
-  body('username').notEmpty().withMessage('Username is required'),
-  body('password').notEmpty().withMessage('Password is required'),
-  body('email').notEmpty().withMessage('Email is required'),
-  body('phonenumber').notEmpty().withMessage('Phonenumber is required'),
-];
-
 const requireLogin = (req, res, next) => {
     if (!req.session.user) {
         return res.redirect('/');
@@ -124,15 +117,14 @@ app.get('/login', async (req, res) => {
 });
 
 app.get('/likes', requireLogin, async (req, res) => {
+
   try {
     let data = await collectionArt.find().toArray();
-// xnknxkfujkbn.j
-    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
-    
+
     // Filter de data op basis van de zoekterm
+    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
     if (searchTerm) {
       data = data.filter(museum => {
-        // Filter de kunstwerken van elk museum
         museum.arts = museum.arts.filter(artwork => {
           return (
             artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
@@ -141,8 +133,6 @@ app.get('/likes', requireLogin, async (req, res) => {
             museum.museum.toLowerCase().includes(searchTerm)
           );
         });
-
-        // Geef alleen musea weer die kunstwerken hebben na filtering
         return museum.arts.length > 0;
       });
     }
@@ -155,8 +145,24 @@ app.get('/likes', requireLogin, async (req, res) => {
       });
     });
 
-    // Sorteer alle kunstwerken op beoordeling (van hoog naar laag)
-    allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+    // Sorteer de data op basis van de sorteeroptie
+    const sortBy = req.query.sortBy || 'rating';
+    switch (sortBy) {
+      case 'name':
+        allArtworks.sort((a, b) => (a.kunstwerk > b.kunstwerk) ? 1 : -1);
+        break;
+      case 'artist':
+        allArtworks.sort((a, b) => (a.artiest > b.artiest) ? 1 : -1);
+        break;
+      case 'location':
+        allArtworks.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+        break;
+      case 'year':
+        allArtworks.sort((a, b) => (a.jaartal > b.jaartal) ? 1 : -1);
+        break;
+      default: // Rating
+        allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+    }
 
     res.render('likes', { data: allArtworks });
   } catch (error) {
@@ -170,8 +176,8 @@ app.get('/likes', requireLogin, async (req, res) => {
 
 
 
-app.get('/musea', requireLogin, async (req, res) => {
 
+app.get('/musea', requireLogin, async (req, res) => {
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 
@@ -207,8 +213,21 @@ app.get('/musea', requireLogin, async (req, res) => {
       }
     });
 
-    // Sorteer de musea op basis van de gemiddelde beoordeling (hoogste eerst)
-    data.sort((a, b) => b.averageRating - a.averageRating);
+    // Sorteer de musea op basis van de sorteeroptie
+    const sortBy = req.query.sortBy || 'rating';
+    switch (sortBy) {
+      case 'name':
+        data.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+        break;
+      case 'location':
+        data.sort((a, b) => (a.location > b.location) ? 1 : -1);
+        break;
+      case 'distance':
+        data.sort((a, b) => (a.distance - b.distance));
+        break;
+      default: // Rating
+        data.sort((a, b) => b.averageRating - a.averageRating);
+    }
 
     // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
     res.render('musea', { data });
@@ -217,6 +236,9 @@ app.get('/musea', requireLogin, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
 
 
 
@@ -294,7 +316,7 @@ app.post('/login', validateLogin, async (req, res) => {
 
 
       if (!existingUser) {
-          return res.render('login', { errors: [{ msg: 'User not found' }], username });
+          return res.render('login', { errors: [{ msg: 'User not found' }] });
       }
 
       const hashedPassword = existingUser.password;
@@ -304,7 +326,7 @@ app.post('/login', validateLogin, async (req, res) => {
           // Store the username in the session
           req.session.user = username;
           req.session.username = existingUser._id;
-          res.redirect('/account'); // Redirect to a dashboard or home page after successful login
+          res.redirect('/home'); // Redirect to a dashboard or home page after successful login
       } else {
           res.render('login', { errors: [{ msg: 'Incorrect password' }], username });
       }

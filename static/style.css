@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+html {
+    scroll-behavior: smooth;
+
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -39,6 +44,235 @@ main {
 p {
     font-size: 0.9em;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Index Page */
+
+.indexButton  {
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #ffffff;
+    border: none;
+    background-color: #333333;
+
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+    margin-bottom: 2em;
+    font-size: 0.9;
+
+
+}
+
+.existing-acc-btn {
+    background-color: rgba(225, 255, 255, 0.2);
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+    margin-bottom: 2em;
+    font-size: 0.9;
+
+}
+
+
+#showSecondPartButton {
+    color: #fff;
+    background-color: #333333;
+    font-size: 0.9em;
+}
+
+
+#secondPartForm .indexButton {
+    color: #fff;
+
+
+
+}
+
+
+
+
+
+
+
+
+/*  */
+
+#login-loginpage {
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #333333;
+    border: none;
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+    margin-bottom: 2em;
+}
+
+/* smileys homepage*/
+.rating-form {
+    position: fixed;
+    bottom: 8.5em;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+}
+
+
+
+
+
+/* register page */
+
+.viewport {
+   height: 100vh;
+}
+
+
+
+#secondPartForm {
+    padding: 0em 2em 0em 2em;
+}
+
+#checkboxForm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Hiermee wordt de grid opgedeeld in twee kolommen van gelijke breedte */
+    gap: 10px; /* Ruimte tussen de afbeeldingen */
+}
+
+.imageCheckbox {
+    position: relative;
+    display: inline-block; /* Maak de container groot genoeg om de checkbox en de afbeelding te bevatten */
+}
+
+.imageCheckbox input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0; /* Maak de checkbox onzichtbaar */
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Verander de cursor naar pointer wanneer er over de afbeelding wordt gehoverd */
+    z-index: 2; /* Zorg ervoor dat de checkbox bovenop de afbeelding ligt */
+}
+
+.imageCheckbox img {
+    width: 100%; /* Zorg ervoor dat de afbeeldingen de volledige breedte van hun container innemen */
+    height: auto; /* Behoud de aspect ratio van de afbeeldingen */
+    transition: background-color 0.3s; /* Voeg een overgangseffect toe om de verandering in achtergrondkleur vloeiend te maken */
+    z-index: 1; /* Zorg ervoor dat de afbeelding achter de checkbox ligt */
+}
+
+.imageCheckbox input[type="checkbox"]:checked + img {
+    filter: grayscale(100%) opacity(0.5); /* Maak de afbeelding lichtgrijs en verminder de opaciteit wanneer de checkbox is aangevinkt */
+}
+/* Login/Register pages */
+.loginBody {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: #561C24;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%23561C24' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23631d27' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%23711d2a' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%237f1d2c' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%238d1c2e' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%239B1B30' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.loginBody h1 {
+    text-align: left;
+    margin: 0.5em 1em 0.5em 1.5em;
+}
+
+.loginBody h2 {
+    text-align: left;
+    margin: 1em 1em 1em 0.5em;
+
+}
+
+.secondPartForm h2 {
+padding-top: 15em;
+}
+
+.loginBody p {
+    text-align: left;
+    font-size: 0.8em;
+    margin: 1em 1em 0em 3.25em;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form {
+    padding: 5em 1.5em 1.5em 1.5em;
+    border-radius: 0.5em;
+    margin: 0.5em 1em 0em 1em;
+}
+
+.form input[type="text"],
+.form input[type="password"],
+.form input[type="tel"],
+.form input[type="email"] {
+    width: 95%;
+    padding: 1.25em 0.6em 1.25em 0.6em;
+    margin-bottom: 1.25em;
+    border: 0.05em solid #fff;
+    border-radius: 0.5em;
+}
+
+.form input[type="submit"] {
+    width: 100%;
+    padding: 1em 0.6em 1em 0.6em;
+    margin-top: 0.4em;
+    background-color: #333333;
+    color: #fff;
+    border: none;
+    border-radius: 0.8em;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -102,13 +336,13 @@ p {
 
 /* smileys homepage*/
 .rating-form {
-    position: fixed;
-    bottom: 8.5em;
+    position: fixed; 
+    bottom: 8.5em; 
     left: 0;
-    width: 100%;
+    width: 100%; 
     display: flex;
     justify-content: center;
-    z-index: 9999;
+    z-index: 9999; 
 }
 
 .rating-smiley {
@@ -129,85 +363,7 @@ button {
     display: inline-block;
 }
 
-/* Login/Register pages */
-.loginBody {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: white;
-    background-color: #561C24;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cg %3E%3Ccircle fill='%23561C24' cx='400' cy='400' r='600'/%3E%3Ccircle fill='%23631d27' cx='400' cy='400' r='500'/%3E%3Ccircle fill='%23711d2a' cx='400' cy='400' r='400'/%3E%3Ccircle fill='%237f1d2c' cx='400' cy='400' r='300'/%3E%3Ccircle fill='%238d1c2e' cx='400' cy='400' r='200'/%3E%3Ccircle fill='%239B1B30' cx='400' cy='400' r='100'/%3E%3C/g%3E%3C/svg%3E");
-    background-attachment: fixed;
-    background-size: cover;
-}
 
-.loginBody h1 {
-    text-align: left;
-    margin: 0.5em 1em 0em 1em;
-}
-
-.loginBody h2 {
-    text-align: left;
-    margin: 2.75em 1em 1.5em 1.8em;
-}
-
-.loginBody p {
-    text-align: left;
-    font-size: 0.8em;
-    margin: 1em 1em 0em 3.25em;
-}
-
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.form {
-    padding: 0em 1.5em 1.5em 1.5em;
-    border-radius: 0.5em;
-    margin: 0.5em 1em 0em 1em;
-}
-
-.form input[type="text"],
-.form input[type="password"],
-.form input[type="tel"],
-.form input[type="email"] {
-    width: 95%;
-    padding: 1.25em 0.6em 1.25em 0.6em;
-    margin-bottom: 1.25em;
-    border: 0.05em solid #fff;
-    border-radius: 0.5em;
-}
-
-.form input[type="submit"] {
-    width: 100%;
-    padding: 1em 0.6em 1em 0.6em;
-    margin-top: 0.4em;
-    background-color: #333333;
-    color: #fff;
-    border: none;
-    border-radius: 0.8em;
-    cursor: pointer;
-}
-
-/* Index Page */
-
-.indexButton {
-    padding: 1em 0em 1em 0em;
-    text-decoration: none;
-    color: #fff;
-    background-color: #333333;
-    border: none;
-    border-radius: 0.8em;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 0.4em;
-    display: flex;
-    margin-bottom: 2em;
-}
 
 
 

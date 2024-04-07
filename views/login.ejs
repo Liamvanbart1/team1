@@ -14,9 +14,9 @@
         <img src="./svg/logopantheon.svg">
     </header>
 
-    <h2>
+    <h1>
         Welcome to Pantheon!
-    </h2>
+    </h1>
     <p>
         Please login to your Pantheon account.
     </p>
@@ -36,7 +36,11 @@
             </div>
             <% } %>
 
-                <input type="submit">
+                <input type="submit" value="login">
+                <a href="/register"> <!-- De URL "/register" moet overeenkomen met de route die is ingesteld voor de registerpagina -->
+                    <button class="indexButton" id="showSecondPartButton" type="button">Create Account</button>
+                </a>
+                
     </form>
 </body>
 

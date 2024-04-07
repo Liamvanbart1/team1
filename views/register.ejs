@@ -10,13 +10,14 @@
 </head>
 
 <body class="loginBody">
+    <div class="viewport">
     <header>
         <img src="./svg/logopantheon.svg">
     </header>
 
-    <h2>
+    <h1>
         Welcome to Pantheon!
-    </h2>
+    </h1>
 
 
     <p>
@@ -43,26 +44,38 @@
             </div>
         <% } %> 
 
-        <button id="showSecondPartButton" type="button">Next</button>
+        <a href="#secondPartForm"> 
+        <button class="indexButton" id="showSecondPartButton" type="button"> 
+           Next Step
+        </button>
+    </a>
+
+        <form>
+            <a class="indexButton" href="/login">login with exisiting account</a>
+        </form>
+    </div>
+
         
-    
 
-    <div id="secondPartForm" style="display: none;">
-        <p>please choose 2 of your favorite art pieces</p>
 
+        <div id="secondPartForm" style="display: none;">
+            <h2>please choose 2 of your favorite art pieces</h2>
+        
             <div id="checkboxForm">
                 <% if(allIds.length > 0) { %>
                     <% allIds.slice(0, 6).forEach(selectedId => { %>
-                        <input type="checkbox" name="images" value="<%= selectedId %>" onclick="limitCheckboxSelection(2)" id="image<%= selectedId %>">
-                        <label for="image<%= selectedId %>"><img src="/uploads/<%= selectedId %>.jpg"></label>
+                        <label class="imageCheckbox">
+                            <input type="checkbox" name="images" value="<%= selectedId %>" onclick="limitCheckboxSelection(2)" id="image<%= selectedId %>">
+                            <img src="/uploads/<%= selectedId %>.jpg">
+                        </label>
                     <% }) %>
                 <% } %>
             </div>
-            <input type="submit" value="Create account">
-                </div>
-            </div>
-        </form>
-    </div>
+            <form class="form">
+                <a href="/" class="indexButton">create account</a>
+            </form>
+        </div>
+        
     </form>
     <script src="script.js"></script>
 </body>

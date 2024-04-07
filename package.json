@@ -10,7 +10,7 @@
 
   "scripts": {
 
-    "dev": "nodemon server.js"
+    "dev": "npx eslint server.js && nodemon server.js"
 
   },
 
@@ -32,6 +32,8 @@
 
     "bcrypt": "^5.1.1",
 
+    "compression": "^1.7.4",
+
     "dotenv": "^16.4.5",
 
     "ejs": "^3.1.9",
@@ -49,6 +51,8 @@
     "node": "^21.7.0",
 
     "nodemon": "^3.1.0",
+
+    "uglify-js": "^3.17.4",
 
     "xss": "^1.0.15"
 

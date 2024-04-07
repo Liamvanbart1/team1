@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+html {
+    scroll-behavior: smooth;
+
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -7,6 +12,8 @@ body {
     background-color: #7C1626;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='505' height='420.8' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/svg%3E");
     z-index: -1;
+    transition: background-color 0.36s ease;
+    opacity: 1;
     /* Zet de z-index van de achtergrond naar beneden */
 }
 
@@ -23,114 +30,170 @@ header img {
 
 main {
 
-    margin: 0.4em 0em 0em 0em;
     padding-left: 1em;
     padding-right: 1em;
     border-radius: 5px;
+    height: 40em;
 }
 
-
-
-
-
-
-
-
-
-
-
-/* Home page */
-.artwork-container {
-    position: relative;
-    text-align: center;
-    margin-bottom: 20px;
-    border: none;
-
-}
-
-.artwork-container img {
-    border-radius: 1em;
-    height: 25em;
-    width: 21.75em;
-}
-
-
-.artwork-description {
-    position: absolute;
-    bottom: 0;
-    color: white;
-    left: 1em;
-    bottom: 1em;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: left;
-}
-
-.artwork-description h3 {
-    margin-bottom: 5px;
-}
-
-.artwork-description p:nth-child(3) {
-    font-style: italic;
-}
-
-.artwork-description p {
+* {
+    padding: 0;
     margin: 0;
 }
 
+p {
+    font-size: 0.9em;
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/* Index Page */
+
+.indexButton  {
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #ffffff;
+    border: none;
+    background-color: #333333;
+
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+    margin-bottom: 2em;
+    font-size: 0.9;
+
+
+}
+
+.existing-acc-btn {
+    background-color: rgba(225, 255, 255, 0.2);
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+    margin-bottom: 2em;
+    font-size: 0.9;
+
+}
+
+
+#showSecondPartButton {
+    color: #fff;
+    background-color: #333333;
+    font-size: 0.9em;
+}
+
+
+#secondPartForm .indexButton {
+    color: #fff;
+
+
+
+}
+
+
+
+
+
+
+
+
+/*  */
+
+#login-loginpage {
+    padding: 1em 0em 1em 0em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #333333;
+    border: none;
+    border-radius: 0.8em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.4em;
+    display: flex;
+    margin-bottom: 2em;
+}
 
 /* smileys homepage*/
-.rating-smileys {
+.rating-form {
+    position: fixed;
+    bottom: 8.5em;
+    left: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
-    /* Center de container horizontaal */
+    z-index: 9999;
+}
+
+
+
+
+
+/* register page */
+
+.viewport {
+   height: 100vh;
+}
+
+
+
+#secondPartForm {
+    padding: 0em 2em 0em 2em;
+}
+
+#checkboxForm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Hiermee wordt de grid opgedeeld in twee kolommen van gelijke breedte */
+    gap: 10px; /* Ruimte tussen de afbeeldingen */
+}
+
+.imageCheckbox {
+    position: relative;
+    display: inline-block; /* Maak de container groot genoeg om de checkbox en de afbeelding te bevatten */
+}
+
+.imageCheckbox input[type="checkbox"] {
     position: absolute;
-    top: calc(90vh - 9em);
-    /* Plaats de container vlak boven de navigatie */
-    left: 50%;
-    /* Plaats de container in het midden van de pagina */
-    transform: translateX(-50%);
-    /* Centreren van de container */
-    width: 20em;
-    /* Breedte van de container */
-    margin-bottom: 10px;
-    /* Voeg een kleine marge onder de container toe */
+    top: 0;
+    left: 0;
+    opacity: 0; /* Maak de checkbox onzichtbaar */
+    width: 100%;
+    height: 100%;
+    cursor: pointer; /* Verander de cursor naar pointer wanneer er over de afbeelding wordt gehoverd */
+    z-index: 2; /* Zorg ervoor dat de checkbox bovenop de afbeelding ligt */
 }
 
-.rating-smileys form {
-    display: flex;
-    /* Laat de knoppen naast elkaar staan */
+.imageCheckbox img {
+    width: 100%; /* Zorg ervoor dat de afbeeldingen de volledige breedte van hun container innemen */
+    height: auto; /* Behoud de aspect ratio van de afbeeldingen */
+    transition: background-color 0.3s; /* Voeg een overgangseffect toe om de verandering in achtergrondkleur vloeiend te maken */
+    z-index: 1; /* Zorg ervoor dat de afbeelding achter de checkbox ligt */
 }
 
-.rating-smiley {
-    width: 4em;
-    height: auto;
-    cursor: pointer;
-    padding: 0.3em;
+.imageCheckbox input[type="checkbox"]:checked + img {
+    filter: grayscale(100%) opacity(0.5); /* Maak de afbeelding lichtgrijs en verminder de opaciteit wanneer de checkbox is aangevinkt */
 }
-
-button {
-    appearance: none;
-    -webkit-appearance: none;
-    /* Voor oudere versies van webkit browsers */
-    -moz-appearance: none;
-    /* Voor oudere versies van Firefox */
-    border: none;
-    /* Verwijder de standaard knoprand */
-    background: none;
-    /* Verwijder de standaard achtergrond */
-    padding: 0;
-    /* Verwijder standaard opvulling */
-    margin: 0;
-    /* Verwijder standaard marges */
-    display: inline-block;
-    /* Laat knoppen naast elkaar staan */
-}
-
 /* Login/Register pages */
 .loginBody {
     font-family: 'Arial', sans-serif;
@@ -143,17 +206,22 @@ button {
     background-size: cover;
 }
 
-.loginH1 {
+.loginBody h1 {
     text-align: left;
-    margin: 0.5em 1em 0em 1em;
+    margin: 0.5em 1em 0.5em 1.5em;
 }
 
-.loginH2 {
+.loginBody h2 {
     text-align: left;
-    margin: 2.75em 1em 1.5em 1.8em;
+    margin: 1em 1em 1em 0.5em;
+
 }
 
-.loginP {
+.secondPartForm h2 {
+padding-top: 15em;
+}
+
+.loginBody p {
     text-align: left;
     font-size: 0.8em;
     margin: 1em 1em 0em 3.25em;
@@ -167,7 +235,7 @@ button {
 }
 
 .form {
-    padding: 0em 1.5em 1.5em 1.5em;
+    padding: 5em 1.5em 1.5em 1.5em;
     border-radius: 0.5em;
     margin: 0.5em 1em 0em 1em;
 }
@@ -192,35 +260,111 @@ button {
     border: none;
     border-radius: 0.8em;
     cursor: pointer;
+    font-size: 0.9em;
 }
 
-/* Index Page */
 
-.indexButton{
-    padding: 1em 0em 1em 0em;
-    text-decoration: none;
-    color: #fff;
-    background-color: #333333;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Home page */
+.artwork-container {
+    position: relative;
+    text-align: center;
     border: none;
-    border-radius: 0.8em;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+}
+
+.artwork-container img {
+    display: block;
+    /* Zorg ervoor dat de afbeelding een blokelement is */
     width: 100%;
-    margin-top: 0.4em;
+    /* Laat de afbeelding de volledige breedte van de container innemen */
+    height: 25em;
+    object-fit: cover;
+    /* Behoud de aspect ratio van de afbeelding en bedek de container */
+    border-radius: 1em 1em 0em 0em;
+}
+
+
+
+.artwork-description {
     display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    padding: 1.3em 1em;
+    text-align: left;
+    background-color: #F9F7EF;
+    color: #000000;
+    border-radius: 0em 0em 1em 1em;
+    height: fit-content;
+
 }
 
-.indexP {
-    text-align: left;
-    font-size: 0.8em;
-    margin: 1em 1em 0em 1em;
+.artwork-description p:first-child {
+    font-weight: bold;
 }
 
-.indexP2{
-    text-align: left;
-    font-size: 0.8em;
-    margin: 2em 1em 0em 1em;
+
+.artwork-description p:nth-child(3) {
+    font-style: italic;
+
 }
+
+
+
+
+
+
+
+/* smileys homepage*/
+.rating-form {
+    position: fixed; 
+    bottom: 8.5em; 
+    left: 0;
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    z-index: 9999; 
+}
+
+.rating-smiley {
+    width: 4em;
+    height: auto;
+    cursor: pointer;
+    padding: 0.8em;
+}
+
+button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+
+
+
 
 
 
@@ -239,19 +383,16 @@ button {
 
 
 /* likes page */
-* {
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-}
+
 
 .box {
-    width: 90%;
+
     background-color: #fff;
     border-radius: 1em;
     padding: 0.3125em;
     margin-left: 1em;
-    margin-top: 3em;
+    margin-right: 1em;
+
 }
 
 .box form .input_box {
@@ -349,59 +490,72 @@ button {
 
 
 /* Schilderijen Likes page */
+
+
 .like-box {
     display: flex;
-    align-items: center;
-    margin-bottom: 1em;
+    align-items: flex-start;
+    /* Plaats de inhoud aan de bovenkant van de .like-box */
+    color: #000;
     background-color: #fff;
     border-radius: 1em;
-    height: 6em;
     margin: 1em;
+    overflow: hidden;
+    height: 8em;
+    /* Verberg eventuele overflow om te voorkomen dat de .like-box de pagina uitrekt */
 }
 
 .like-box img {
+
     width: 5em;
-    height: 5em;
-    border-radius: 1em;
-    padding-left: 0.3em;
+    height: 100%;
+    /* Neem de volledige hoogte van de .like-box in */
+    border-radius: 1em 0em 0em 1em;
     margin-right: 10px;
     object-fit: cover;
     /* Behoudt de aspect ratio en vult de afbeelding in de beschikbare ruimte */
 }
 
-.like-box .extra-image {
-    position: absolute; /* Absoluut positioneren binnen de .like-box */
-    right: 1.4em; /* Plaats de afbeelding aan de rechterkant */
-    margin-bottom: 3.8em;
-    width: 1.5em; /* Breedte van de afbeelding */
-    height: 1.5em; /* Hoogte van de afbeelding */
-    background-image: url('./svg/smiley5.svg'); /* Voeg hier de URL van je afbeelding toe */
-    background-size: cover; /* Schaal de achtergrondafbeelding om de hele ruimte te bedekken */
-}
-
-.like-box p:first-of-type {
-    font-weight: 600;
-}
-
-.like-box p:last-of-type {
-    font-style: italic;
+.smiley-likepage-image img {
+    position: absolute;
+    right: 0.8em;
+    margin-top: 1em;
+    width: 1.7em;
+    height: 1.7em;
 }
 
 .text-content {
-    flex-grow: 1;
-}
-
-.text-content p {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1em 0em 0.5em 0em;
+    /* Verwijder de padding om te voorkomen dat de tekstvak de achtergrond van de .like-box overschrijdt */
     margin: 0;
-    padding: 5px;
-    color: #000;
-    border: 1px solid white;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.2);
+    height: 6em;
+    width: 13em;
+}
+
+
+.text-content p:first-of-type {
+    font-weight: 600;
+
 }
 
 
 
+.text-content p:last-of-type {
+    font-style: italic;
+
+
+}
+
+
+
+
+
+.empty-space {
+    height: 6em;
+}
 
 
 
@@ -420,19 +574,15 @@ button {
 
 /* Musea page */
 
-* {
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-}
+
 
 .musea-box {
-    width: 90%;
     background-color: #fff;
     border-radius: 1em;
     padding: 0.3125em;
     margin-left: 1em;
-    margin-top: 3em;
+    margin-right: 1em;
+
 }
 
 .musea-box form .musea-input-box {
@@ -484,6 +634,7 @@ button {
     pointer-events: none;
     margin-top: 0.0625em;
     border-radius: 1em;
+    z-index: 999;
 }
 
 
@@ -525,24 +676,38 @@ button {
     font-size: 1.5em;
 }
 
+
+/* musea-lijst */
 .musea-like-box {
     display: flex;
-    align-items: center;
-    margin-bottom: 1em;
+    align-items: flex-start;
+    /* Plaats de inhoud aan de bovenkant van de .like-box */
+    color: #000;
     background-color: #fff;
     border-radius: 1em;
-    height: 6.3em;
-    margin-top:1em ;
+    margin: 1em;
+    overflow: hidden;
+    height: 8em;
 }
 
 .musea-like-box img {
+
     width: 5em;
-    height: 5.3em;
-    border-radius: 1em;
-    padding-left: 0.3em;
+    height: 100%;
+    /* Neem de volledige hoogte van de .like-box in */
+    border-radius: 1em 0em 0em 1em;
     margin-right: 10px;
     object-fit: cover;
 }
+
+.musea-smiley-likepage-image img {
+    position: absolute;
+    right: 0.8em;
+    margin-top: 1em;
+    width: 1.7em;
+    height: 1.7em;
+}
+
 
 .musea-like-box p:first-of-type {
     font-weight: 600;
@@ -551,18 +716,20 @@ button {
 
 .musea-like-box p:last-of-type {
     font-style: italic;
-    
+
 }
+
+
 
 .musea-text-content {
-    flex-grow: 1;
-}
-
-.musea-text-content p {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1em 0em 0.5em 0em;
+    /* Verwijder de padding om te voorkomen dat de tekstvak de achtergrond van de .like-box overschrijdt */
     margin: 0;
-    padding: 0.2em; /* Verklein de padding tussen paragrafen */
-    color: #000;
-    border-radius: 10px;
+    height: 6em;
+    width: 12em;
 }
 
 
@@ -588,6 +755,7 @@ nav {
     height: 3.7em;
     position: fixed;
     bottom: 0;
+
 
 }
 
@@ -650,3 +818,139 @@ li.active .nav-ico {
     border: #000 2px;
 }
 
+
+/*Account page */
+.accountBody {
+    background-color: #9B1B30;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3CradialGradient id='a' gradientUnits='objectBoundingBox'%3E%3Cstop offset='0' stop-color='%23561C24'/%3E%3Cstop offset='1' stop-color='%239B1B30'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='750' x2='1550' y2='750'%3E%3Cstop offset='0' stop-color='%23791c2a'/%3E%3Cstop offset='1' stop-color='%239B1B30'/%3E%3C/linearGradient%3E%3Cpath id='s' fill='url(%23b)' d='M1549.2 51.6c-5.4 99.1-20.2 197.6-44.2 293.6c-24.1 96-57.4 189.4-99.3 278.6c-41.9 89.2-92.4 174.1-150.3 253.3c-58 79.2-123.4 152.6-195.1 219c-71.7 66.4-149.6 125.8-232.2 177.2c-82.7 51.4-170.1 94.7-260.7 129.1c-90.6 34.4-184.4 60-279.5 76.3C192.6 1495 96.1 1502 0 1500c96.1-2.1 191.8-13.3 285.4-33.6c93.6-20.2 185-49.5 272.5-87.2c87.6-37.7 171.3-83.8 249.6-137.3c78.4-53.5 151.5-114.5 217.9-181.7c66.5-67.2 126.4-140.7 178.6-218.9c52.3-78.3 96.9-161.4 133-247.9c36.1-86.5 63.8-176.2 82.6-267.6c18.8-91.4 28.6-184.4 29.6-277.4c0.3-27.6 23.2-48.7 50.8-48.4s49.5 21.8 49.2 49.5c0 0.7 0 1.3-0.1 2L1549.2 51.6z'/%3E%3Cg id='g'%3E%3Cuse href='%23s' transform='scale(0.12) rotate(60)'/%3E%3Cuse href='%23s' transform='scale(0.2) rotate(10)'/%3E%3Cuse href='%23s' transform='scale(0.25) rotate(40)'/%3E%3Cuse href='%23s' transform='scale(0.3) rotate(-20)'/%3E%3Cuse href='%23s' transform='scale(0.4) rotate(-30)'/%3E%3Cuse href='%23s' transform='scale(0.5) rotate(20)'/%3E%3Cuse href='%23s' transform='scale(0.6) rotate(60)'/%3E%3Cuse href='%23s' transform='scale(0.7) rotate(10)'/%3E%3Cuse href='%23s' transform='scale(0.835) rotate(-40)'/%3E%3Cuse href='%23s' transform='scale(0.9) rotate(40)'/%3E%3Cuse href='%23s' transform='scale(1.05) rotate(25)'/%3E%3Cuse href='%23s' transform='scale(1.2) rotate(8)'/%3E%3Cuse href='%23s' transform='scale(1.333) rotate(-60)'/%3E%3Cuse href='%23s' transform='scale(1.45) rotate(-30)'/%3E%3Cuse href='%23s' transform='scale(1.6) rotate(10)'/%3E%3C/g%3E%3C/defs%3E%3Cg transform='rotate(0 0 0)'%3E%3Cg transform='rotate(0 0 0)'%3E%3Ccircle fill='url(%23a)' r='3000'/%3E%3Cg opacity='0.5'%3E%3Ccircle fill='url(%23a)' r='2000'/%3E%3Ccircle fill='url(%23a)' r='1800'/%3E%3Ccircle fill='url(%23a)' r='1700'/%3E%3Ccircle fill='url(%23a)' r='1651'/%3E%3Ccircle fill='url(%23a)' r='1450'/%3E%3Ccircle fill='url(%23a)' r='1250'/%3E%3Ccircle fill='url(%23a)' r='1175'/%3E%3Ccircle fill='url(%23a)' r='900'/%3E%3Ccircle fill='url(%23a)' r='750'/%3E%3Ccircle fill='url(%23a)' r='500'/%3E%3Ccircle fill='url(%23a)' r='380'/%3E%3Ccircle fill='url(%23a)' r='250'/%3E%3C/g%3E%3Cg transform='rotate(0 0 0)'%3E%3Cuse href='%23g' transform='rotate(10)'/%3E%3Cuse href='%23g' transform='rotate(120)'/%3E%3Cuse href='%23g' transform='rotate(240)'/%3E%3C/g%3E%3Ccircle fill-opacity='0.1' fill='url(%23a)' r='3000'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+.accountH2 {
+    text-align: left;
+    margin: 1.5em 1em 1.5em 1.8em;
+}
+
+label {
+    padding-left: 0.4em;
+    font-weight: 600;
+}
+
+.accountBody p {
+    width: 95%;
+    padding: 1em 0em 1em 0.6em;
+    margin-top: 0.4em;
+    color: white;
+    background-color: none;
+    border: solid 0.2em;
+    border-radius: 0.3em;
+    border-color: white;
+    margin-bottom: 1em;
+
+}
+
+.logout {
+    width: 100%;
+    padding: 1em 0em 1em 0.6em;
+    margin-top: 0.4em;
+    background-color: white;
+    border: none;
+    border-radius: 0.3em;
+}
+
+.logoutbutton {
+    color: red;
+    font-weight: bold;
+    width: 100%;
+    padding: 1em 0em 1em 0.6em;
+    margin-top: 0.7em;
+    background-color: white;
+    border: none;
+    border-radius: 0.3em;
+}
+
+body.super-dislike-flash {
+    background-color: #BF0C0A;
+}
+
+body.dislike-flash {
+    background-color: #BF5200;
+}
+
+
+body.neutral-flash {
+    background-color: #BF8C07;
+}
+
+body.like-flash {
+    background-color: #7F8D0B;
+}
+
+body.super-like-flash {
+    background-color: #476E1D;
+}
+
+#logoutForm {
+    margin-top: 20px;
+}
+
+#editButton {
+    float: right;
+    margin-top: -4.5em;
+    margin-right: 3em;
+}
+
+.editFormContainer {
+    display: none;
+    z-index: 0;
+}
+
+.editButton {
+    width: 100%;
+    padding: 1em 0.6em 1em 0.6em;
+    margin-top: 0.4em;
+    background-color: #333333;
+    color: #fff;
+    border: none;
+    border-radius: 0.8em;
+    cursor: pointer;
+}
+
+
+
+.rating-flash {
+    opacity: 0;
+    z-index: -100;
+}
+
+.rating-flash.active {
+    opacity: 1;
+    z-index: -100;
+}
+
+#changePasswordBtn {
+    color: white;
+    font-weight: bold;
+    width: 277px;
+    padding: 1em 0em 1em 0em;
+    margin: 0.5em 0em 1em 3em;
+    background-color: #333;
+    border: none;
+    border-radius: 0.3em;
+}
+
+.editFormContainer {
+    padding: 0em 1.5em 1.5em 1.5em;
+    border-radius: 0.5em;
+    margin: 0.5em 1em 0em 1em;
+}
+
+.editFormContainer input {
+    width: 95%;
+    padding: 1.25em 0.6em 1.25em 0.6em;
+    margin-bottom: 1.25em;
+    border: 0.05em solid #fff;
+    border-radius: 0.5em;
+}

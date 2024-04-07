@@ -1,79 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunstbeoordeling</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
-        <img src="./svg/logo-pantheon.svg">
+        <img src="./svg/logopantheon.svg">
     </header>
     <div class="box">
         <form action="#">
             <div class="input_box">
-                <input type="text" placeholder="Search..." required>
+                <form action="/likes" method="GET">
+                    <input type="text" name="searchTerm" placeholder="Search...">
+                </form>
+                
+
                 <div class="selection">
-                    <p>Filters</p><span></span>
+                    <p>Sort By</p><span></span>
                 </div>
                 <div class="categories">
-                    <p class="option">Year</p>
-                    <p class="option">Artist</p>
-                    <p class="option">Location</p>
+                    <p class="option" data-sort="rating">Rating</p>
+                    <p class="option" data-sort="name">Name</p>
+                    <p class="option" data-sort="artist">Artist</p>
+                    <p class="option" data-sort="museum">Museum</p>
+                    <p class="option" data-sort="year">Year</p>
                 </div>
             </div>
         </form>
     </div>
-    
+
     <div class="selected-filters"></div>
-    
 
-    <div class="like-box">
-        <img src="./uploads/De Nachtwacht.jpg" alt="Afbeelding 1">
-        <div class="text-content">
-            <p>Nachtwacht</p>
-            <p>Rembrandt van Rijn - 1642</p>
-            <p>Rijksmuseum - Amsterdam</p>
-        </div>
-        <div class="extra-image" >
-         
-        </div> <!-- Voeg deze extra afbeelding toe -->
-    </div>
 
-    <div class="like-box">
-        <img src="./uploads/De Nachtwacht.jpg" alt="Afbeelding 1">
-        <div class="text-content">
-            <p>Nachtwacht</p>
-            <p>Rembrandt van Rijn - 1642</p>
-            <p>Rijksmuseum - Amsterdam</p>
-        </div>
-        <div class="extra-image"></div> <!-- Voeg deze extra afbeelding toe -->
-    </div>
 
-    <div class="like-box">
-        <img src="./uploads/De Nachtwacht.jpg" alt="Afbeelding 1">
-        <div class="text-content">
-            <p>Nachtwacht</p>
-            <p>Rembrandt van Rijn - 1642</p>
-            <p>Rijksmuseum - Amsterdam</p>
+
+    <% data.forEach(function(artwork) { %>
+        <div class="like-box">
+            <img src="/uploads/<%= artwork._id %>.jpg" alt="<%= artwork.kunstwerk %>">
+            <div class="text-content">
+                <p><%= artwork.kunstwerk %></p>
+                <p><%= artwork.museum %> - <%= artwork.locatie %></p>
+                <p><%= artwork.artiest %> <%= artwork.jaartal %></p>
+            </div>
+            <div class="smiley-likepage-image">
+                <img src="./svg/smiley<%= artwork.beoordeling %>.svg" alt="Smiley Score <%= artwork.beoordeling %>">
+            </div> 
         </div>
-        <div class="extra-image"></div> <!-- Voeg deze extra afbeelding toe -->
-    </div>
-    
-<script src="script.js"></script>
+    <% }); %>
+
+<div class="empty-space"> 
+
+
+
+                    <script src="script.js"></script>
 </body>
 
-    <nav>
-        <ul class="navigation">
-            <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>
-            <li class="active"><a href="/likes"><img src="./svg/likes-active.svg" /><span></span></a></li>
-            <li><a href="/musea"><img src="./svg/pantheon-nav.svg" /><span></span></a></li>
-            <li><a href="/account"><img src="./svg/account-nav.svg" /><span></span></a></li>
-        </ul>
-    </nav>
+<nav>
+    <ul class="navigation">
+        <li><a href="/home"><img src="./svg/painting-nonactive.svg" /><span></span></a></li>
+        <li class="active"><a href="/likes"><img src="./svg/likes-active.svg" /><span></span></a></li>
+        <li><a href="/musea"><img src="./svg/pantheon-nav.svg" /><span></span></a></li>
+        <li><a href="/account"><img src="./svg/account-nav.svg" /><span></span></a></li>
+    </ul>
+</nav>
 
 </html>

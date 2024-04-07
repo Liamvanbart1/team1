@@ -27,7 +27,7 @@
                     <p class="option" data-sort="rating">Rating</p>
                     <p class="option" data-sort="name">Name</p>
                     <p class="option" data-sort="artist">Artist</p>
-                    <p class="option" data-sort="location">Location</p>
+                    <p class="option" data-sort="location">Museum</p>
                     <p class="option" data-sort="year">Year</p>
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <img src="/uploads/<%= artwork._id %>.jpg" alt="<%= artwork.kunstwerk %>">
             <div class="text-content">
                 <p><%= artwork.kunstwerk %></p>
-                <p><%= artwork.museum %></p>
+                <p><%= artwork.museum %> - <%= artwork.locatie %></p>
                 <p><%= artwork.artiest %> <%= artwork.jaartal %></p>
             </div>
             <div class="smiley-likepage-image">

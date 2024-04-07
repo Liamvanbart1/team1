@@ -51,8 +51,6 @@ async function rateArtwork(artworkId, rating) {
                 window.location.href = "/likes?sortBy=" + sortBy;
             });
         });
-
-
     }
 });
 

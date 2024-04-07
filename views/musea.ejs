@@ -38,7 +38,7 @@
         <div class="musea-like-box">
             <img src="/uploads/<%= item._id %>.jpg" alt="Afbeelding 1">
             <div class="musea-text-content">
-                <p><%= item.museum %></p>
+                <p><%= item.museum %>, <%= item.locatie %></p>
                 <p><%= item.beschrijving %></p>
                 <p><%= item.afstand_km %> km</p>
                 <p>Gemiddelde Beoordeling: <%= item.averageRating.toFixed(2) %></p>

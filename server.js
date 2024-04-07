@@ -117,7 +117,6 @@ app.get('/login', async (req, res) => {
 });
 
 app.get('/likes', requireLogin, async (req, res) => {
-
   try {
     let data = await collectionArt.find().toArray();
 
@@ -137,11 +136,11 @@ app.get('/likes', requireLogin, async (req, res) => {
       });
     }
 
-    // Verzamel alle kunstwerken in één array met hun respectievelijke museum
+    // Verzamel alle kunstwerken in één array met hun respectievelijke museum en locatie
     let allArtworks = [];
     data.forEach(museum => {
       museum.arts.forEach(artwork => {
-        allArtworks.push({ museum: museum.museum, ...artwork });
+        allArtworks.push({ museum: museum.museum, locatie: museum.locatie, ...artwork });
       });
     });
 
@@ -155,7 +154,7 @@ app.get('/likes', requireLogin, async (req, res) => {
         allArtworks.sort((a, b) => (a.artiest > b.artiest) ? 1 : -1);
         break;
       case 'location':
-        allArtworks.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+        allArtworks.sort((a, b) => (a.locatie > b.locatie) ? 1 : -1);
         break;
       case 'year':
         allArtworks.sort((a, b) => (a.jaartal > b.jaartal) ? 1 : -1);
@@ -170,8 +169,6 @@ app.get('/likes', requireLogin, async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
-
 
 
 
@@ -213,21 +210,25 @@ app.get('/musea', requireLogin, async (req, res) => {
       }
     });
 
-    // Sorteer de musea op basis van de sorteeroptie
-    const sortBy = req.query.sortBy || 'rating';
-    switch (sortBy) {
-      case 'name':
-        data.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
-        break;
-      case 'location':
-        data.sort((a, b) => (a.location > b.location) ? 1 : -1);
-        break;
-      case 'distance':
-        data.sort((a, b) => (a.distance - b.distance));
-        break;
-      default: // Rating
-        data.sort((a, b) => b.averageRating - a.averageRating);
-    }
+// Sorteer de musea op basis van de sorteeroptie
+const sortBy = req.query.sortBy || 'rating';
+switch (sortBy) {
+  case 'name':
+    // Sorteer op naam
+    data.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+    break;
+  case 'location':
+    // Sorteer op locatie
+    data.sort((a, b) => (a.locatie > b.locatie) ? 1 : -1);
+    break;
+    case 'distance':
+      data.sort((a, b) => a.afstand_km - b.afstand_km); // Sorteer op afstand
+      break;
+  default:
+    // Standaard sorteer op rating
+    data.sort((a, b) => b.averageRating - a.averageRating);
+}
+
 
     // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
     res.render('musea', { data });

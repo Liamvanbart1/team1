@@ -14,11 +14,10 @@ const port = 8000;
 
 
 // multer
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const { object } = require('webidl-conversions');
+
 
 const uri = process.env.DB_URI;
 

@@ -353,7 +353,6 @@ app.post('/login', validateLogin, async (req, res) => {
 app.post('/account', async (req, res) => {
     const objectId = new ObjectId(req.session.username);
     const gebruiker = await collection.findOne({ "_id": objectId });
-    console.log('Session Username:', req.session);
     console.log('Object ID:', objectId);
     console.log('User Data:', gebruiker);
 
@@ -366,6 +365,7 @@ app.post('/account', async (req, res) => {
 
         // Compare the inputted old password with the stored hash
         const isPasswordMatch = await bcrypt.compare(req.body.oldPassword, currentPasswordHash);
+        const newData = { username: req.body.username, email: req.body.email, phonenumber: req.body.phonenumber };
 
         if (!isPasswordMatch) {
           return res.status(400).send('Incorrect old password');
@@ -377,7 +377,7 @@ app.post('/account', async (req, res) => {
 
         // Update the user's password in the database with the new hashed password
         await collection.updateOne({ "_id": new ObjectId(objectId) }, { $set: { password: newPasswordHash } });
-
+        await collection.updateOne({ "_id": new ObjectId(objectId) }, { $set: newData });
         // Redirect to the account page or send a success response
         res.redirect('/account');
         // or res.send('Password updated successfully');

@@ -13,7 +13,6 @@ app.use(compression());
 const port = 8000;
 
 
-// multer
 
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');

@@ -235,7 +235,7 @@ padding-top: 15em;
 }
 
 .form {
-    padding: 5em 1.5em 1.5em 1.5em;
+    padding: 1em 1.5em 1.5em 1.5em;
     border-radius: 0.5em;
     margin: 0.5em 1em 0em 1em;
 }
@@ -255,6 +255,7 @@ padding-top: 15em;
     width: 100%;
     padding: 1em 0.6em 1em 0.6em;
     margin-top: 0.4em;
+    margin-bottom: 1.5em;
     background-color: #333333;
     color: #fff;
     border: none;
@@ -830,7 +831,7 @@ li.active .nav-ico {
 
 .accountH2 {
     text-align: left;
-    margin: 1.5em 1em 1.5em 1.8em;
+    margin: 1.5em 1em 0em 1.8em;
 }
 
 label {

@@ -2,11 +2,13 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const xss = require("xss");
+const compression = require('compression');
 
 const session = require('express-session');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+app.use(compression());
 
 const port = 8000;
 
@@ -93,14 +95,17 @@ app.get('/', async (req, res) => {
 
 
 app.get('/register', async (req, res) => {
+  const name = xss(req.query.name);
+
   try {
     const museumData = await collectionArt.find().toArray();
     const allIds = museumData.flatMap(artwork => artwork.arts.map(art => art._id));
-    res.render('register', { allIds }); // Pass allIds to the template
+    res.render('register', { name, allIds }); // Pass allIds to the template
   } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
   }
+
 });
 
 
@@ -111,40 +116,53 @@ app.get('/login', async (req, res) => {
   res.render('login', { name });
 });
 
-app.get('/likes', async (req, res) => {
+app.get('/likes', requireLogin, async (req, res) => {
   try {
     let data = await collectionArt.find().toArray();
 
-    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
-    
     // Filter de data op basis van de zoekterm
+    const searchTerm = req.query.searchTerm ? req.query.searchTerm.toLowerCase() : '';
     if (searchTerm) {
       data = data.filter(museum => {
-        // Filter de kunstwerken van elk museum
         museum.arts = museum.arts.filter(artwork => {
           return (
             artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
             artwork.artiest.toLowerCase().includes(searchTerm) ||
             artwork.jaartal.toLowerCase().includes(searchTerm) ||
-            museum.museum.toLowerCase().includes(searchTerm)
+            museum.museum.toLowerCase().includes(searchTerm) ||
+            museum.locatie.toLowerCase().includes(searchTerm)
           );
         });
-
-        // Geef alleen musea weer die kunstwerken hebben na filtering
         return museum.arts.length > 0;
       });
     }
 
-    // Verzamel alle kunstwerken in één array met hun respectievelijke museum
+    // Verzamel alle kunstwerken in één array met hun respectievelijke museum en locatie
     let allArtworks = [];
     data.forEach(museum => {
       museum.arts.forEach(artwork => {
-        allArtworks.push({ museum: museum.museum, ...artwork });
+        allArtworks.push({ museum: museum.museum, locatie: museum.locatie, ...artwork });
       });
     });
 
-    // Sorteer alle kunstwerken op beoordeling (van hoog naar laag)
-    allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+    // Sorteer de data op basis van de sorteeroptie
+    const sortBy = req.query.sortBy || 'rating';
+    switch (sortBy) {
+      case 'name':
+        allArtworks.sort((a, b) => (a.kunstwerk > b.kunstwerk) ? 1 : -1);
+        break;
+      case 'artist':
+        allArtworks.sort((a, b) => (a.artiest > b.artiest) ? 1 : -1);
+        break;
+      case 'museum':
+        allArtworks.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+        break;
+      case 'year':
+        allArtworks.sort((a, b) => (a.jaartal > b.jaartal) ? 1 : -1);
+        break;
+      default: // Rating
+        allArtworks.sort((a, b) => b.beoordeling - a.beoordeling);
+    }
 
     res.render('likes', { data: allArtworks });
   } catch (error) {
@@ -157,14 +175,21 @@ app.get('/likes', async (req, res) => {
 
 
 
-app.get('/musea', async (req, res) => {
+app.get('/musea', requireLogin, async (req, res) => {
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 
-    // Als er een zoekterm is opgegeven, filteren we op museumnaam
+    // Als er een zoekterm is opgegeven, filteren we op museumnaam en locatie
     if (req.query.searchTerm) {
-      query = { museum: { $regex: req.query.searchTerm, $options: 'i' } };
+      query = {
+        $or: [
+          { museum: { $regex: req.query.searchTerm, $options: 'i' } }, // Zoek in museumnaam
+          { locatie: { $regex: req.query.searchTerm, $options: 'i' } } // Zoek in locatie
+        ]
+      };
     }
+
+    
 
     // Haal de kunstwerken op uit de database met optionele zoekterm
     const data = await collectionArt.find(query).toArray();
@@ -193,8 +218,25 @@ app.get('/musea', async (req, res) => {
       }
     });
 
-    // Sorteer de musea op basis van de gemiddelde beoordeling (hoogste eerst)
+// Sorteer de musea op basis van de sorteeroptie
+const sortBy = req.query.sortBy || 'rating';
+switch (sortBy) {
+  case 'name':
+    // Sorteer op naam
+    data.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
+    break;
+  case 'location':
+    // Sorteer op locatie
+    data.sort((a, b) => (a.locatie > b.locatie) ? 1 : -1);
+    break;
+    case 'distance':
+      data.sort((a, b) => a.afstand_km - b.afstand_km); // Sorteer op afstand
+      break;
+  default:
+    // Standaard sorteer op rating
     data.sort((a, b) => b.averageRating - a.averageRating);
+}
+
 
     // Render de musea.ejs-sjabloon met de geaggregeerde en gesorteerde gegevens
     res.render('musea', { data });
@@ -216,11 +258,16 @@ app.get('/musea', async (req, res) => {
 
 
 
+
+
+
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
   const objectId = new ObjectId(req.session.username);
+  console.log(objectId);
   const users = await collection.findOne({ "_id": objectId });
-  res.render('account', { users });
+  console.log(users);
+  res.render('account', {name, users });
 });
 
 app.get('/logout', requireLogin, (req, res) => {
@@ -278,7 +325,7 @@ app.post('/login', validateLogin, async (req, res) => {
 
 
       if (!existingUser) {
-          return res.render('login', { errors: [{ msg: 'User not found' }], username });
+          return res.render('login', { errors: [{ msg: 'User not found' }] });
       }
 
       const hashedPassword = existingUser.password;
@@ -288,7 +335,7 @@ app.post('/login', validateLogin, async (req, res) => {
           // Store the username in the session
           req.session.user = username;
           req.session.username = existingUser._id;
-          res.redirect('/account'); // Redirect to a dashboard or home page after successful login
+          res.redirect('/home'); // Redirect to a dashboard or home page after successful login
       } else {
           res.render('login', { errors: [{ msg: 'Incorrect password' }], username });
       }
@@ -301,24 +348,47 @@ app.post('/login', validateLogin, async (req, res) => {
 
 
 
-app.post('/edit/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  console.log(userId);
-  const newData = req.body; // Assuming you're sending the updated data in the request body
-  console.log(newData);
-  try {
-    // Update the data in the MongoDB collection
-    await collection.updateOne({ "_id": new ObjectId(`${userId}`) }, { $set: newData });
 
-    // Redirect to the data page or send a success response
-    res.redirect('/account');
-    // or res.send('Data updated successfully');
-  } catch (error) {
-    // Handle errors
-    console.error('Error updating data:', error);
-    res.status(500).send('Error updating data');
-  }
+
+app.post('/account', async (req, res) => {
+    const objectId = new ObjectId(req.session.username);
+    const gebruiker = await collection.findOne({ "_id": objectId });
+    console.log('Session Username:', req.session);
+    console.log('Object ID:', objectId);
+    console.log('User Data:', gebruiker);
+
+
+
+    try {
+        // Retrieve the user's current password hash from the database
+      // const users = await collection.findOne({ "_id": objectId });
+      const currentPasswordHash = gebruiker.password;
+
+        // Compare the inputted old password with the stored hash
+        const isPasswordMatch = await bcrypt.compare(req.body.oldPassword, currentPasswordHash);
+
+        if (!isPasswordMatch) {
+          return res.status(400).send('Incorrect old password');
+          return res.render('account', { users: gebruiker, errors: [{ msg: 'Incorrect old password' }] });
+        }
+
+        // Hash the new password
+        const newPasswordHash = await bcrypt.hash(req.body.newPassword, saltRounds);
+
+        // Update the user's password in the database with the new hashed password
+        await collection.updateOne({ "_id": new ObjectId(objectId) }, { $set: { password: newPasswordHash } });
+
+        // Redirect to the account page or send a success response
+        res.redirect('/account');
+        // or res.send('Password updated successfully');
+    } catch (error) {
+        // Handle errors
+        console.error('Error updating password:', error);
+        res.status(500).send('Error updating password');
+    }
 });
+
+
 
 
 app.get('/home', requireLogin, async (req, res) => {

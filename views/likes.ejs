@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +10,7 @@
 
 <body>
     <header>
-        <img src="./svg/logo-pantheon.svg">
+        <img src="./svg/logopantheon.svg">
     </header>
     <div class="box">
         <form action="#">
@@ -24,12 +21,14 @@
                 
 
                 <div class="selection">
-                    <p>Filters</p><span></span>
+                    <p>Sort By</p><span></span>
                 </div>
                 <div class="categories">
-                    <p class="option">Year</p>
-                    <p class="option">Artist</p>
-                    <p class="option">Location</p>
+                    <p class="option" data-sort="rating">Rating</p>
+                    <p class="option" data-sort="name">Name</p>
+                    <p class="option" data-sort="artist">Artist</p>
+                    <p class="option" data-sort="museum">Museum</p>
+                    <p class="option" data-sort="year">Year</p>
                 </div>
             </div>
         </form>
@@ -45,7 +44,7 @@
             <img src="/uploads/<%= artwork._id %>.jpg" alt="<%= artwork.kunstwerk %>">
             <div class="text-content">
                 <p><%= artwork.kunstwerk %></p>
-                <p><%= artwork.museum %></p>
+                <p><%= artwork.museum %> - <%= artwork.locatie %></p>
                 <p><%= artwork.artiest %> <%= artwork.jaartal %></p>
             </div>
             <div class="smiley-likepage-image">

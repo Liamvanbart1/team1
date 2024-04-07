@@ -10,31 +10,51 @@
 
 <body class="accountBody">
     <header>
-        <img src="./svg/logo-pantheon.svg">
+        <img src="./svg/logopantheon.svg">
     </header>
     <main>
         <h2 class="accountH2">Welcome, <%= users.username %>!</h2>
 
 
-        <!-- Edit button to toggle form -->
-        <button id="editButton">
-            <img src="./svg/edit.svg" alt="Edit">
-        </button>
 
         <div class="accountDetails">
             <div class="form">
                 <label>Username:</label>
-                <p><%= users.username %></p>
+                <p>
+                    <%= users.username %>
+                </p>
                 <label>Password:</label>
-                <!-- <p class="labelP">Password:</p> -->
                 <p>********</p>
                 <label>Email:</label>
-                <p><%= users.email %></p>
+                <p>
+                    <%= users.email %>
+                </p>
                 <label>Phonenumber:</label>
-                <p><%= users.phonenumber %></p>
+                <p>
+                    <%= users.phonenumber %>
+                </p>
             </div>
-
         </div>
+
+        <button id="changePasswordBtn">Change account details</button>
+
+        <div class="editFormContainer">
+            <form id="editForm" action="/account" method="POST">
+                <label for="name">Username:</label>
+                <input type="text" id="name" name="username" value="<%= users.username %>">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= users.email %>">
+                <label for="name">Phonenumber:</label>
+                <input type="tel" id="name" name="phonenumber" value="<%= users.phonenumber %>">
+                <label for="oldPassword">Old password:</label>
+                <input type="password" name="oldPassword" placeholder="Old Password" required>
+                <label for="newPassword">New password:</label>
+                <input type="password" name="newPassword" placeholder="New Password" required>
+                <button type="submit" class="editButton">Update</button>
+            </form>
+        </div>
+
+
 
         <!-- Logout button -->
         <div class="form" id="logoutForm">
@@ -42,22 +62,9 @@
                 <button type="submit" class="logoutbutton">Logout</button>
             </form>
         </div>
-    </main>
 
-    <!-- Form for updating account details (initially hidden) -->
-    <form class="form">
-    <div class="editFormContainer" style="display: none;">
-        <form id="editForm" action="/edit/<%= users._id %>" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="username" value="<%= users.username %>">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<%= users.email %>">
-            <label for="name">Phonenumber:</label>
-            <input type="tel" id="name" name="phonenumber" value="<%= users.phonenumber %>">
-            <button type="submit" class="editButton">Update</button>
-        </form>
-    </div>
-    </form>
+        <div class="empty-space">
+    </main>
 
     <nav>
         <ul class="navigation">

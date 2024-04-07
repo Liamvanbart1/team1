@@ -129,7 +129,8 @@ app.get('/likes', requireLogin, async (req, res) => {
             artwork.kunstwerk.toLowerCase().includes(searchTerm) ||
             artwork.artiest.toLowerCase().includes(searchTerm) ||
             artwork.jaartal.toLowerCase().includes(searchTerm) ||
-            museum.museum.toLowerCase().includes(searchTerm)
+            museum.museum.toLowerCase().includes(searchTerm) ||
+            museum.locatie.toLowerCase().includes(searchTerm)
           );
         });
         return museum.arts.length > 0;
@@ -153,8 +154,8 @@ app.get('/likes', requireLogin, async (req, res) => {
       case 'artist':
         allArtworks.sort((a, b) => (a.artiest > b.artiest) ? 1 : -1);
         break;
-      case 'location':
-        allArtworks.sort((a, b) => (a.locatie > b.locatie) ? 1 : -1);
+      case 'museum':
+        allArtworks.sort((a, b) => (a.museum > b.museum) ? 1 : -1);
         break;
       case 'year':
         allArtworks.sort((a, b) => (a.jaartal > b.jaartal) ? 1 : -1);
@@ -178,10 +179,17 @@ app.get('/musea', requireLogin, async (req, res) => {
   try {
     let query = {}; // Standaardquery om alle musea op te halen
 
-    // Als er een zoekterm is opgegeven, filteren we op museumnaam
+    // Als er een zoekterm is opgegeven, filteren we op museumnaam en locatie
     if (req.query.searchTerm) {
-      query = { museum: { $regex: req.query.searchTerm, $options: 'i' } };
+      query = {
+        $or: [
+          { museum: { $regex: req.query.searchTerm, $options: 'i' } }, // Zoek in museumnaam
+          { locatie: { $regex: req.query.searchTerm, $options: 'i' } } // Zoek in locatie
+        ]
+      };
     }
+
+    
 
     // Haal de kunstwerken op uit de database met optionele zoekterm
     const data = await collectionArt.find(query).toArray();

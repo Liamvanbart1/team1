@@ -264,9 +264,9 @@ switch (sortBy) {
 app.get('/account', requireLogin, async(req, res) => {
   const name = xss(req.query.name);
   const objectId = new ObjectId(req.session.username);
-  console.log(objectId);
+
   const users = await collection.findOne({ "_id": objectId });
-  console.log(users);
+
   res.render('account', {name, users });
 });
 
@@ -369,7 +369,6 @@ app.post('/account', async (req, res) => {
 
         if (!isPasswordMatch) {
           return res.status(400).send('Incorrect old password');
-          return res.render('account', { users: gebruiker, errors: [{ msg: 'Incorrect old password' }] });
         }
 
         // Hash the new password

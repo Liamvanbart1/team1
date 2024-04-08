@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 app.use(compression());
 
-const port = 8000;
+const port = 8002;
 
 
 

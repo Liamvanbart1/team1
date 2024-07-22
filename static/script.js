@@ -79,23 +79,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-document.getElementById("showSecondPartButton").addEventListener("click", function() {
+// document.getElementById("showSecondPartButton").addEventListener("click", function() {
 
-  document.getElementById("secondPartForm").style.display = "block";
-
-
-});
+//   document.getElementById("secondPartForm").style.display = "block";
 
 
-function limitCheckboxSelection(max) {
-  const checkboxes = document.querySelectorAll('input[name="images"]:checked');
-  if (checkboxes.length > max) {
-      alert(`You can only select ${max} images.`);
-      event.preventDefault(); // Prevent further checkbox selection
-  }
-}
+// });
 
 
+// function limitCheckboxSelection(max) {
+//   const checkboxes = document.querySelectorAll('input[name="images"]:checked');
+//   if (checkboxes.length > max) {
+//       alert(`You can only select ${max} images.`);
+//       event.preventDefault(); // Prevent further checkbox selection
+//   }
+// }
 
+
+// Hieronder heb ik het inlever formulie gefixt 2e deel van de form werkte niet 
   
 
+        document.getElementById("showSecondPartButton").addEventListener("click", function() {
+            document.getElementById("secondPartForm").style.display = "block";
+        });
+
+        function limitCheckboxSelection(max) {
+            const checkboxes = document.querySelectorAll('input[name="images"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checkedCount = document.querySelectorAll('input[name="images"]:checked').length;
+                    if (checkedCount > max) {
+                        this.checked = false;
+                        alert(`You can only select ${max} images.`);
+                    }
+                });
+            });
+        }
+
+        limitCheckboxSelection(2);
